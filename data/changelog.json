@@ -1,0 +1,641 @@
+{
+  "entries": [
+    {
+      "title": "Elementary mathematics",
+      "page_id": "1775329",
+      "revision_id": "1267431356",
+      "timestamp": "2025-02-12T21:39:48.313189Z",
+      "content_hash": "9ba62fc402d57a5e512571339e63f2da1b7610421c4ef25a937bbf6388187694",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:21:57.524119Z",
+        "model_checkpoint": "90077ccf7f7e87217b327943e2a99144e594f02e6d31915bc8e6cd83b82eadd5"
+      }
+    },
+    {
+      "title": "Abscissa and ordinate",
+      "page_id": "60487",
+      "revision_id": "1267820851",
+      "timestamp": "2025-02-12T21:39:48.626396Z",
+      "content_hash": "13c539aebcc1c1a8922abf1133be278802abf9d0a9aa747f40523653aed2ec6c",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:21:57.524119Z",
+        "model_checkpoint": "90077ccf7f7e87217b327943e2a99144e594f02e6d31915bc8e6cd83b82eadd5"
+      }
+    },
+    {
+      "title": "Algebraic operation",
+      "page_id": "5438924",
+      "revision_id": "1262738376",
+      "timestamp": "2025-02-12T21:39:48.963108Z",
+      "content_hash": "14aa1548b6d4a8725910ae35e06edb611e2be2cc8c1eda5b143450d2dec41c8f",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:21:57.524119Z",
+        "model_checkpoint": "90077ccf7f7e87217b327943e2a99144e594f02e6d31915bc8e6cd83b82eadd5"
+      }
+    },
+    {
+      "title": "Arg max",
+      "page_id": "348004",
+      "revision_id": "1225875746",
+      "timestamp": "2025-02-12T21:39:49.307163Z",
+      "content_hash": "deb3e231ca80c6461fc16c70db719f4915e580d21a7f7064557f2476dda9ae93",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:21:57.524119Z",
+        "model_checkpoint": "90077ccf7f7e87217b327943e2a99144e594f02e6d31915bc8e6cd83b82eadd5"
+      }
+    },
+    {
+      "title": "Argument of a function",
+      "page_id": "32842052",
+      "revision_id": "1272362510",
+      "timestamp": "2025-02-12T21:39:49.652492Z",
+      "content_hash": "0cbc0cb55b26385a1e513440c670a0b98aeba71b8a37641197de5f6ea8100089",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:21:57.524119Z",
+        "model_checkpoint": "90077ccf7f7e87217b327943e2a99144e594f02e6d31915bc8e6cd83b82eadd5"
+      }
+    },
+    {
+      "title": "Brahmagupta triangle",
+      "page_id": "77099904",
+      "revision_id": "1261843313",
+      "timestamp": "2025-02-12T21:39:49.968283Z",
+      "content_hash": "2c7010cf7fb042f5ac888a3a528755c24910ba39a763e790204995be64109fcf",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:21:57.524119Z",
+        "model_checkpoint": "90077ccf7f7e87217b327943e2a99144e594f02e6d31915bc8e6cd83b82eadd5"
+      }
+    },
+    {
+      "title": "Cartesian coordinate system",
+      "page_id": "7706",
+      "revision_id": "1270213976",
+      "timestamp": "2025-02-12T21:39:50.296514Z",
+      "content_hash": "8e7c031ee318d49e43bdc2f2e685e0e71a4e14f9199550eefe4ac1c882157945",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:21:57.524119Z",
+        "model_checkpoint": "90077ccf7f7e87217b327943e2a99144e594f02e6d31915bc8e6cd83b82eadd5"
+      }
+    },
+    {
+      "title": "Chessboard paradox",
+      "page_id": "66687082",
+      "revision_id": "1246675981",
+      "timestamp": "2025-02-12T21:39:50.607445Z",
+      "content_hash": "0c410b2ff669cb4a9610f9374c91cd4a86cbfb04b104f25bd65cf068bee7fe20",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:21:57.524119Z",
+        "model_checkpoint": "90077ccf7f7e87217b327943e2a99144e594f02e6d31915bc8e6cd83b82eadd5"
+      }
+    },
+    {
+      "title": "Circular shift",
+      "page_id": "1917276",
+      "revision_id": "1254892127",
+      "timestamp": "2025-02-12T21:39:50.956390Z",
+      "content_hash": "0a5585ba3c91ff8314b43c7c5988f5fb5a96d4ab21365f318afbdba20416c7ba",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:21:57.524119Z",
+        "model_checkpoint": "90077ccf7f7e87217b327943e2a99144e594f02e6d31915bc8e6cd83b82eadd5"
+      }
+    },
+    {
+      "title": "Clock angle problem",
+      "page_id": "11843393",
+      "revision_id": "1261318823",
+      "timestamp": "2025-02-12T21:39:51.281171Z",
+      "content_hash": "80524cf852be1d4e9ee7e1f8353e558f428d0fd08e52b67f63940546b53c65cb",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:21:57.524119Z",
+        "model_checkpoint": "90077ccf7f7e87217b327943e2a99144e594f02e6d31915bc8e6cd83b82eadd5"
+      }
+    },
+    {
+      "title": "Cognitively Guided Instruction",
+      "page_id": "13334951",
+      "revision_id": "1146260938",
+      "timestamp": "2025-02-12T21:39:51.723004Z",
+      "content_hash": "9bb7f23836a411cf656efce5a2c12eb79b764ef709db871fa92bd13972f61969",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:21:57.524119Z",
+        "model_checkpoint": "90077ccf7f7e87217b327943e2a99144e594f02e6d31915bc8e6cd83b82eadd5"
+      }
+    },
+    {
+      "title": "Constant (mathematics)",
+      "page_id": "24758132",
+      "revision_id": "1274197439",
+      "timestamp": "2025-02-12T21:39:52.027211Z",
+      "content_hash": "106d036643c769e0550b0112f609f78057f0cc886cfa53f7eafcfb6adb3fd6d4",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:21:57.524119Z",
+        "model_checkpoint": "90077ccf7f7e87217b327943e2a99144e594f02e6d31915bc8e6cd83b82eadd5"
+      }
+    },
+    {
+      "title": "Constant function",
+      "page_id": "320861",
+      "revision_id": "1261268451",
+      "timestamp": "2025-02-12T21:39:52.335853Z",
+      "content_hash": "60c4baa579089e98cf077a0c0f992588fe6f51bba03cf5fe77ff1f9fa634d626",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:21:57.524119Z",
+        "model_checkpoint": "90077ccf7f7e87217b327943e2a99144e594f02e6d31915bc8e6cd83b82eadd5"
+      }
+    },
+    {
+      "title": "Counting",
+      "page_id": "275768",
+      "revision_id": "1253344400",
+      "timestamp": "2025-02-12T21:39:52.613418Z",
+      "content_hash": "05e476194b62568b2481333004b26bac0d8e1833fc94d3d5f009a37ac93d678b",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:21:57.524119Z",
+        "model_checkpoint": "90077ccf7f7e87217b327943e2a99144e594f02e6d31915bc8e6cd83b82eadd5"
+      }
+    },
+    {
+      "title": "Direction (geometry)",
+      "page_id": "54516626",
+      "revision_id": "1270028539",
+      "timestamp": "2025-02-12T21:39:52.893298Z",
+      "content_hash": "9d94611ee2864ca60b780a4fb3290ece217cc96d743cdcf951e0c3af1985aeba",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:21:57.524119Z",
+        "model_checkpoint": "90077ccf7f7e87217b327943e2a99144e594f02e6d31915bc8e6cd83b82eadd5"
+      }
+    },
+    {
+      "title": "Fairy tale",
+      "page_id": "43494",
+      "revision_id": "1274973452",
+      "timestamp": "2025-02-12T21:40:52.133780Z",
+      "content_hash": "9153a7d034b9c46b65b42366a136dac267c99f82539e204833b26a0c4bddaaf3",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:21:57.524119Z",
+        "model_checkpoint": "90077ccf7f7e87217b327943e2a99144e594f02e6d31915bc8e6cd83b82eadd5"
+      }
+    },
+    {
+      "title": "List of fairy tales",
+      "page_id": "8915322",
+      "revision_id": "1275017627",
+      "timestamp": "2025-02-12T21:40:52.586459Z",
+      "content_hash": "e4d20ebe075558dcbf001ffb15aab49f2e9e8f00c68ea006967a0b9a85549060",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:21:57.524119Z",
+        "model_checkpoint": "90077ccf7f7e87217b327943e2a99144e594f02e6d31915bc8e6cd83b82eadd5"
+      }
+    },
+    {
+      "title": "Literary fairy tale",
+      "page_id": "76582295",
+      "revision_id": "1263633432",
+      "timestamp": "2025-02-12T21:40:52.901927Z",
+      "content_hash": "32ea7b969dfac4b644aadd09f8fc813d4165a12805dc2bf83659e4f749fb66ca",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:21:57.524119Z",
+        "model_checkpoint": "90077ccf7f7e87217b327943e2a99144e594f02e6d31915bc8e6cd83b82eadd5"
+      }
+    },
+    {
+      "title": "List of Manning-Sanders tales by region",
+      "page_id": "6911127",
+      "revision_id": "1205488226",
+      "timestamp": "2025-02-12T21:40:53.236331Z",
+      "content_hash": "98906351e74d9ab09c3da8ae7bcb6912ffee220c95f176815a62cf0c9033d3dc",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:21:57.524119Z",
+        "model_checkpoint": "90077ccf7f7e87217b327943e2a99144e594f02e6d31915bc8e6cd83b82eadd5"
+      }
+    },
+    {
+      "title": "Anti-fairy tale",
+      "page_id": "49185121",
+      "revision_id": "1255201387",
+      "timestamp": "2025-02-12T21:40:53.593032Z",
+      "content_hash": "37bce445daf78fd20bd49efabcbd29baefe51b045b35e6aa994b2b08ab798fdb",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:21:57.524119Z",
+        "model_checkpoint": "90077ccf7f7e87217b327943e2a99144e594f02e6d31915bc8e6cd83b82eadd5"
+      }
+    },
+    {
+      "title": "Australian Fairy Tale Society",
+      "page_id": "75707538",
+      "revision_id": "1266738334",
+      "timestamp": "2025-02-12T21:40:53.958748Z",
+      "content_hash": "325366bdc5f5ba5eb1c57e13ecfea2565122ba64c8868d6b196e702bff047a9a",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:21:57.524119Z",
+        "model_checkpoint": "90077ccf7f7e87217b327943e2a99144e594f02e6d31915bc8e6cd83b82eadd5"
+      }
+    },
+    {
+      "title": "Epic Laws of Folk Narrative",
+      "page_id": "52970399",
+      "revision_id": "1193439048",
+      "timestamp": "2025-02-12T21:40:54.295185Z",
+      "content_hash": "6d2e4f9e7f84b07738b1ae761b1f7ebe9b5811995d60a331cfde0896bb0717c9",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:21:57.524119Z",
+        "model_checkpoint": "90077ccf7f7e87217b327943e2a99144e594f02e6d31915bc8e6cd83b82eadd5"
+      }
+    },
+    {
+      "title": "Everyone on the Moon Is Essential Personnel",
+      "page_id": "69639584",
+      "revision_id": "1254419002",
+      "timestamp": "2025-02-12T21:40:54.581632Z",
+      "content_hash": "2794b91708eba887b4129221ac247c9adc811e6c83ce4bce5ceb2c58361437c4",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:21:57.524119Z",
+        "model_checkpoint": "90077ccf7f7e87217b327943e2a99144e594f02e6d31915bc8e6cd83b82eadd5"
+      }
+    },
+    {
+      "title": "Fairy tale parody",
+      "page_id": "36543677",
+      "revision_id": "1265334167",
+      "timestamp": "2025-02-12T21:40:54.909723Z",
+      "content_hash": "71e3e5e9184829c59605462f60735f6f057d6cf4e91aeec10009dd7e5cab8448",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:21:57.524119Z",
+        "model_checkpoint": "90077ccf7f7e87217b327943e2a99144e594f02e6d31915bc8e6cd83b82eadd5"
+      }
+    },
+    {
+      "title": "Fairytale fantasy",
+      "page_id": "2390053",
+      "revision_id": "1253419311",
+      "timestamp": "2025-02-12T21:40:55.212386Z",
+      "content_hash": "2950ab090aedc842e6d5d09c8a1eeba96c8aef93d9098a4947e611eef20309eb",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:21:57.524119Z",
+        "model_checkpoint": "90077ccf7f7e87217b327943e2a99144e594f02e6d31915bc8e6cd83b82eadd5"
+      }
+    },
+    {
+      "title": "Addition",
+      "page_id": "61338",
+      "revision_id": "1274324607",
+      "timestamp": "2025-02-12T22:23:43.735706Z",
+      "content_hash": "eb8aa81bc3960950ff08a94b2620bdec541de27e3cc08c83ffb6dd2004e18baa",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:24:48.274531Z",
+        "model_checkpoint": "6bf596501a679f43a62c4bf613242e9fc68fe452fd83d8c51fa2fb29f076ef12"
+      }
+    },
+    {
+      "title": "Subtraction",
+      "page_id": "74141",
+      "revision_id": "1258635367",
+      "timestamp": "2025-02-12T22:23:44.056587Z",
+      "content_hash": "1b99d5938013ad2e81894dd12f1c58f60ea9a1dfd4ec905ba27b001ebace6c23",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:24:48.274531Z",
+        "model_checkpoint": "6bf596501a679f43a62c4bf613242e9fc68fe452fd83d8c51fa2fb29f076ef12"
+      }
+    },
+    {
+      "title": "Multiplication",
+      "page_id": "20845",
+      "revision_id": "1272993750",
+      "timestamp": "2025-02-12T22:23:44.444300Z",
+      "content_hash": "f131168af8b9f4e56ceb9250342630ee32b483fb61eb2f6d7b98689b341ffb43",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:24:48.274531Z",
+        "model_checkpoint": "6bf596501a679f43a62c4bf613242e9fc68fe452fd83d8c51fa2fb29f076ef12"
+      }
+    },
+    {
+      "title": "Division",
+      "page_id": "62159",
+      "revision_id": "1259877490",
+      "timestamp": "2025-02-12T22:23:44.770820Z",
+      "content_hash": "ac986c87cf8e13ebae772565a94586df737c10ceace12aa15f2519138f8fbadd",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:24:48.274531Z",
+        "model_checkpoint": "6bf596501a679f43a62c4bf613242e9fc68fe452fd83d8c51fa2fb29f076ef12"
+      }
+    },
+    {
+      "title": "Number",
+      "page_id": "21690",
+      "revision_id": "1271731726",
+      "timestamp": "2025-02-12T22:23:45.178516Z",
+      "content_hash": "bf8fe7763e3d11e73e35fdc1d8aab7a019f9aab79e709c3d15a9b7e728e9f913",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:24:48.274531Z",
+        "model_checkpoint": "6bf596501a679f43a62c4bf613242e9fc68fe452fd83d8c51fa2fb29f076ef12"
+      }
+    },
+    {
+      "title": "Mathematics",
+      "page_id": "18831",
+      "revision_id": "1275188811",
+      "timestamp": "2025-02-12T22:23:45.605848Z",
+      "content_hash": "68e184376c28aa3ff003fee22c666a837ae1e0f824aa22d489f732ccacf5b33c",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:24:48.274531Z",
+        "model_checkpoint": "6bf596501a679f43a62c4bf613242e9fc68fe452fd83d8c51fa2fb29f076ef12"
+      }
+    },
+    {
+      "title": "Algebra",
+      "page_id": "18716923",
+      "revision_id": "1273130842",
+      "timestamp": "2025-02-12T22:23:46.331043Z",
+      "content_hash": "974bc7c56ce51e27d62d3012439687ea70ce6af7ed33987039212abf2781f492",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:24:48.274531Z",
+        "model_checkpoint": "6bf596501a679f43a62c4bf613242e9fc68fe452fd83d8c51fa2fb29f076ef12"
+      }
+    },
+    {
+      "title": "Geometry",
+      "page_id": "18973446",
+      "revision_id": "1271487441",
+      "timestamp": "2025-02-12T22:23:46.714559Z",
+      "content_hash": "b3f2b5085ac93457e137d15b0105d3e18cb2d47aee662511bb5721080c7eb057",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:24:48.274531Z",
+        "model_checkpoint": "6bf596501a679f43a62c4bf613242e9fc68fe452fd83d8c51fa2fb29f076ef12"
+      }
+    },
+    {
+      "title": "Arithmetic",
+      "page_id": "3118",
+      "revision_id": "1272376224",
+      "timestamp": "2025-02-12T22:23:47.120187Z",
+      "content_hash": "c29b08010cbf5ec833117564c36e3f9ee851f9c48b7dfe8d0346b43fd917f5f3",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:24:48.274531Z",
+        "model_checkpoint": "6bf596501a679f43a62c4bf613242e9fc68fe452fd83d8c51fa2fb29f076ef12"
+      }
+    },
+    {
+      "title": "Circle",
+      "page_id": "6220",
+      "revision_id": "1268270102",
+      "timestamp": "2025-02-12T22:24:10.502926Z",
+      "content_hash": "2046cfc9b238aa2036a8a967b7b3daebffa82528e2b76641e8f639d46635f32f",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:24:48.274531Z",
+        "model_checkpoint": "6bf596501a679f43a62c4bf613242e9fc68fe452fd83d8c51fa2fb29f076ef12"
+      }
+    },
+    {
+      "title": "Triangle",
+      "page_id": "30654",
+      "revision_id": "1273917469",
+      "timestamp": "2025-02-12T22:24:10.812308Z",
+      "content_hash": "955c3f46d2ce574a8450e7aa5cb8ecfb8837e0b421ea6b31f075cab05b9d16c4",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:24:48.274531Z",
+        "model_checkpoint": "6bf596501a679f43a62c4bf613242e9fc68fe452fd83d8c51fa2fb29f076ef12"
+      }
+    },
+    {
+      "title": "Square",
+      "page_id": "659939",
+      "revision_id": "1275408735",
+      "timestamp": "2025-02-12T22:24:11.106662Z",
+      "content_hash": "93ffcc82fba62bbb091df830e66332d80e4a0449c8b98d953ce1f6e44100a867",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:24:48.274531Z",
+        "model_checkpoint": "6bf596501a679f43a62c4bf613242e9fc68fe452fd83d8c51fa2fb29f076ef12"
+      }
+    },
+    {
+      "title": "Rectangle",
+      "page_id": "70048",
+      "revision_id": "1257422476",
+      "timestamp": "2025-02-12T22:24:11.390072Z",
+      "content_hash": "b3c15b5ba6467d39323fdde8364b3258bcadc9133c6a2818c412907a72da4296",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:24:48.274531Z",
+        "model_checkpoint": "6bf596501a679f43a62c4bf613242e9fc68fe452fd83d8c51fa2fb29f076ef12"
+      }
+    },
+    {
+      "title": "Fraction",
+      "page_id": "1704824",
+      "revision_id": "1274504598",
+      "timestamp": "2025-02-12T22:24:11.740008Z",
+      "content_hash": "9d3d9221f6e78b4da68f7a397e9f804b21fd7c0207bf49cca66329959f729667",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:24:48.274531Z",
+        "model_checkpoint": "6bf596501a679f43a62c4bf613242e9fc68fe452fd83d8c51fa2fb29f076ef12"
+      }
+    },
+    {
+      "title": "Decimal",
+      "page_id": "8214",
+      "revision_id": "1274324528",
+      "timestamp": "2025-02-12T22:24:12.089163Z",
+      "content_hash": "d7a5caadf0e4591f58be6ba360980a4e3cd52eead31f26fe74644c07e18152f5",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:24:48.274531Z",
+        "model_checkpoint": "6bf596501a679f43a62c4bf613242e9fc68fe452fd83d8c51fa2fb29f076ef12"
+      }
+    },
+    {
+      "title": "Percentage",
+      "page_id": "64493",
+      "revision_id": "1232784156",
+      "timestamp": "2025-02-12T22:24:12.417724Z",
+      "content_hash": "4ccf8eaf893ecf5d054d4954e59f2dfed64a6ba203cfba1f0214466c391c9170",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:24:48.274531Z",
+        "model_checkpoint": "6bf596501a679f43a62c4bf613242e9fc68fe452fd83d8c51fa2fb29f076ef12"
+      }
+    },
+    {
+      "title": "Prime number",
+      "page_id": "23666",
+      "revision_id": "1275212579",
+      "timestamp": "2025-02-12T22:24:12.765879Z",
+      "content_hash": "e2d77de6c06e141a54e09d1c74e5fa3db9ae7a2fb5281d9f1c4ac62937074689",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:24:48.274531Z",
+        "model_checkpoint": "6bf596501a679f43a62c4bf613242e9fc68fe452fd83d8c51fa2fb29f076ef12"
+      }
+    },
+    {
+      "title": "Integer",
+      "page_id": "14563",
+      "revision_id": "1269978729",
+      "timestamp": "2025-02-12T22:24:13.068352Z",
+      "content_hash": "2d0b595ba65f14e4a1a8663e4bfd00c83b7976912804b2492017dff08e746003",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:24:48.274531Z",
+        "model_checkpoint": "6bf596501a679f43a62c4bf613242e9fc68fe452fd83d8c51fa2fb29f076ef12"
+      }
+    },
+    {
+      "title": "Natural number",
+      "page_id": "21474",
+      "revision_id": "1274875804",
+      "timestamp": "2025-02-12T22:24:13.411122Z",
+      "content_hash": "74618b62ff1249b6de34a7c8bedf050c7de0ba54cc0fe107054afe057a592df5",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:24:48.274531Z",
+        "model_checkpoint": "6bf596501a679f43a62c4bf613242e9fc68fe452fd83d8c51fa2fb29f076ef12"
+      }
+    },
+    {
+      "title": "Rational number",
+      "page_id": "19727024",
+      "revision_id": "1271506408",
+      "timestamp": "2025-02-12T22:24:13.822474Z",
+      "content_hash": "51f2e9e8d0e381b59fcc1cf8fcc242269e543f3fc885cb7c0f890617ed663d19",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:24:48.274531Z",
+        "model_checkpoint": "6bf596501a679f43a62c4bf613242e9fc68fe452fd83d8c51fa2fb29f076ef12"
+      }
+    },
+    {
+      "title": "Real number",
+      "page_id": "20646438",
+      "revision_id": "1275181421",
+      "timestamp": "2025-02-12T22:24:14.167377Z",
+      "content_hash": "d2c2db8eba9a0792a9cfed852646778b8e77124472ceb74161f98fb93dcbaad0",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:24:48.274531Z",
+        "model_checkpoint": "6bf596501a679f43a62c4bf613242e9fc68fe452fd83d8c51fa2fb29f076ef12"
+      }
+    },
+    {
+      "title": "Complex number",
+      "page_id": "5826",
+      "revision_id": "1273241588",
+      "timestamp": "2025-02-12T22:24:14.512210Z",
+      "content_hash": "a41c940dd9ea661063dbaa0d9501cea4ce223aac9d99359cfb7cab2d6ad1ca32",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:24:48.274531Z",
+        "model_checkpoint": "6bf596501a679f43a62c4bf613242e9fc68fe452fd83d8c51fa2fb29f076ef12"
+      }
+    },
+    {
+      "title": "Function (mathematics)",
+      "page_id": "185427",
+      "revision_id": "1274140673",
+      "timestamp": "2025-02-12T22:24:14.844250Z",
+      "content_hash": "0f676a84b2e45768358b57c06e242a3740fb285648b30219925faa3b95adc9f4",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:24:48.274531Z",
+        "model_checkpoint": "6bf596501a679f43a62c4bf613242e9fc68fe452fd83d8c51fa2fb29f076ef12"
+      }
+    },
+    {
+      "title": "Variable (mathematics)",
+      "page_id": "3728109",
+      "revision_id": "1272096547",
+      "timestamp": "2025-02-12T22:24:15.111009Z",
+      "content_hash": "7f81ae84d60caffd36be39b78944bc3426748b85ebdf2902a43eadd433089945",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-12T22:24:48.274531Z",
+        "model_checkpoint": "6bf596501a679f43a62c4bf613242e9fc68fe452fd83d8c51fa2fb29f076ef12"
+      }
+    }
+  ]
+}
