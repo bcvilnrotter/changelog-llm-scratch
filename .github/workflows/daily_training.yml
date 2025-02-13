@@ -65,7 +65,7 @@ jobs:
           --max-length 512 \
           --batch-size 4 \
           --learning-rate 1e-4 \
-          --min-pages 50
+          --min-pages 1
 
     - name: Clean up and push changes
       run: |
