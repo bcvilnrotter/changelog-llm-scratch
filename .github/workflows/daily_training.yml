@@ -69,9 +69,6 @@ jobs:
 
     - name: Clean up and push changes
       run: |
-        # Remove raw pages after training
-        rm -rf data/raw/*
-        
         # Stage changelog and model files
         git add data/changelog.json
         git add models/
@@ -79,10 +76,9 @@ jobs:
         # Create commit with training details
         git commit -m "Daily training: $(date +'%Y-%m-%d')
         
-        - Trained on 50 new pages (5 from each category)
+        - Trained on new pages (5 attempted from each category)
         - Updated changelog
-        - Saved new model checkpoint
-        - Cleaned up raw pages"
+        - Saved new model checkpoint"
         
         git push
 
