@@ -57,7 +57,7 @@ jobs:
 
     - name: Train model
       run: |
-        python scripts/train_llm.py --from-scratch \
+        python scripts/train_llm.py --model-path 'models\final\' \
           --vocab-size 5000 \
           --d-model 256 \
           --num-heads 4 \
@@ -87,7 +87,7 @@ jobs:
         git push
 
     - name: Upload model artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: model-checkpoint
         path: models/final/
