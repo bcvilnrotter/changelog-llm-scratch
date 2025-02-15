@@ -5,6 +5,7 @@ A small, custom transformer model implementation for language modeling.
 import json
 import math
 from pathlib import Path
+from typing import Optional
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -59,7 +60,8 @@ class MultiHeadAttention(nn.Module):
         query: torch.Tensor,
         key: torch.Tensor,
         value: torch.Tensor,
-        mask: torch.Tensor = None
+        mask: torch.Tensor = None,
+        store_attention: bool = False
     ) -> torch.Tensor:
         batch_size = query.size(0)
         
@@ -76,10 +78,15 @@ class MultiHeadAttention(nn.Module):
         
         # Apply softmax and dropout
         attn = F.softmax(scores, dim=-1)
-        attn = self.dropout(attn)
+        attn_probs = self.dropout(attn)
+        
+        # Store attention weights if requested
+        if store_attention:
+            # Average attention weights across heads
+            self.last_attention_weights = attn.mean(dim=1).detach()
         
         # Calculate output
-        out = torch.matmul(attn, v)
+        out = torch.matmul(attn_probs, v)
         out = out.transpose(1, 2).contiguous().view(batch_size, -1, self.d_model)
         
         return self.out(out)
@@ -115,9 +122,9 @@ class TransformerBlock(nn.Module):
         self.norm2 = nn.LayerNorm(d_model)
         self.dropout = nn.Dropout(dropout)
         
-    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:
+    def forward(self, x: torch.Tensor, mask: torch.Tensor = None, store_attention: bool = False) -> torch.Tensor:
         # Self-attention with residual connection and normalization
-        attn_out = self.attention(x, x, x, mask)
+        attn_out = self.attention(x, x, x, mask, store_attention=store_attention)
         x = self.norm1(x + self.dropout(attn_out))
         
         # Feed-forward with residual connection and normalization
@@ -127,6 +134,7 @@ class TransformerBlock(nn.Module):
         return x
 
 class CustomTransformer(nn.Module):
+    """A small custom transformer model for language modeling with training metrics tracking."""
     """A small custom transformer model for language modeling."""
     
     @classmethod
@@ -206,7 +214,8 @@ class CustomTransformer(nn.Module):
     def forward(
         self,
         x: torch.Tensor,
-        attention_mask: torch.Tensor = None
+        attention_mask: torch.Tensor = None,
+        store_metrics: bool = False
     ) -> torch.Tensor:
         # Generate casual mask for auto-regressive property
         seq_length = x.size(1)
@@ -225,11 +234,39 @@ class CustomTransformer(nn.Module):
         x = self.dropout(x)
         
         # Apply transformer blocks
-        for block in self.transformer_blocks:
-            x = block(x, ~causal_mask)
+        token_impacts = []
+        for i, block in enumerate(self.transformer_blocks):
+            # Store metrics for the last block only to save memory
+            store_block_metrics = store_metrics and (i == len(self.transformer_blocks) - 1)
+            x = block(x, ~causal_mask, store_attention=store_block_metrics)
             
+            if store_block_metrics:
+                # Calculate token impact directly from hidden states
+                hidden_states = x.detach()
+                # Calculate impact as L2 norm of hidden states
+                token_impacts = torch.norm(hidden_states, dim=-1)
+                self.last_token_impacts = token_impacts
+        
         # Final linear layer
-        return self.final_layer(x)
+        logits = self.final_layer(x)
+        
+        if store_metrics:
+            self.last_logits = logits
+            
+        return logits
+        
+    def get_attention_weights(self) -> Optional[torch.Tensor]:
+        """Get the last stored attention weights."""
+        last_block = self.transformer_blocks[-1]
+        if hasattr(last_block.attention, 'last_attention_weights'):
+            return last_block.attention.last_attention_weights
+        return None
+    
+    def get_token_impacts(self) -> Optional[torch.Tensor]:
+        """Get the last stored token impacts."""
+        if hasattr(self, 'last_token_impacts'):
+            return self.last_token_impacts
+        return None
     
     def generate(
         self,

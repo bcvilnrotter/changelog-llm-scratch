@@ -87,10 +87,16 @@ class ChangelogLogger:
             "timestamp": datetime.datetime.utcnow().isoformat() + "Z",
             "content_hash": self._compute_hash(content),
             "action": action,
+            "is_revision": False,
+            "parent_id": None,
+            "revision_number": None,
             "training_metadata": {
                 "used_in_training": False,
                 "training_timestamp": None,
-                "model_checkpoint": None
+                "model_checkpoint": None,
+                "average_loss": None,
+                "relative_loss": None,
+                "token_impact": None
             }
         }
 
@@ -141,7 +147,8 @@ class ChangelogLogger:
     def mark_used_in_training(
         self,
         page_ids: List[str],
-        model_checkpoint: str
+        model_checkpoint: str,
+        training_metrics: Optional[Dict] = None
     ) -> None:
         """
         Mark pages as used in training with associated model checkpoint.
@@ -155,11 +162,58 @@ class ChangelogLogger:
 
         for entry in changelog["entries"]:
             if entry["page_id"] in page_ids:
-                entry["training_metadata"].update({
+                metadata_update = {
                     "used_in_training": True,
                     "training_timestamp": timestamp,
                     "model_checkpoint": model_checkpoint
-                })
+                }
+                
+                # Add training metrics if provided
+                if training_metrics and entry["page_id"] in training_metrics:
+                    page_metrics = training_metrics[entry["page_id"]]
+                    token_impact = page_metrics.get("token_impact")
+                    
+                    if token_impact and isinstance(token_impact, dict):
+                        critical_tokens = token_impact.get("critical_tokens", [])
+                        
+                        # Get top 10 highest impact tokens
+                        sorted_tokens = sorted(critical_tokens, key=lambda x: abs(x["impact"]), reverse=True)[:10]
+                        top_tokens = []
+                        
+                        for token in sorted_tokens:
+                            position = token["position"]
+                            # Get 2 tokens before and after for context
+                            context_start = max(0, position - 2)
+                            context_end = min(token_impact.get("total_tokens", position + 3), position + 3)
+                            
+                            top_tokens.append({
+                                "token_id": token["token_id"],
+                                "position": position,
+                                "impact": float(token["impact"]),
+                                "context": [context_start, context_end]
+                            })
+                        
+                        # Create token impact data
+                        compressed_token_impact = {
+                            "top_tokens": top_tokens,
+                            "total_tokens": token_impact.get("total_tokens", 0)
+                        }
+                    else:
+                        compressed_token_impact = None
+                    
+                    metadata_update.update({
+                        "average_loss": float(page_metrics.get("average_loss")),
+                        "relative_loss": float(page_metrics.get("relative_loss")),
+                        "token_impact": compressed_token_impact
+                    })
+                else:
+                    metadata_update.update({
+                        "average_loss": float(page_metrics.get("average_loss")),
+                        "relative_loss": float(page_metrics.get("relative_loss")),
+                        "token_impact": None
+                    })
+                
+                entry["training_metadata"].update(metadata_update)
 
         self._write_changelog(changelog)
 
@@ -168,10 +222,88 @@ class ChangelogLogger:
         Get all pages that haven't been used in training.
 
         Returns:
-            List of changelog entries for unused pages
+            List of changelog entries for unused pages (including revisions)
         """
         changelog = self._read_changelog()
         return [
             entry for entry in changelog["entries"]
             if not entry["training_metadata"]["used_in_training"]
         ]
+
+    def get_page_revisions(self, page_id: str) -> List[Dict]:
+        """
+        Get all revision entries for a page.
+
+        Args:
+            page_id: Wikipedia page ID
+
+        Returns:
+            List of revision entries for the page, sorted by revision_number
+        """
+        changelog = self._read_changelog()
+        revisions = [
+            entry for entry in changelog["entries"]
+            if entry["is_revision"] and entry["parent_id"] == page_id
+        ]
+        return sorted(revisions, key=lambda x: x["revision_number"])
+
+    def get_main_pages(self) -> List[Dict]:
+        """
+        Get all non-revision pages.
+
+        Returns:
+            List of main page entries (excluding revisions)
+        """
+        changelog = self._read_changelog()
+        return [
+            entry for entry in changelog["entries"]
+            if not entry["is_revision"]
+        ]
+
+    def log_revision(
+        self,
+        title: str,
+        page_id: str,
+        revision_id: str,
+        content: str,
+        parent_id: str,
+        revision_number: int
+    ) -> Dict:
+        """
+        Log a revision of a Wikipedia page.
+
+        Args:
+            title: Page title
+            page_id: Wikipedia page ID
+            revision_id: Wikipedia revision ID
+            content: Page content
+            parent_id: ID of the parent page
+            revision_number: Revision number (1-5, with 1 being most recent)
+
+        Returns:
+            The created changelog entry
+        """
+        entry = {
+            "title": title,
+            "page_id": page_id,
+            "revision_id": revision_id,
+            "timestamp": datetime.datetime.utcnow().isoformat() + "Z",
+            "content_hash": self._compute_hash(content),
+            "action": "added",
+            "is_revision": True,
+            "parent_id": parent_id,
+            "revision_number": revision_number,
+            "training_metadata": {
+                "used_in_training": False,
+                "training_timestamp": None,
+                "model_checkpoint": None,
+                "average_loss": None,
+                "relative_loss": None,
+                "token_impact": None
+            }
+        }
+
+        changelog = self._read_changelog()
+        changelog["entries"].append(entry)
+        self._write_changelog(changelog)
+        return entry
