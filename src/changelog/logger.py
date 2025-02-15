@@ -260,6 +260,15 @@ class ChangelogLogger:
             if not entry["is_revision"]
         ]
 
+    def remove_unused_entries(self) -> None:
+        """Remove all entries that haven't been used in training."""
+        changelog = self._read_changelog()
+        changelog["entries"] = [
+            entry for entry in changelog["entries"]
+            if entry["training_metadata"]["used_in_training"]
+        ]
+        self._write_changelog(changelog)
+
     def log_revision(
         self,
         title: str,

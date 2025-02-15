@@ -115,25 +115,6 @@
     },
     {
       "title": "Artificial intelligence",
-      "page_id": "1164_1274941297",
-      "revision_id": "1274941297",
-      "timestamp": "2025-02-15T05:05:41.048481Z",
-      "content_hash": "1984fb79a7ac439cc3e11ee4339f21a56928a41462d14aa9f49c661c12259650",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "1164",
-      "revision_number": 1,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
-      }
-    },
-    {
-      "title": "Artificial intelligence",
       "page_id": "1164_1274859155",
       "revision_id": "1274859155",
       "timestamp": "2025-02-15T05:05:41.158421Z",
@@ -1377,25 +1358,6 @@
     },
     {
       "title": "List of programming languages for artificial intelligence",
-      "page_id": "23886619_1245074909",
-      "revision_id": "1245074909",
-      "timestamp": "2025-02-15T05:05:48.328767Z",
-      "content_hash": "53393d110f163e26859dbae7b31d39f1c43885edc50eda81fbb15696e695c849",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "23886619",
-      "revision_number": 1,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
-      }
-    },
-    {
-      "title": "List of programming languages for artificial intelligence",
       "page_id": "23886619_1244854002",
       "revision_id": "1244854002",
       "timestamp": "2025-02-15T05:05:48.432274Z",
@@ -2070,44 +2032,6 @@
           ],
           "total_tokens": 1024
         }
-      }
-    },
-    {
-      "title": "Actor-critic algorithm",
-      "page_id": "78938430_1270788730",
-      "revision_id": "1270788730",
-      "timestamp": "2025-02-15T05:05:51.601998Z",
-      "content_hash": "412bd7a0d4bd4ffb6f5e54c41b264dc7c4fd808cd4a79e54e21f05921ca4db2f",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "78938430",
-      "revision_number": 2,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
-      }
-    },
-    {
-      "title": "Actor-critic algorithm",
-      "page_id": "78938430_1270788014",
-      "revision_id": "1270788014",
-      "timestamp": "2025-02-15T05:05:51.701622Z",
-      "content_hash": "1163cffe9e55be7752ae1b1b88cec902064a24c07eb8c1213ffaf8be33a8d658",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "78938430",
-      "revision_number": 3,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
       }
     },
     {
@@ -3464,25 +3388,6 @@
           ],
           "total_tokens": 1024
         }
-      }
-    },
-    {
-      "title": "Agentic AI",
-      "page_id": "78823217_1275649554",
-      "revision_id": "1275649554",
-      "timestamp": "2025-02-15T05:05:58.653106Z",
-      "content_hash": "5831b3380363c32e1626fceca1ef42e579efde3fc81b43b1aea2b86f14589596",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "78823217",
-      "revision_number": 4,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
       }
     },
     {
@@ -6086,25 +5991,6 @@
     },
     {
       "title": "AI nationalism",
-      "page_id": "77871224_1245833677",
-      "revision_id": "1245833677",
-      "timestamp": "2025-02-15T05:06:11.973259Z",
-      "content_hash": "f7e7f5f98c2f5e92e9464b3e820ecf7f9befa5d4f1a7e5006ba4911272ec5012",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "77871224",
-      "revision_number": 4,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
-      }
-    },
-    {
-      "title": "AI nationalism",
       "page_id": "77871224_1245832588",
       "revision_id": "1245832588",
       "timestamp": "2025-02-15T05:06:12.016581Z",
@@ -7460,25 +7346,6 @@
       }
     },
     {
-      "title": "AI washing",
-      "page_id": "77091099_1246465264",
-      "revision_id": "1246465264",
-      "timestamp": "2025-02-15T05:06:20.277020Z",
-      "content_hash": "fda8e05174291cdd984fb2e95a4ae717209d764a616fc1711b5f233ff8fb9075",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "77091099",
-      "revision_number": 5,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
-      }
-    },
-    {
       "title": "AI-complete",
       "page_id": "2862",
       "revision_id": "1268821974",
@@ -8384,25 +8251,6 @@
     },
     {
       "title": "AIOps",
-      "page_id": "62566206_1259838536",
-      "revision_id": "1259838536",
-      "timestamp": "2025-02-15T05:06:26.711525Z",
-      "content_hash": "8ea400bcd0ee6d5519f2c1dd3ec952fa7a8ef50416bbcdf4affcc8f5b71cba6e",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "62566206",
-      "revision_number": 2,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
-      }
-    },
-    {
-      "title": "AIOps",
       "page_id": "62566206_1259838404",
       "revision_id": "1259838404",
       "timestamp": "2025-02-15T05:06:26.758328Z",
@@ -9081,25 +8929,6 @@
     },
     {
       "title": "Algorithmic accountability",
-      "page_id": "73207793_1250756906",
-      "revision_id": "1250756906",
-      "timestamp": "2025-02-15T05:06:30.188397Z",
-      "content_hash": "6ea951c3e01bb78d900e0aba684af130c83f9539ca6c979ffe550b8260697322",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "73207793",
-      "revision_number": 3,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
-      }
-    },
-    {
-      "title": "Algorithmic accountability",
       "page_id": "73207793_1250306409",
       "revision_id": "1250306409",
       "timestamp": "2025-02-15T05:06:30.334510Z",
@@ -9435,25 +9264,6 @@
           ],
           "total_tokens": 1024
         }
-      }
-    },
-    {
-      "title": "Algorithmic party platforms in the United States",
-      "page_id": "78316349_1267190524",
-      "revision_id": "1267190524",
-      "timestamp": "2025-02-15T05:06:33.515288Z",
-      "content_hash": "ed465d43574634d972fc92670b29a599a4ed7e8fe8a2cba8445986fc9ab568f6",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "78316349",
-      "revision_number": 1,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
       }
     },
     {
@@ -10249,25 +10059,6 @@
     },
     {
       "title": "Algorithmic probability",
-      "page_id": "402688_1270575548",
-      "revision_id": "1270575548",
-      "timestamp": "2025-02-15T05:06:37.280940Z",
-      "content_hash": "939b77d7f11103dd2810623aac27c1e954c2f9e5752f6d83b67e13914db54d96",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "402688",
-      "revision_number": 3,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
-      }
-    },
-    {
-      "title": "Algorithmic probability",
       "page_id": "402688_1270575454",
       "revision_id": "1270575454",
       "timestamp": "2025-02-15T05:06:37.390010Z",
@@ -10494,25 +10285,6 @@
     },
     {
       "title": "Alignment Research Center",
-      "page_id": "73560883",
-      "revision_id": "1273348109",
-      "timestamp": "2025-02-15T05:06:39.022578Z",
-      "content_hash": "27da99c9c3be53efb27b8f553568622a76f4c77a9de62ce7336cc0e0bb5a489e",
-      "action": "added",
-      "is_revision": false,
-      "parent_id": null,
-      "revision_number": null,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
-      }
-    },
-    {
-      "title": "Alignment Research Center",
       "page_id": "73560883_1273348109",
       "revision_id": "1273348109",
       "timestamp": "2025-02-15T05:06:40.559186Z",
@@ -10735,44 +10507,6 @@
           ],
           "total_tokens": 1024
         }
-      }
-    },
-    {
-      "title": "Alignment Research Center",
-      "page_id": "73560883_1226861801",
-      "revision_id": "1226861801",
-      "timestamp": "2025-02-15T05:06:40.802333Z",
-      "content_hash": "2b5fbb37ff8e527cee9b2cb40e189b355c786594501eed97af20b72d97f9e05a",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "73560883",
-      "revision_number": 3,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
-      }
-    },
-    {
-      "title": "Alignment Research Center",
-      "page_id": "73560883_1212327879",
-      "revision_id": "1212327879",
-      "timestamp": "2025-02-15T05:06:40.924178Z",
-      "content_hash": "895572d1ab4f97b2fa7e463f86faf24c5fe0f429b468ce0b6d4b7c1af3f96d45",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "73560883",
-      "revision_number": 4,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
       }
     },
     {
@@ -12359,25 +12093,6 @@
     },
     {
       "title": "Argumentation framework",
-      "page_id": "35457079_1258170610",
-      "revision_id": "1258170610",
-      "timestamp": "2025-02-15T05:06:51.988519Z",
-      "content_hash": "14e99dbbcd000bb53d3cd454595fd3732c160ade820a8e6c0596f01759f662d3",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "35457079",
-      "revision_number": 1,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
-      }
-    },
-    {
-      "title": "Argumentation framework",
       "page_id": "35457079_1249353054",
       "revision_id": "1249353054",
       "timestamp": "2025-02-15T05:06:52.081261Z",
@@ -13278,25 +12993,6 @@
           ],
           "total_tokens": 1024
         }
-      }
-    },
-    {
-      "title": "Artificial brain",
-      "page_id": "1908395_1220911058",
-      "revision_id": "1220911058",
-      "timestamp": "2025-02-15T05:06:55.224187Z",
-      "content_hash": "de36e412968493ef6854ffc37d95bc83109ea97e22b952393e154d775c40f757",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "1908395",
-      "revision_number": 4,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
       }
     },
     {
@@ -16578,25 +16274,6 @@
     },
     {
       "title": "Artificial intelligence arms race",
-      "page_id": "56127293_1274033330",
-      "revision_id": "1274033330",
-      "timestamp": "2025-02-15T05:07:12.168508Z",
-      "content_hash": "4d71b25cac161b2b2e9150b3ae5e9f2f4d4f5748ccac7703437d066fbd957c17",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "56127293",
-      "revision_number": 4,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
-      }
-    },
-    {
-      "title": "Artificial intelligence arms race",
       "page_id": "56127293_1274020961",
       "revision_id": "1274020961",
       "timestamp": "2025-02-15T05:07:12.244740Z",
@@ -17158,25 +16835,6 @@
           ],
           "total_tokens": 1024
         }
-      }
-    },
-    {
-      "title": "Artificial intelligence content detection",
-      "page_id": "74313930_1265361860",
-      "revision_id": "1265361860",
-      "timestamp": "2025-02-15T05:07:15.326348Z",
-      "content_hash": "9a464af32b7d1bad1f40a5631e0c413c95e1f6145fa0a828fa724c58ea77d476",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "74313930",
-      "revision_number": 4,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
       }
     },
     {
@@ -19667,25 +19325,6 @@
     },
     {
       "title": "Artificial intelligence in the 2024 United States presidential election",
-      "page_id": "77992399_1248728018",
-      "revision_id": "1248728018",
-      "timestamp": "2025-02-15T05:07:29.100035Z",
-      "content_hash": "2d8f81f9e53f9b020a894a7fee8c5a17a71491bab3dd7abad91fdea07876f459",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "77992399",
-      "revision_number": 3,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
-      }
-    },
-    {
-      "title": "Artificial intelligence in the 2024 United States presidential election",
       "page_id": "77992399_1248413807",
       "revision_id": "1248413807",
       "timestamp": "2025-02-15T05:07:29.184107Z",
@@ -19795,25 +19434,6 @@
           ],
           "total_tokens": 1024
         }
-      }
-    },
-    {
-      "title": "Artificial intelligence in the 2024 United States presidential election",
-      "page_id": "77992399_1248326970",
-      "revision_id": "1248326970",
-      "timestamp": "2025-02-15T05:07:29.256355Z",
-      "content_hash": "8f72ddbacb3c27069670c1e1bced22266bf4926c0983f20e9ebfe6ba7c051d25",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "77992399",
-      "revision_number": 5,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
       }
     },
     {
@@ -21287,25 +20907,6 @@
     },
     {
       "title": "Artificial psychology",
-      "page_id": "18402617_1230408942",
-      "revision_id": "1230408942",
-      "timestamp": "2025-02-15T05:07:38.509514Z",
-      "content_hash": "de4ba67fbbb2134a53bffac8d4ffa8017b933db2dcb6057bf719c87677c7636e",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "18402617",
-      "revision_number": 1,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
-      }
-    },
-    {
-      "title": "Artificial psychology",
       "page_id": "18402617_1219174851",
       "revision_id": "1219174851",
       "timestamp": "2025-02-15T05:07:38.594192Z",
@@ -22206,25 +21807,6 @@
           ],
           "total_tokens": 1024
         }
-      }
-    },
-    {
-      "title": "Artificial reproduction",
-      "page_id": "3366914_1263232428",
-      "revision_id": "1263232428",
-      "timestamp": "2025-02-15T05:07:41.894741Z",
-      "content_hash": "b0c50770af841fb0626869b94fa400294244a41c5d136710378c20a8c359527c",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "3366914",
-      "revision_number": 4,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
       }
     },
     {
@@ -25167,25 +24749,6 @@
     },
     {
       "title": "Autognostics",
-      "page_id": "11230690_920020439",
-      "revision_id": "920020439",
-      "timestamp": "2025-02-15T05:07:58.638141Z",
-      "content_hash": "befa7569e136ffc411feebc14cb83d2f066452b55e8af7ae157ff84f1bc2b3fc",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "11230690",
-      "revision_number": 4,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
-      }
-    },
-    {
-      "title": "Autognostics",
       "page_id": "11230690_790207264",
       "revision_id": "790207264",
       "timestamp": "2025-02-15T05:07:58.705644Z",
@@ -25295,25 +24858,6 @@
           ],
           "total_tokens": 1024
         }
-      }
-    },
-    {
-      "title": "Automated machine learning",
-      "page_id": "55843837",
-      "revision_id": "1261502345",
-      "timestamp": "2025-02-15T05:08:00.093037Z",
-      "content_hash": "263662a3c5bec29ed2cefe4baac95fa461d7171dc265dda7ce6bcefe560bc6b1",
-      "action": "added",
-      "is_revision": false,
-      "parent_id": null,
-      "revision_number": null,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
       }
     },
     {
@@ -26218,25 +25762,6 @@
           ],
           "total_tokens": 1024
         }
-      }
-    },
-    {
-      "title": "Automated Mathematician",
-      "page_id": "253279_1195021310",
-      "revision_id": "1195021310",
-      "timestamp": "2025-02-15T05:08:04.902964Z",
-      "content_hash": "2ca2a6a54d423f7d1942c5b3b8bd36a490b7e351ba0bec7066c8fa677882aeb0",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "253279",
-      "revision_number": 3,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
       }
     },
     {
@@ -28162,25 +27687,6 @@
     },
     {
       "title": "Autonomic networking",
-      "page_id": "5389390_1229320629",
-      "revision_id": "1229320629",
-      "timestamp": "2025-02-15T05:08:14.645428Z",
-      "content_hash": "5b79380fb541f9f31dcc8c8ac9976331cfdbf12c3e374918b4cbaff2462803e5",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "5389390",
-      "revision_number": 3,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
-      }
-    },
-    {
-      "title": "Autonomic networking",
       "page_id": "5389390_1226985346",
       "revision_id": "1226985346",
       "timestamp": "2025-02-15T05:08:14.729233Z",
@@ -28407,25 +27913,6 @@
     },
     {
       "title": "Autonomous agent",
-      "page_id": "1456626",
-      "revision_id": "1260290252",
-      "timestamp": "2025-02-15T05:08:16.071771Z",
-      "content_hash": "86bb1fe3aafbb824834623a9122e71ea5ef03c0bec652b0942bed2f0c991354b",
-      "action": "added",
-      "is_revision": false,
-      "parent_id": null,
-      "revision_number": null,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
-      }
-    },
-    {
-      "title": "Autonomous agent",
       "page_id": "1456626_1260290252",
       "revision_id": "1260290252",
       "timestamp": "2025-02-15T05:08:17.547189Z",
@@ -28648,25 +28135,6 @@
           ],
           "total_tokens": 1024
         }
-      }
-    },
-    {
-      "title": "Autonomous agent",
-      "page_id": "1456626_1255680688",
-      "revision_id": "1255680688",
-      "timestamp": "2025-02-15T05:08:17.733259Z",
-      "content_hash": "23ad60d4c91006ac7e0532579bc786e366f83fc8dd3a7bd7131c5f9b159feb6f",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "1456626",
-      "revision_number": 3,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
       }
     },
     {
@@ -32173,25 +31641,6 @@
       }
     },
     {
-      "title": "Brain technology",
-      "page_id": "40257392_1108802982",
-      "revision_id": "1108802982",
-      "timestamp": "2025-02-15T05:08:35.522628Z",
-      "content_hash": "510be9be15e2b66b1e2a5c3b7858afffb21f00139f922b423fb3b7368fe57064",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "40257392",
-      "revision_number": 5,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
-      }
-    },
-    {
       "title": "Brilliant Labs",
       "page_id": "76046093",
       "revision_id": "1261013654",
@@ -32645,25 +32094,6 @@
     },
     {
       "title": "Brilliant Labs",
-      "page_id": "76046093_1211491230",
-      "revision_id": "1211491230",
-      "timestamp": "2025-02-15T05:08:38.597923Z",
-      "content_hash": "f1d8d621f7c4f17ca7589128c4f2697986bc9622fc05e8f1db20c76c2677425a",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "76046093",
-      "revision_number": 4,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
-      }
-    },
-    {
-      "title": "Brilliant Labs",
       "page_id": "76046093_1205829541",
       "revision_id": "1205829541",
       "timestamp": "2025-02-15T05:08:38.669966Z",
@@ -32773,25 +32203,6 @@
           ],
           "total_tokens": 1024
         }
-      }
-    },
-    {
-      "title": "Ilona Budapesti",
-      "page_id": "64141895",
-      "revision_id": "1265956354",
-      "timestamp": "2025-02-15T05:08:39.945401Z",
-      "content_hash": "cff3b5162a1631a3940823323b0060d34a528451e8fb7f33e5d24a04065e88b3",
-      "action": "added",
-      "is_revision": false,
-      "parent_id": null,
-      "revision_number": null,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
       }
     },
     {
@@ -34378,25 +33789,6 @@
     },
     {
       "title": "CarynAI",
-      "page_id": "73792341_1219173247",
-      "revision_id": "1219173247",
-      "timestamp": "2025-02-15T05:08:47.948684Z",
-      "content_hash": "17297ffa42f918195191d978a19246b6c9ba6dd086aa5ca0cf19dde6c6891add",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "73792341",
-      "revision_number": 3,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
-      }
-    },
-    {
-      "title": "CarynAI",
       "page_id": "73792341_1192141708",
       "revision_id": "1192141708",
       "timestamp": "2025-02-15T05:08:48.056030Z",
@@ -35301,25 +34693,6 @@
     },
     {
       "title": "Character computing",
-      "page_id": "64478770",
-      "revision_id": "1187166277",
-      "timestamp": "2025-02-15T05:08:52.496368Z",
-      "content_hash": "b37b39859420e8256a8c91a9f824def5dd441565462b53fe986924a37801266a",
-      "action": "added",
-      "is_revision": false,
-      "parent_id": null,
-      "revision_number": null,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
-      }
-    },
-    {
-      "title": "Character computing",
       "page_id": "64478770_1187166277",
       "revision_id": "1187166277",
       "timestamp": "2025-02-15T05:08:54.281823Z",
@@ -35659,25 +35032,6 @@
     },
     {
       "title": "Character computing",
-      "page_id": "64478770_1097488767",
-      "revision_id": "1097488767",
-      "timestamp": "2025-02-15T05:08:54.546210Z",
-      "content_hash": "3cd841a5025f5abe5b7773862365ead7114d966889225570cbe92ee0aeb34e8c",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "64478770",
-      "revision_number": 4,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
-      }
-    },
-    {
-      "title": "Character computing",
       "page_id": "64478770_1060598035",
       "revision_id": "1060598035",
       "timestamp": "2025-02-15T05:08:54.629206Z",
@@ -35787,25 +35141,6 @@
           ],
           "total_tokens": 1024
         }
-      }
-    },
-    {
-      "title": "Cognitive computing",
-      "page_id": "42581062",
-      "revision_id": "1272876765",
-      "timestamp": "2025-02-15T05:08:55.781759Z",
-      "content_hash": "3db3546510a32e55bbab7bf362815a6d7165a781845d9f4dd6e7083dbde6daab",
-      "action": "added",
-      "is_revision": false,
-      "parent_id": null,
-      "revision_number": null,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
       }
     },
     {
@@ -38070,25 +37405,6 @@
     },
     {
       "title": "Computational heuristic intelligence",
-      "page_id": "44104564_1187166498",
-      "revision_id": "1187166498",
-      "timestamp": "2025-02-15T05:09:08.847539Z",
-      "content_hash": "688f9f5e767869319462f7f09d1e70061278c6e20cc9bff0683ca5aa8bfe5d34",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "44104564",
-      "revision_number": 3,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
-      }
-    },
-    {
-      "title": "Computational heuristic intelligence",
       "page_id": "44104564_1164298455",
       "revision_id": "1164298455",
       "timestamp": "2025-02-15T05:09:08.927547Z",
@@ -38650,25 +37966,6 @@
           ],
           "total_tokens": 1024
         }
-      }
-    },
-    {
-      "title": "Computational humor",
-      "page_id": "14760591_1217296602",
-      "revision_id": "1217296602",
-      "timestamp": "2025-02-15T05:09:11.960463Z",
-      "content_hash": "5a4d0d6d1bb022286248d42ef96658d99847c807d154717ff371400d90d94814",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "14760591",
-      "revision_number": 3,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
       }
     },
     {
@@ -40029,25 +39326,6 @@
     },
     {
       "title": "Computer audition",
-      "page_id": "9536113_1148273879",
-      "revision_id": "1148273879",
-      "timestamp": "2025-02-15T05:09:18.344735Z",
-      "content_hash": "8c6b2a58352020cc4cc3775685f2f7ddc60bac422b38f4a86cd2315729863ea4",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "9536113",
-      "revision_number": 4,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
-      }
-    },
-    {
-      "title": "Computer audition",
       "page_id": "9536113_1148272670",
       "revision_id": "1148272670",
       "timestamp": "2025-02-15T05:09:18.438896Z",
@@ -40161,25 +39439,6 @@
     },
     {
       "title": "Concurrent MetateM",
-      "page_id": "19835689",
-      "revision_id": "1206783541",
-      "timestamp": "2025-02-15T05:09:19.535357Z",
-      "content_hash": "6b801ffa30a5e1e7f49c57222bce9591b589e7e5eb74ac6b55a10ce664105fad",
-      "action": "added",
-      "is_revision": false,
-      "parent_id": null,
-      "revision_number": null,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
-      }
-    },
-    {
-      "title": "Concurrent MetateM",
       "page_id": "19835689_1206783541",
       "revision_id": "1206783541",
       "timestamp": "2025-02-15T05:09:20.995641Z",
@@ -40289,25 +39548,6 @@
           ],
           "total_tokens": 1024
         }
-      }
-    },
-    {
-      "title": "Concurrent MetateM",
-      "page_id": "19835689_1096143303",
-      "revision_id": "1096143303",
-      "timestamp": "2025-02-15T05:09:21.071870Z",
-      "content_hash": "1384b2b960987513882e513e3af5a6ef13b17d17ecda1f79a6e3cdbb7da09308",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "19835689",
-      "revision_number": 2,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
       }
     },
     {
@@ -42911,25 +42151,6 @@
     },
     {
       "title": "Description logic",
-      "page_id": "183503_1256136426",
-      "revision_id": "1256136426",
-      "timestamp": "2025-02-15T05:09:34.084915Z",
-      "content_hash": "3f0fd852c38c97f2fa5fe4b5fdd688a5a24e1a5424f85dfb1526cdbae78a3c0c",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "183503",
-      "revision_number": 2,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
-      }
-    },
-    {
-      "title": "Description logic",
       "page_id": "183503_1256019430",
       "revision_id": "1256019430",
       "timestamp": "2025-02-15T05:09:34.185796Z",
@@ -44399,25 +43620,6 @@
     },
     {
       "title": "Dynamic epistemic logic",
-      "page_id": "48791499_1158082254",
-      "revision_id": "1158082254",
-      "timestamp": "2025-02-15T05:09:41.995753Z",
-      "content_hash": "7b075ffa43e825b838fe4bdcb9ddf6e534a2a5807c14441d6e4f33081b2f838d",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "48791499",
-      "revision_number": 4,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
-      }
-    },
-    {
-      "title": "Dynamic epistemic logic",
       "page_id": "48791499_1142421149",
       "revision_id": "1142421149",
       "timestamp": "2025-02-15T05:09:42.098339Z",
@@ -45205,25 +44407,6 @@
           ],
           "total_tokens": 1024
         }
-      }
-    },
-    {
-      "title": "Elements of AI",
-      "page_id": "64301884",
-      "revision_id": "1265541791",
-      "timestamp": "2025-02-15T05:09:46.288717Z",
-      "content_hash": "a1d5d596f6a71ef5067b2b8c4f87dea4a0ef46b2f4f5bec134810ba5b4a20e1f",
-      "action": "added",
-      "is_revision": false,
-      "parent_id": null,
-      "revision_number": null,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
       }
     },
     {
@@ -47262,25 +46445,6 @@
     },
     {
       "title": "Empowerment (artificial intelligence)",
-      "page_id": "67112408_1258770842",
-      "revision_id": "1258770842",
-      "timestamp": "2025-02-15T05:09:57.460186Z",
-      "content_hash": "bf68ff6f5fa45434971e62e792d946cf6ed9705b7cf97a32d684892f1fc5ec93",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "67112408",
-      "revision_number": 1,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
-      }
-    },
-    {
-      "title": "Empowerment (artificial intelligence)",
       "page_id": "67112408_1145952856",
       "revision_id": "1145952856",
       "timestamp": "2025-02-15T05:09:57.544021Z",
@@ -47616,44 +46780,6 @@
           ],
           "total_tokens": 1024
         }
-      }
-    },
-    {
-      "title": "Empowerment (artificial intelligence)",
-      "page_id": "67112408_1022262154",
-      "revision_id": "1022262154",
-      "timestamp": "2025-02-15T05:09:57.824147Z",
-      "content_hash": "49f0d5b5acd4b9b631593c562f5a14399a58c4de4944042816ad30b91bbfb260",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "67112408",
-      "revision_number": 5,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
-      }
-    },
-    {
-      "title": "Enterprise cognitive system",
-      "page_id": "43306489",
-      "revision_id": "1172371578",
-      "timestamp": "2025-02-15T05:09:59.118329Z",
-      "content_hash": "01c513153528aca1931cbed7897ec19099f775e4ab3758de09cd9fa811a068a0",
-      "action": "added",
-      "is_revision": false,
-      "parent_id": null,
-      "revision_number": null,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
       }
     },
     {
@@ -48332,25 +47458,6 @@
           ],
           "total_tokens": 1024
         }
-      }
-    },
-    {
-      "title": "Environmental impacts of artificial intelligence",
-      "page_id": "77275260_1274772497",
-      "revision_id": "1274772497",
-      "timestamp": "2025-02-15T05:10:03.851580Z",
-      "content_hash": "78bb33701f8261497e5015d7b0cf563fc9021d4d8881a048a20eb72068626db7",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "77275260",
-      "revision_number": 1,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
       }
     },
     {
@@ -49142,63 +48249,6 @@
           ],
           "total_tokens": 1024
         }
-      }
-    },
-    {
-      "title": "Epistemic modal logic",
-      "page_id": "3827197_1270762272",
-      "revision_id": "1270762272",
-      "timestamp": "2025-02-15T05:10:07.269217Z",
-      "content_hash": "284b993593bd3f4a28aa8331f61e2a68ea7216cc07a81ec0d5060a14c547cf5d",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "3827197",
-      "revision_number": 3,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
-      }
-    },
-    {
-      "title": "Epistemic modal logic",
-      "page_id": "3827197_1245747544",
-      "revision_id": "1245747544",
-      "timestamp": "2025-02-15T05:10:07.368960Z",
-      "content_hash": "01c8f2934afe9e11122ee677e83b2069f3f322ba9279e69297884537a8799bfa",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "3827197",
-      "revision_number": 4,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
-      }
-    },
-    {
-      "title": "Epistemic modal logic",
-      "page_id": "3827197_1230849110",
-      "revision_id": "1230849110",
-      "timestamp": "2025-02-15T05:10:07.464352Z",
-      "content_hash": "3d268c09a464d77df28e89b12e6ffdf30de243b0f99a615e4627afeb4da92752",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "3827197",
-      "revision_number": 5,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
       }
     },
     {
@@ -49994,25 +49044,6 @@
     },
     {
       "title": "Evolutionary developmental robotics",
-      "page_id": "25264546_1020694982",
-      "revision_id": "1020694982",
-      "timestamp": "2025-02-15T05:10:15.021583Z",
-      "content_hash": "22d70209e24097a2caeee83d4de03e97112f74a927ebda3f1a1daaaa02b7dd26",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "25264546",
-      "revision_number": 1,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
-      }
-    },
-    {
-      "title": "Evolutionary developmental robotics",
       "page_id": "25264546_912773603",
       "revision_id": "912773603",
       "timestamp": "2025-02-15T05:10:15.116634Z",
@@ -50687,25 +49718,6 @@
           ],
           "total_tokens": 1024
         }
-      }
-    },
-    {
-      "title": "Explainable artificial intelligence",
-      "page_id": "54575571_1271143484",
-      "revision_id": "1271143484",
-      "timestamp": "2025-02-15T05:10:18.427505Z",
-      "content_hash": "5a53a8b302ea4a677f85e8c9fd07d3cc09689fd177eaaabf6b79a0ba99dfecc6",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "54575571",
-      "revision_number": 2,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
       }
     },
     {
@@ -52066,25 +51078,6 @@
     },
     {
       "title": "The Fable of Oscar",
-      "page_id": "51885204_784498885",
-      "revision_id": "784498885",
-      "timestamp": "2025-02-15T05:10:25.070363Z",
-      "content_hash": "78aa92440cde62918a6b4b335f35b7ffff7a868783ebc5bbea5a2c04c0a61225",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "51885204",
-      "revision_number": 3,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
-      }
-    },
-    {
-      "title": "The Fable of Oscar",
       "page_id": "51885204_769184785",
       "revision_id": "769184785",
       "timestamp": "2025-02-15T05:10:25.149547Z",
@@ -52424,25 +51417,6 @@
     },
     {
       "title": "Figure AI",
-      "page_id": "76368952_1271665460",
-      "revision_id": "1271665460",
-      "timestamp": "2025-02-15T05:10:28.086084Z",
-      "content_hash": "691d0b1b01817c5a8e39b20c99e321ecc597f6467d4616c57262f7d267ec3e05",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "76368952",
-      "revision_number": 1,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
-      }
-    },
-    {
-      "title": "Figure AI",
       "page_id": "76368952_1271665261",
       "revision_id": "1271665261",
       "timestamp": "2025-02-15T05:10:28.221252Z",
@@ -52552,25 +51526,6 @@
           ],
           "total_tokens": 1024
         }
-      }
-    },
-    {
-      "title": "Figure AI",
-      "page_id": "76368952_1268224933",
-      "revision_id": "1268224933",
-      "timestamp": "2025-02-15T05:10:28.353375Z",
-      "content_hash": "691d0b1b01817c5a8e39b20c99e321ecc597f6467d4616c57262f7d267ec3e05",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "76368952",
-      "revision_number": 3,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
       }
     },
     {
@@ -57547,25 +56502,6 @@
     },
     {
       "title": "Google Clips",
-      "page_id": "55443695",
-      "revision_id": "1219175511",
-      "timestamp": "2025-02-15T05:10:53.390647Z",
-      "content_hash": "937ae9803f5f2d30919406d9319b0e3ea6d1702ccb5fef99a8c8bd5d308cd9fb",
-      "action": "added",
-      "is_revision": false,
-      "parent_id": null,
-      "revision_number": null,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
-      }
-    },
-    {
-      "title": "Google Clips",
       "page_id": "55443695_1219175511",
       "revision_id": "1219175511",
       "timestamp": "2025-02-15T05:10:54.984254Z",
@@ -58017,25 +56953,6 @@
       }
     },
     {
-      "title": "Google Clips",
-      "page_id": "55443695_1170348378",
-      "revision_id": "1170348378",
-      "timestamp": "2025-02-15T05:10:55.465273Z",
-      "content_hash": "05d27a77dfd05b16f0cadd12630797461ad25ba4de7f9e9b46c021e7246c279b",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "55443695",
-      "revision_number": 5,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
-      }
-    },
-    {
       "title": "Grammar systems theory",
       "page_id": "21342168",
       "revision_id": "1132613502",
@@ -58146,25 +57063,6 @@
           ],
           "total_tokens": 1024
         }
-      }
-    },
-    {
-      "title": "Grammar systems theory",
-      "page_id": "21342168_1132613502",
-      "revision_id": "1132613502",
-      "timestamp": "2025-02-15T05:10:58.134971Z",
-      "content_hash": "55022821d28f846326d89e6e926962caf11ab8b16ed0f15f90962b0bb75493d0",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "21342168",
-      "revision_number": 1,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
       }
     },
     {
@@ -60316,25 +59214,6 @@
     },
     {
       "title": "Hierarchical control system",
-      "page_id": "15291723_1239102290",
-      "revision_id": "1239102290",
-      "timestamp": "2025-02-15T05:11:07.875664Z",
-      "content_hash": "8cb8f41caf77b32b7487559cbdb3185551ac2e4ac725f1de6afb2147b99c6318",
-      "action": "added",
-      "is_revision": true,
-      "parent_id": "15291723",
-      "revision_number": 3,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
-      }
-    },
-    {
-      "title": "Hierarchical control system",
       "page_id": "15291723_1212329453",
       "revision_id": "1212329453",
       "timestamp": "2025-02-15T05:11:07.971155Z",
@@ -61235,25 +60114,6 @@
           ],
           "total_tokens": 1024
         }
-      }
-    },
-    {
-      "title": "Histogram of oriented displacements",
-      "page_id": "40196540",
-      "revision_id": "1212329282",
-      "timestamp": "2025-02-15T05:11:12.669341Z",
-      "content_hash": "3abe3d9fd9bf987492152af973512054ce1ab7ce539c79cc8a8e459494f63b78",
-      "action": "added",
-      "is_revision": false,
-      "parent_id": null,
-      "revision_number": null,
-      "training_metadata": {
-        "used_in_training": false,
-        "training_timestamp": null,
-        "model_checkpoint": null,
-        "average_loss": null,
-        "relative_loss": null,
-        "token_impact": null
       }
     },
     {

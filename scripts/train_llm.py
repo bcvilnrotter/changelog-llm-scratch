@@ -475,6 +475,11 @@ class LLMTrainer:
         test_output = self.generate_text("The quick brown fox", max_length=50)
         logger.info(f"Test generation:\n{test_output}")
 
+        # Remove unused entries from changelog
+        logger.info("Removing unused entries from changelog...")
+        self.changelog.remove_unused_entries()
+        logger.info("Unused entries removed")
+
     def generate_text(
         self,
         prompt: str,
