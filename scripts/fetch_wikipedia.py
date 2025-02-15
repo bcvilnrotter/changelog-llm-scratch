@@ -8,6 +8,7 @@ import json
 import logging
 import os
 import sys
+import time
 from pathlib import Path
 from typing import Dict, List, Optional
 import requests
@@ -33,7 +34,8 @@ class WikipediaFetcher:
         self,
         changelog_path: str = "data/changelog.json",
         raw_data_path: str = "data/raw",
-        language: str = "en"
+        language: str = "en",
+        batch_size: int = 10
     ):
         """
         Initialize the Wikipedia fetcher.
@@ -48,17 +50,79 @@ class WikipediaFetcher:
             'User-Agent': 'ChangelogLLM/1.0 (https://github.com/yourusername/changelog-llm; your@email.com) Python/3.10',
             'Accept': 'application/json'
         }
+        self.batch_size = batch_size
+        self.last_request_time = 0
+        self.min_request_interval = 1.0  # 1 second between requests
         self.changelog = ChangelogLogger(changelog_path)
         self.raw_data_path = Path(raw_data_path)
         self.raw_data_path.mkdir(parents=True, exist_ok=True)
 
-    def _save_raw_content(self, page_id: str, content: str) -> None:
+    def _save_raw_content(self, page_id: str, content: str, revision_id: Optional[str] = None) -> None:
         """Save raw page content to file."""
-        file_path = self.raw_data_path / f"{page_id}.txt"
+        filename = f"{page_id}.txt" if revision_id is None else f"{page_id}_{revision_id}.txt"
+        file_path = self.raw_data_path / filename
         with open(file_path, 'w', encoding='utf-8') as f:
             f.write(content)
 
-    def fetch_page(self, title: str) -> Optional[Dict]:
+    def _make_request(self, params: Dict) -> Optional[Dict]:
+        """Make a rate-limited request to the Wikipedia API."""
+        # Ensure at least 1 second between requests
+        current_time = time.time()
+        time_since_last = current_time - self.last_request_time
+        if time_since_last < self.min_request_interval:
+            time.sleep(self.min_request_interval - time_since_last)
+
+        try:
+            response = requests.get(self.api_url, params=params, headers=self.headers)
+            response.raise_for_status()
+            self.last_request_time = time.time()
+            return response.json()
+        except Exception as e:
+            logger.error(f"API request failed: {str(e)}")
+            return None
+
+    def _fetch_revisions(self, page_id: str, title: str) -> List[Dict]:
+        """Fetch the last 5 revisions of a page."""
+        params = {
+            "action": "query",
+            "format": "json",
+            "prop": "revisions",
+            "rvprop": "content|ids",
+            "rvslots": "main",
+            "rvlimit": "5",  # Get last 5 revisions
+            "titles": title
+        }
+
+        data = self._make_request(params)
+        if not data or "query" not in data or "pages" not in data["query"]:
+            return []
+
+        page = next(iter(data["query"]["pages"].values()))
+        if "revisions" not in page:
+            return []
+
+        entries = []
+        for i, rev in enumerate(page["revisions"], 1):
+            content = rev["slots"]["main"]["*"]
+            revision_id = str(rev["revid"])
+
+            # Save revision content
+            self._save_raw_content(page_id, content, revision_id)
+
+            # Log revision to changelog
+            entry = self.changelog.log_revision(
+                title=title,
+                page_id=f"{page_id}_{revision_id}",  # Unique ID for revision
+                revision_id=revision_id,
+                content=content,
+                parent_id=page_id,
+                revision_number=i  # 1 is most recent
+            )
+            entries.append(entry)
+
+        return entries
+
+    def fetch_page(self, title: str, fetch_revisions: bool = True) -> Optional[Dict]:
         """
         Fetch a single Wikipedia page and track it in changelog.
 
@@ -69,7 +133,6 @@ class WikipediaFetcher:
             Changelog entry if successful, None if failed
         """
         try:
-            # Get page info
             params = {
                 "action": "query",
                 "format": "json",
@@ -79,9 +142,9 @@ class WikipediaFetcher:
                 "titles": title
             }
             
-            response = requests.get(self.api_url, params=params, headers=self.headers)
-            response.raise_for_status()  # Raise exception for bad status codes
-            data = response.json()
+            data = self._make_request(params)
+            if not data:
+                return None
             
             if "error" in data:
                 logger.error(f"API Error: {data['error'].get('info', 'Unknown error')}")
@@ -123,6 +186,13 @@ class WikipediaFetcher:
                         f"{action.capitalize()} page: {page['title']} "
                         f"(ID: {page_id}, Rev: {revision_id})"
                     )
+
+                    # Fetch revisions if requested
+                    if fetch_revisions:
+                        revision_entries = self._fetch_revisions(page_id, title)
+                        if revision_entries:
+                            logger.info(f"Added {len(revision_entries)} revisions for {title}")
+
                     return entry
                 
                 logger.info(f"Page already up to date: {title}")
@@ -170,9 +240,9 @@ class WikipediaFetcher:
             pages = []
             
             # Get pages from category
-            response = requests.get(self.api_url, params=params, headers=self.headers)
-            response.raise_for_status()
-            data = response.json()
+            data = self._make_request(params)
+            if not data:
+                return []
             
             if "error" in data:
                 logger.error(f"API Error: {data['error'].get('info', 'Unknown error')}")
@@ -239,15 +309,25 @@ class WikipediaFetcher:
             pages = list(dict.fromkeys(pages))
             logger.info(f"Found {len(pages)} unique pages")
             
-            # Fetch pages up to limit
+            # Process pages in batches
             entries = []
             page_limit = pages[:limit] if limit else pages
-            logger.info(f"Attempting to fetch {len(page_limit)} pages")
-            for title in page_limit:
-                logger.info(f"Fetching page: {title}")
-                entry = self.fetch_page(title)
-                if entry:
-                    entries.append(entry)
+            total_pages = len(page_limit)
+            logger.info(f"Attempting to fetch {total_pages} pages")
+
+            for i in range(0, total_pages, self.batch_size):
+                batch = page_limit[i:i + self.batch_size]
+                logger.info(f"Processing batch {i//self.batch_size + 1}/{(total_pages-1)//self.batch_size + 1}")
+                
+                for title in batch:
+                    logger.info(f"Fetching page: {title}")
+                    entry = self.fetch_page(title)
+                    if entry:
+                        entries.append(entry)
+                
+                # Add a small delay between batches
+                if i + self.batch_size < total_pages:
+                    time.sleep(2)  # 2 second pause between batches
             
             return entries
             
@@ -283,12 +363,18 @@ def main():
         default="en",
         help="Wikipedia language version (default: en)"
     )
+    parser.add_argument(
+        "--batch-size",
+        type=int,
+        default=10,
+        help="Number of pages to process in each batch (default: 10)"
+    )
     args = parser.parse_args()
 
     if not (args.titles or args.category):
         parser.error("Must specify either --titles or --category")
 
-    fetcher = WikipediaFetcher(language=args.language)
+    fetcher = WikipediaFetcher(language=args.language, batch_size=args.batch_size)
     
     if args.titles:
         for title in args.titles:

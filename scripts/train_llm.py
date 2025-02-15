@@ -299,47 +299,177 @@ class LLMTrainer:
                 attention_mask = batch["attention_mask"]
                 labels = input_ids.clone()
 
-                # Forward pass
-                logits = self.model(x=input_ids, attention_mask=attention_mask)
+                # Initialize metrics dictionary at the start of training
+                if epoch == 0 and batch_idx == 0:
+                    training_metrics = {}
+                    # Calculate initial loss for all pages
+                    with torch.no_grad():
+                        initial_logits = self.model(x=input_ids, attention_mask=attention_mask)
+                        initial_loss = F.cross_entropy(
+                            initial_logits.view(-1, initial_logits.size(-1)),
+                            labels.view(-1),
+                            ignore_index=self.tokenizer._convert_token_to_id(self.tokenizer.pad_token),
+                            reduction='none'
+                        )
+                        initial_token_loss = initial_loss.view(input_ids.shape)
+                        initial_sequence_loss = initial_token_loss.sum(dim=1) / (attention_mask.sum(dim=1).float() + 1e-8)
+                        initial_loss_value = initial_sequence_loss[0].item()
+                        
+                        for page_id in train_ids:
+                            training_metrics[page_id] = {
+                                "initial_loss": initial_loss_value,
+                                "average_loss": [],
+                                "token_impact": []
+                            }
+                
+                # Forward pass with metrics collection
+                logits = self.model(x=input_ids, attention_mask=attention_mask, store_metrics=True)
                 
                 # Calculate loss
                 loss = F.cross_entropy(
                     logits.view(-1, logits.size(-1)),
                     labels.view(-1),
-                    ignore_index=self.tokenizer._convert_token_to_id(self.tokenizer.pad_token)
+                    ignore_index=self.tokenizer._convert_token_to_id(self.tokenizer.pad_token),
+                    reduction='none'
                 )
+                
+                # Reshape loss to match input shape for per-token metrics
+                token_loss = loss.view(input_ids.shape)
+                
+                # Calculate relative loss for each sequence in batch
+                sequence_loss = token_loss.sum(dim=1) / (attention_mask.sum(dim=1).float() + 1e-8)
+                batch_loss = sequence_loss.mean()
+                
+                # Store metrics for each sequence
+                start_idx = batch_idx * self.batch_size
+                end_idx = min((batch_idx + 1) * self.batch_size, len(train_ids))
+                batch_page_ids = train_ids[start_idx:end_idx]
+                
+                # Update metrics for current batch
+                for idx, page_id in enumerate(batch_page_ids):
+                    if page_id not in training_metrics:
+                        # Calculate initial loss for relative loss metric
+                        with torch.no_grad():
+                            initial_logits = self.model(x=input_ids, attention_mask=attention_mask)
+                            initial_loss = F.cross_entropy(
+                                initial_logits.view(-1, initial_logits.size(-1)),
+                                labels.view(-1),
+                                ignore_index=self.tokenizer._convert_token_to_id(self.tokenizer.pad_token),
+                                reduction='none'
+                            )
+                            initial_token_loss = initial_loss.view(input_ids.shape)
+                            initial_sequence_loss = initial_token_loss.sum(dim=1) / (attention_mask.sum(dim=1).float() + 1e-8)
+
+                        training_metrics[page_id] = {
+                            "initial_loss": initial_sequence_loss[idx].item(),
+                            "average_loss": [],
+                            "token_impact": []
+                        }
+                    
+                    # Store average loss
+                    training_metrics[page_id]["average_loss"].append(sequence_loss[idx].item())
+                    
+                    # Store token impact if available
+                    token_impacts = self.model.get_token_impacts()
+                    if token_impacts is not None:
+                        # Get token IDs and impact values for this sequence
+                        sequence_tokens = input_ids[idx].cpu().numpy()
+                        impact_values = token_impacts[idx].detach().cpu().numpy().flatten()
+                        
+                        # Store token impacts with context
+                        sequence_tokens = sequence_tokens.tolist()
+                        impact_values = impact_values.tolist()
+                        
+                        # Calculate significance threshold (95th percentile)
+                        abs_impacts = [abs(x) for x in impact_values]
+                        threshold = sorted(abs_impacts)[int(len(abs_impacts) * 0.95)]
+                        
+                        # Find critical tokens with context
+                        critical_tokens = []
+                        context_window = 2  # tokens before and after
+                        
+                        for i, (token_id, impact) in enumerate(zip(sequence_tokens, impact_values)):
+                            if abs(impact) >= threshold:
+                                start_pos = max(0, i - context_window)
+                                end_pos = min(len(sequence_tokens), i + context_window + 1)
+                                critical_tokens.append({
+                                    "token_id": token_id,
+                                    "position": i,
+                                    "impact": float(impact),
+                                    "context": [start_pos, end_pos]
+                                })
+                        
+                        training_metrics[page_id]["token_impact"].append({
+                            "critical_tokens": critical_tokens,
+                            "impact_threshold": float(threshold),
+                            "total_tokens": len(sequence_tokens)
+                        })
 
                 # Backward pass
-                loss.backward()
+                batch_loss.backward()
                 torch.nn.utils.clip_grad_norm_(self.model.parameters(), 1.0)
                 optimizer.step()
                 optimizer.zero_grad()
 
-                total_loss += loss.item()
+                total_loss += batch_loss.item()
 
                 if batch_idx % 10 == 0:
                     logger.info(
                         f"Epoch {epoch+1}/{self.num_epochs} | "
                         f"Batch {batch_idx}/{len(train_loader)} | "
-                        f"Loss: {loss.item():.4f}"
+                        f"Loss: {batch_loss.item():.4f}"
                     )
 
             avg_loss = total_loss / len(train_loader)
             logger.info(f"Epoch {epoch+1} average loss: {avg_loss:.4f}")
+
+            # Save intermediate metrics after each epoch
+            checkpoint_hash = self._compute_checkpoint_hash()
+            intermediate_metrics = {}
+            for page_id, metrics in training_metrics.items():
+                # Calculate average loss and relative loss
+                avg_loss = sum(metrics["average_loss"]) / len(metrics["average_loss"])
+                rel_loss = (metrics["initial_loss"] - avg_loss) / metrics["initial_loss"]
+                
+                # For token impact, use the last epoch's values
+                token_impact = None
+                if metrics["token_impact"] and len(metrics["token_impact"]) > 0:
+                    # Get the last epoch's token impact data
+                    last_impact = metrics["token_impact"][-1]
+                    # Ensure we're passing the token impact data directly
+                    token_impact = {
+                        "critical_tokens": last_impact["critical_tokens"],
+                        "impact_threshold": last_impact["impact_threshold"],
+                        "total_tokens": last_impact["total_tokens"]
+                    }
+                
+                # Only include metrics if we have valid values
+                metrics_dict = {
+                    "average_loss": float(avg_loss),
+                    "relative_loss": float(rel_loss)
+                }
+                
+                if token_impact is not None:
+                    metrics_dict["token_impact"] = token_impact
+                
+                intermediate_metrics[page_id] = metrics_dict
+
+            logger.info(f"Saving intermediate metrics for epoch {epoch+1}...")
+            try:
+                # Only mark training pages as used, since we only have metrics for them
+                self.changelog.mark_used_in_training(train_ids, checkpoint_hash, intermediate_metrics)
+                logger.info(f"Successfully saved metrics for epoch {epoch+1}")
+            except Exception as e:
+                logger.error(f"Failed to save intermediate metrics: {str(e)}")
 
         # Save final model
         final_output_dir = self.output_dir / "final"
         self.model.save_pretrained(final_output_dir)
         self.tokenizer.save_pretrained(final_output_dir)
 
-        # Compute checkpoint hash
-        checkpoint_hash = self._compute_checkpoint_hash()
-
-        # Update changelog
-        self.changelog.mark_used_in_training(page_ids, checkpoint_hash)
-
+        # Final metrics are already saved in the last epoch
         logger.info(f"Training complete. Model saved to {final_output_dir}")
-        logger.info(f"Checkpoint hash: {checkpoint_hash}")
+        logger.info(f"Final checkpoint hash: {checkpoint_hash}")
         
         # Test model with a simple prompt
         test_output = self.generate_text("The quick brown fox", max_length=50)
