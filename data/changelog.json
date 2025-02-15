@@ -60219,6 +60219,136 @@
           "total_tokens": 512
         }
       }
+    },
+    {
+      "title": "Simple machine",
+      "page_id": "28002",
+      "revision_id": "1275260140",
+      "timestamp": "2025-02-13T15:26:40.199128Z",
+      "content_hash": "752b08ffd0b9cfb1727648adf88f4a1fe715fb837fe7132b2eb9f63e15b48332",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-13T15:27:26.239601Z",
+        "model_checkpoint": "1b9050aba6633caec13fa9646de82c2b0dd929396cd2397ff7710ce8f9bcede4"
+      }
+    },
+    {
+      "title": "Block and tackle",
+      "page_id": "265594",
+      "revision_id": "1266964360",
+      "timestamp": "2025-02-13T15:26:40.351953Z",
+      "content_hash": "8943671510a3c39ad6919e237ecb9d742159135a8fa23525904aaee9a504e4c5",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-13T15:27:26.239601Z",
+        "model_checkpoint": "1b9050aba6633caec13fa9646de82c2b0dd929396cd2397ff7710ce8f9bcede4"
+      }
+    },
+    {
+      "title": "Compound lever",
+      "page_id": "25837273",
+      "revision_id": "1233071820",
+      "timestamp": "2025-02-13T15:26:40.459680Z",
+      "content_hash": "6ed23e8cd09b0fdce45e3eb9f09e3f282fba90bdb6278aa7d7151c9b4de8ffd9",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-13T15:27:26.239601Z",
+        "model_checkpoint": "1b9050aba6633caec13fa9646de82c2b0dd929396cd2397ff7710ce8f9bcede4"
+      }
+    },
+    {
+      "title": "Conveyor pulley",
+      "page_id": "37411947",
+      "revision_id": "1252889359",
+      "timestamp": "2025-02-13T15:26:40.571640Z",
+      "content_hash": "812e287fb0920b9f32a6929c16af9f0cc6376eb6f20afa97431df90702ddae31",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-13T15:27:26.239601Z",
+        "model_checkpoint": "1b9050aba6633caec13fa9646de82c2b0dd929396cd2397ff7710ce8f9bcede4"
+      }
+    },
+    {
+      "title": "Differential pulley",
+      "page_id": "19868716",
+      "revision_id": "1261731297",
+      "timestamp": "2025-02-13T15:26:40.676938Z",
+      "content_hash": "2e95fec44814246b575a5160260292e32d422a5b0573f0b6bdbd24589f8abc25",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-13T15:27:26.239601Z",
+        "model_checkpoint": "1b9050aba6633caec13fa9646de82c2b0dd929396cd2397ff7710ce8f9bcede4"
+      }
+    },
+    {
+      "title": "Dérive",
+      "page_id": "714602",
+      "revision_id": "1241465024",
+      "timestamp": "2025-02-13T15:26:42.298290Z",
+      "content_hash": "619439c29eb28b5e26d21ec04b242e3a72c4f568d772861588134d913a24a584",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-13T15:27:26.239601Z",
+        "model_checkpoint": "1b9050aba6633caec13fa9646de82c2b0dd929396cd2397ff7710ce8f9bcede4"
+      }
+    },
+    {
+      "title": "Dramaturgy (sociology)",
+      "page_id": "1710634",
+      "revision_id": "1237083653",
+      "timestamp": "2025-02-13T15:26:42.472726Z",
+      "content_hash": "8b76810de03a4a8e78a0eddb46eb5b06ae799e70be268a7a2a9b1c5993a9c643",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-13T15:27:26.239601Z",
+        "model_checkpoint": "1b9050aba6633caec13fa9646de82c2b0dd929396cd2397ff7710ce8f9bcede4"
+      }
+    },
+    {
+      "title": "Errand",
+      "page_id": "67401625",
+      "revision_id": "1271154606",
+      "timestamp": "2025-02-13T15:26:42.580158Z",
+      "content_hash": "d4dc83a7578ce6de672e7ca366d003cfecc33486d0631dc45c28be36d354c7f6",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-13T15:27:26.239601Z",
+        "model_checkpoint": "1b9050aba6633caec13fa9646de82c2b0dd929396cd2397ff7710ce8f9bcede4"
+      }
+    },
+    {
+      "title": "Everyday Aesthetics",
+      "page_id": "38558185",
+      "revision_id": "1237422070",
+      "timestamp": "2025-02-13T15:26:42.730040Z",
+      "content_hash": "171049f8688af9057b537ec58adbeb062cb864014c26fef8f791d4af2c640693",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-13T15:27:26.239601Z",
+        "model_checkpoint": "1b9050aba6633caec13fa9646de82c2b0dd929396cd2397ff7710ce8f9bcede4"
+      }
+    },
+    {
+      "title": "Everyday Africa",
+      "page_id": "57878408",
+      "revision_id": "1271154768",
+      "timestamp": "2025-02-13T15:26:42.841898Z",
+      "content_hash": "d5e61067ec0acbab4cacd8df4b800d5ef5688f529dec357bfcf1b269f75fbb0b",
+      "action": "added",
+      "training_metadata": {
+        "used_in_training": true,
+        "training_timestamp": "2025-02-13T15:27:26.239601Z",
+        "model_checkpoint": "1b9050aba6633caec13fa9646de82c2b0dd929396cd2397ff7710ce8f9bcede4"
+      }
     }
   ]
 }

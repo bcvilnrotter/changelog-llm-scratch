@@ -57,7 +57,7 @@ jobs:
 
     - name: Train model
       run: |
-        python scripts/train_llm.py --from-scratch \
+        python scripts/train_llm.py --model-path 'models\final\' \
           --vocab-size 5000 \
           --d-model 256 \
           --num-heads 4 \
@@ -65,13 +65,10 @@ jobs:
           --max-length 512 \
           --batch-size 4 \
           --learning-rate 1e-4 \
-          --min-pages 50
+          --min-pages 1
 
     - name: Clean up and push changes
       run: |
-        # Remove raw pages after training
-        rm -rf data/raw/*
-        
         # Stage changelog and model files
         git add data/changelog.json
         git add models/
@@ -79,15 +76,14 @@ jobs:
         # Create commit with training details
         git commit -m "Daily training: $(date +'%Y-%m-%d')
         
-        - Trained on 50 new pages (5 from each category)
+        - Trained on new pages (5 attempted from each category)
         - Updated changelog
-        - Saved new model checkpoint
-        - Cleaned up raw pages"
+        - Saved new model checkpoint"
         
         git push
 
     - name: Upload model artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: model-checkpoint
         path: models/final/
