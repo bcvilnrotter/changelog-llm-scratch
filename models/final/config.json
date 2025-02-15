@@ -4,6 +4,6 @@
   "num_heads": 4,
   "num_layers": 4,
   "d_ff": 512,
-  "max_seq_length": 1024,
+  "max_seq_length": 512,
   "dropout": 0.1
 }
