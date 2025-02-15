@@ -36,24 +36,15 @@ jobs:
 
     - name: Fetch new Wikipedia pages
       run: |
-        # Get categories from our training focus list
-        CATEGORIES=(
-          "Basic_concepts"
-          "Children's_stories"
-          "Common_English_words"
-          "Basic_geography"
-          "Simple_machines"
-          "Elementary_mathematics"
-          "Basic_physics"
-          "Common_occupations"
-          "Everyday_life"
-          "Natural_phenomena"
-        )
+        # Get 50 random page titles
+        TITLES=$(for i in {1..50}; do 
+          curl -s -L "https://en.wikipedia.org/wiki/Special:Random" | 
+          grep -o "<title>.*</title>" | 
+          sed 's/<title>\(.*\) - Wikipedia<\/title>/\1/' || true
+        done)
         
-        # Fetch 5 pages from each category (50 total)
-        for category in "${CATEGORIES[@]}"; do
-          python scripts/fetch_wikipedia.py --category "$category" --limit 5
-        done
+        # Feed titles to fetch_wikipedia.py
+        python scripts/fetch_wikipedia.py --titles $TITLES
 
     - name: Train model
       run: |
