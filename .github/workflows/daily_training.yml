@@ -44,7 +44,7 @@ jobs:
         done)
         
         # Feed titles to fetch_wikipedia.py
-        python scripts/fetch_wikipedia.py --titles '[$TITLES]'
+        python scripts/fetch_wikipedia.py --titles $TITLES
         
     - name: Train model
       run: |
