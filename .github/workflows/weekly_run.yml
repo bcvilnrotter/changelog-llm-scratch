@@ -8,7 +8,8 @@ on:
 
 env:
   PYTHON_VERSION: '3.10'
-  HF_SPACE_NAME: ${{ vars.HF_SPACE_NAME }}  # Set this in repository variables
+  HF_SPACE_NAME: ${{ secrets.HF_SPACE_NAME }}  # Set this in repository variables
+  HF_TOKEN: ${{secrets.HF_TOKEN}}
 
 jobs:
   update-space:
@@ -31,8 +32,6 @@ jobs:
         pip install -r requirements.txt
 
     - name: Login to Hugging Face Hub
-      env:
-        HF_TOKEN: ${{ secrets.HF_TOKEN }}  # Set this in repository secrets
       run: |
         pip install --upgrade huggingface_hub
         huggingface-cli login --token $HF_TOKEN
@@ -95,9 +94,6 @@ jobs:
         EOL
 
     - name: Push to Hugging Face Space
-      env:
-        HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        SPACE_NAME: ${{ vars.HF_SPACE_NAME }}
       run: |
         cd space_content
         git init
@@ -111,7 +107,7 @@ jobs:
         - Updated dependencies
         - Improved documentation"
         
-        git push https://$HF_TOKEN@huggingface.co/spaces/$SPACE_NAME main -f
+        git push https://oauth2:$HF_TOKEN@huggingface.co/spaces/$HF_SPACE_NAME main -f
 
     - name: Verify Space Update
       run: |
