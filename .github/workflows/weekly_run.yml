@@ -49,7 +49,7 @@ jobs:
         
         # Copy app and model files
         cp src/gradio_app.py space_content/app.py
-        cp space-requirements.txt space_content/requirements.txt
+        cp requirements.txt space_content/requirements.txt
         mkdir -p space_content/model
         cp models/final/* space_content/model/
         
