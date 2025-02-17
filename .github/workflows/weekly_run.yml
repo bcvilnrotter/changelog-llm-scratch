@@ -95,7 +95,6 @@ jobs:
 
     - name: Push to Hugging Face Space
       run: |
-        python - << EOF
         from huggingface_hub import HfApi, create_repo
         import os
 
@@ -121,7 +120,6 @@ jobs:
             token=token
         )
         print(f"Successfully updated space: {space_id}")
-        EOF
 
     - name: Verify Space Update
       run: |
