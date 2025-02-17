@@ -161,7 +161,7 @@ class WikipediaFetcher:
                 page_id = str(page["pageid"])
                 revision = page["revisions"][0]
                 content = revision["slots"]["main"]["*"]
-                revision_id = revision["revid"]
+                revision_id = str(revision["revid"])
                 
                 # Check if page needs updating
                 if self.changelog.check_updates(page_id, revision_id):
