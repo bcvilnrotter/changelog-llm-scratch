@@ -100,8 +100,8 @@ jobs:
         import os
 
         # Get environment variables
-        space_id = os.environ['HF_SPACE_NAME']
-        token = os.environ['HF_TOKEN']
+        space_id = $HF_SPACE_NAME
+        token = $HF_TOKEN
 
         # Create/update the space with correct SDK
         create_repo(
