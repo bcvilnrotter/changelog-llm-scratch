@@ -95,19 +95,33 @@ jobs:
 
     - name: Push to Hugging Face Space
       run: |
-        cd space_content
-        git init
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
-        git config --global user.name "github-actions[bot]"
-        git add .
-        git commit -m "Weekly update: $(date +'%Y-%m-%d')
+        python - << EOF
+        from huggingface_hub import HfApi, create_repo
+        import os
 
-        Updates:
-        - Latest model weights from training
-        - Updated dependencies
-        - Improved documentation"
-        
-        git push https://oauth2:$HF_TOKEN@huggingface.co/spaces/$HF_SPACE_NAME main -f
+        # Get environment variables
+        space_id = os.environ['HF_SPACE_NAME']
+        token = os.environ['HF_TOKEN']
+
+        # Create/update the space with correct SDK
+        create_repo(
+            space_id,
+            repo_type='space',
+            space_sdk='gradio',
+            token=token,
+            exist_ok=True
+        )
+
+        # Upload the content
+        api = HfApi()
+        api.upload_folder(
+            folder_path='space_content',
+            repo_id=space_id,
+            repo_type='space',
+            token=token
+        )
+        print(f"Successfully updated space: {space_id}")
+        EOF
 
     - name: Verify Space Update
       run: |
