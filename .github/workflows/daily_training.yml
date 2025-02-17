@@ -36,17 +36,26 @@ jobs:
 
     - name: Fetch new Wikipedia pages
       run: |
-        # Create array for titles
-        declare -a TITLES
+        # Create temporary file for titles
+        touch random_titles.txt
+        
+        # Get 50 random page titles and save each to a new line
         for i in {1..50}; do 
-          title=$(curl -s -L "https://en.wikipedia.org/wiki/Special:Random" | 
-                  grep -o "<title>.*</title>" | 
-                  sed 's/<title>\(.*\) - Wikipedia<\/title>/\1/')
-          TITLES+=("$title")
+          curl -s -L "https://en.wikipedia.org/wiki/Special:Random" | 
+          grep -o "<title>.*</title>" | 
+          sed 's/<title>\(.*\) - Wikipedia<\/title>/\1/' >> random_titles.txt
         done
-
-        # Feed titles to fetch_wikipedia.py as separate arguments
-        python scripts/fetch_wikipedia.py --titles "${TITLES[@]}"
+        
+        # Process each title individually to avoid argument parsing issues
+        while IFS= read -r title; do
+          if [ ! -z "$title" ]; then  # Only process non-empty lines
+            echo "Fetching: $title"
+            python scripts/fetch_wikipedia.py --titles "$title"
+          fi
+        done < random_titles.txt
+    
+        # Clean up
+        rm random_titles.txt
 
     - name: Train model
       run: |
