@@ -111,7 +111,7 @@ jobs:
         - Updated dependencies
         - Improved documentation"
         
-        git push https://oauth2:$HF_TOKEN@huggingface.co/spaces/$SPACE_NAME main -f
+        git push https://$HF_TOKEN@huggingface.co/spaces/$SPACE_NAME main -f
 
     - name: Verify Space Update
       run: |
