@@ -95,31 +95,7 @@ jobs:
 
     - name: Push to Hugging Face Space
       run: |
-        from huggingface_hub import HfApi, create_repo
-        import os
-
-        # Get environment variables
-        space_id = $HF_SPACE_NAME
-        token = $HF_TOKEN
-
-        # Create/update the space with correct SDK
-        create_repo(
-            $HF_SPACE_NAME,
-            repo_type='space',
-            space_sdk='gradio',
-            token=$HF_TOKEN,
-            exist_ok=True
-        )
-
-        # Upload the content
-        api = HfApi()
-        api.upload_folder(
-            folder_path='space_content',
-            repo_id=$HF_SPACE_NAME,
-            repo_type='space',
-            token=$HF_TOKEN
-        )
-        print(f"Successfully updated space: {space_id}")
+        python scripts/upload_to_huggingface.py
 
     - name: Verify Space Update
       run: |
