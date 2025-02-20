@@ -104,10 +104,10 @@ jobs:
 
         # Create/update the space with correct SDK
         create_repo(
-            space_id,
+            $HF_SPACE_NAME,
             repo_type='space',
             space_sdk='gradio',
-            token=token,
+            token=$HF_TOKEN,
             exist_ok=True
         )
 
@@ -115,9 +115,9 @@ jobs:
         api = HfApi()
         api.upload_folder(
             folder_path='space_content',
-            repo_id=space_id,
+            repo_id=$HF_SPACE_NAME,
             repo_type='space',
-            token=token
+            token=$HF_TOKEN
         )
         print(f"Successfully updated space: {space_id}")
 
