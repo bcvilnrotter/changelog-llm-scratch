@@ -324,7 +324,9 @@ class LLMTrainer:
                 
                 # Forward pass with metrics collection
                 logits = self.model(x=input_ids, attention_mask=attention_mask, store_metrics=True)
-                logits = torch.clamp(logits,min=-10,max=10)
+
+                # Normalize lgoits to prevent NaN issues with minimal impact
+                logits = logits - logits.max(dim=-1,keepdim=True).values
                 
                 # Calculate loss
                 loss = F.cross_entropy(
@@ -409,7 +411,10 @@ class LLMTrainer:
 
                 # Backward pass
                 batch_loss.backward()
-                torch.nn.utils.clip_grad_norm_(self.model.parameters(), 1.0)
+
+                # Adaptive gradient clipping (Prevents extreme updates while allowing learning)
+                torch.nn.utils.clip_grad_norm_(self.model.parameters(), max_norm=max(0.5,0.1 * batch_loss.item()))
+                
                 optimizer.step()
                 optimizer.zero_grad()
 
