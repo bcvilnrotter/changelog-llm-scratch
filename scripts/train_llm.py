@@ -324,6 +324,7 @@ class LLMTrainer:
                 
                 # Forward pass with metrics collection
                 logits = self.model(x=input_ids, attention_mask=attention_mask, store_metrics=True)
+                logits = torch.clamp(logits,min=-10,max=10)
                 
                 # Calculate loss
                 loss = F.cross_entropy(
@@ -337,7 +338,8 @@ class LLMTrainer:
                 token_loss = loss.view(input_ids.shape)
                 
                 # Calculate relative loss for each sequence in batch
-                sequence_loss = token_loss.sum(dim=1) / (attention_mask.sum(dim=1).float() + 1e-8)
+                #sequence_loss = token_loss.sum(dim=1) / (attention_mask.sum(dim=1).float() + 1e-8)
+                sequence_loss = token_loss.sum(dim=1) / torch.clamp(attention_mask.sum(dim=1).float(),min=1)
                 batch_loss = sequence_loss.mean()
                 
                 # Store metrics for each sequence
