@@ -37,7 +37,7 @@ jobs:
     - name: Fetch new Wikipedia pages
       run: |
         # Get 50 random page titles
-        TITLES=$(for i in {1..1000}; do 
+        TITLES=$(for i in {1..50}; do 
           curl -s -L "https://en.wikipedia.org/wiki/Special:Random" | 
           grep -o "<title>.*</title>" | 
           sed 's/<title>\(.*\) - Wikipedia<\/title>/\1/' || true
@@ -55,7 +55,7 @@ jobs:
           --num-layers 4 \
           --max-length 512 \
           --batch-size 4 \
-          --learning-rate 1e-2 \
+          --learning-rate 5e-6 \
           --min-pages 1
 
     - name: Clean up and push changes
