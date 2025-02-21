@@ -37,7 +37,7 @@ jobs:
     - name: Fetch new Wikipedia pages
       run: |
         # Get 1,000 random page titles
-        TITLES=$(for i in {1..50}; do 
+        TITLES=$(for i in {1..1000}; do 
           curl -s -L "https://en.wikipedia.org/wiki/Special:Random" | 
           grep -o "<title>.*</title>" | 
           sed 's/<title>\(.*\) - Wikipedia<\/title>/\1/' || true
