@@ -322,6 +322,12 @@ class LLMTrainer:
                                 "token_impact": []
                             }
                 
+                if torch.isnan(input_ids).any():
+                    print(f"⚠️ NaN detected in input_ids at Epoch {epoch}, Batch {batch_idx}!")
+                
+                if torch.isnan(attention_mask).any():
+                    print(f"⚠️ NaN detected in attention_mask at Epoch {epoch}, Batch {batch_idx}!")
+                
                 # Forward pass with metrics collection
                 logits = self.model(x=input_ids, attention_mask=attention_mask, store_metrics=True)
 
@@ -333,6 +339,13 @@ class LLMTrainer:
 
                 # Normalize lgoits to prevent NaN issues with minimal impact
                 logits = logits - logits.max(dim=-1,keepdim=True).values
+                logits = torch.clamp(logits, min=-10, max=10)  # Clip extreme values
+                
+                # Debug: Check for NaN in logits before computing loss
+                if torch.isnan(logits).any():
+                    print(f"⚠️ NaN detected in logits BEFORE loss at Epoch {epoch}, Batch {batch_idx}!")
+                    print(f"Max logit value: {torch.max(logits).item()}")
+                    print(f"Min logit value: {torch.min(logits).item()}")
                 
                 # Calculate loss
                 loss = F.cross_entropy(
