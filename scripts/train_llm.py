@@ -325,6 +325,12 @@ class LLMTrainer:
                 # Forward pass with metrics collection
                 logits = self.model(x=input_ids, attention_mask=attention_mask, store_metrics=True)
 
+                # debug: chekc if logits contain NaN
+                if torch.isnan(logits).any():
+                    print(f"⚠️ NaN detected in logits at Epoch {epoch}, Batch {batch_idx}!")
+                    print(f"Max logit value: {torch.max(logits).item()}")
+                    print(f"Min logit value: {torch.min(logits).item()}")
+
                 # Normalize lgoits to prevent NaN issues with minimal impact
                 logits = logits - logits.max(dim=-1,keepdim=True).values
                 
@@ -335,6 +341,10 @@ class LLMTrainer:
                     ignore_index=self.tokenizer._convert_token_to_id(self.tokenizer.pad_token),
                     reduction='none'
                 )
+
+                # debug: check if loss contains NaN
+                if torch.isnan(loss).any():
+                    print(f"⚠️ NaN detected in loss at Epoch {epoch}, Batch {batch_idx}!")
                 
                 # Reshape loss to match input shape for per-token metrics
                 token_loss = loss.view(input_ids.shape)
@@ -411,6 +421,11 @@ class LLMTrainer:
 
                 # Backward pass
                 batch_loss.backward()
+
+                # debug: check if gradients contain NaN
+                for name, param in self.model.named_parameters():
+                    if param.grad is not None and torch.isnan(param.grad).any():
+                        print(f"⚠️ NaN detected in gradients of {name} at Epoch {epoch}, Batch {batch_idx}!")
 
                 # Adaptive gradient clipping (Prevents extreme updates while allowing learning)
                 torch.nn.utils.clip_grad_norm_(self.model.parameters(), max_norm=max(0.5,0.1 * batch_loss.item()))
