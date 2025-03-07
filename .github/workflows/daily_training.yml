@@ -37,10 +37,9 @@ jobs:
     - name: Fetch new Wikipedia pages
       run: |
         # Get 50 random page titles
-        for i in {1..50}; do
-          curl -Ls "https://en.wikipedia.org/wiki/Special:Random" |
-          grep -oP '(?<=<title>).*?(?= - Wikipedia</title>)'
-        done | jq -R . | jq -s . > titles.json
+        TITLES_JSON=$(curl -s "https://en.wikipedia.org/w/api.php?action=query&generator=random&grnnamespace=0&format=json" | 
+          jq '.query.pages | map({id: .pageid, title: .title})')
+        echo "$TITLES_JSON" > titles.json
         
         # Feed titles to fetch_wikipedia.py
         python scripts/fetch_wikipedia.py --titles "$(cat titles.json)"
