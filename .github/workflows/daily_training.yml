@@ -36,8 +36,8 @@ jobs:
 
     - name: Fetch new Wikipedia pages
       run: |
-        # Get 50 random page titles
-        TITLES=$(curl -s "https://en.wikipedia.org/w/api.php?action=query&generator=random&grnlimit=50&grnnamespace=0&format=json" |
+        # Get 1000 random page titles
+        TITLES=$(curl -s "https://en.wikipedia.org/w/api.php?action=query&generator=random&grnlimit=1000&grnnamespace=0&format=json" |
           jq -c '[.query.pages[].title]')
 
         echo "$TITLES" > titles.json
