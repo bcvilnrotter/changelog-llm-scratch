@@ -37,13 +37,13 @@ jobs:
     - name: Fetch new Wikipedia pages
       run: |
         # Get 50 random page titles
-        TITLES=$(for i in {1..50}; do
+        for i in {1..50}; do
           curl -Ls "https://en.wikipedia.org/wiki/Special:Random" |
           grep -oP '(?<=<title>).*?(?= - Wikipedia</title>)'
-        done | jq -R . | jq -s .)
+        done | jq -R . | jq -s . > titles.json
         
         # Feed titles to fetch_wikipedia.py
-        python scripts/fetch_wikipedia.py --titles $TITLES
+        python scripts/fetch_wikipedia.py --titles "$(cat titles.json)"
         
     - name: Train model
       run: |
