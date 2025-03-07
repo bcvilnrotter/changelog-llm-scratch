@@ -386,7 +386,7 @@ def main():
             sys.exit(1)
 
         for title in titles:
-            fetcher.fetch_path(title)
+            fetcher.fetch_page(title)
     
     if args.category:
         fetcher.fetch_category(
