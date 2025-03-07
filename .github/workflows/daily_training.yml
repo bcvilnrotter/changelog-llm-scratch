@@ -38,10 +38,12 @@ jobs:
       run: |
         # Get 50 random page titles
         TITLES=$(curl -s "https://en.wikipedia.org/w/api.php?action=query&generator=random&grnlimit=50&grnnamespace=0&format=json" |
-          jq -r '.query.pages[].title' | tr '\n' ' ')
+          jq -c '[.query.pages[].title]')
+
+        echo "$TITLES" > titles.json
         
         # Feed titles to fetch_wikipedia.py
-        python scripts/fetch_wikipedia.py --titles $TITLES
+        python scripts/fetch_wikipedia.py --titles "$(cat titles.json)"
         
     - name: Train model
       run: |
