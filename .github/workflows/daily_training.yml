@@ -59,18 +59,24 @@ jobs:
 
     - name: Clean up and push changes
       run: |
+        # Ensure we're on the latest commit
+        git fetch origin main
+        git reset --soft origin/main
+    
         # Stage changelog and model files
         git add data/changelog.json
         git add models/
-        
+    
         # Create commit with training details
         git commit -m "Daily training: $(date +'%Y-%m-%d')
-        
-        - Trained on new pages (5 attempted from each category)
+    
+        - Trained on new pages
         - Updated changelog
         - Saved new model checkpoint"
-        
-        git push
+    
+        # Ensure we pull the latest changes before pushing
+        git pull --rebase origin main
+        git push origin main
 
     - name: Upload model artifacts
       uses: actions/upload-artifact@v4
