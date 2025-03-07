@@ -40,7 +40,7 @@ jobs:
         TITLES=$(for i in {1..50}; do
           curl -Ls "https://en.wikipedia.org/wiki/Special:Random" |
           grep -oP '(?<=<title>).*?(?= - Wikipedia</title>)'
-        done)
+        done | jq -R . | jq -s .)
         
         # Feed titles to fetch_wikipedia.py
         python scripts/fetch_wikipedia.py --titles $TITLES
