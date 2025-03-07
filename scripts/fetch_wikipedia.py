@@ -341,8 +341,8 @@ def main():
     )
     parser.add_argument(
         "--titles",
-        nargs="+",
-        help="Specific page titles to fetch"
+        help="JSON-encoded list of page titles",
+        type=str
     )
     parser.add_argument(
         "--category",
@@ -377,8 +377,16 @@ def main():
     fetcher = WikipediaFetcher(language=args.language, batch_size=args.batch_size)
     
     if args.titles:
-        for title in args.titles:
-            fetcher.fetch_page(title)
+        try:
+            titles = json.loads(args.titles)
+            if not isinstance(titles,list):
+                raise ValueError("Titles must be a JSON list")
+        except json.JSONDecodeError:
+            print("⚠️ Error: Failed to parse JSON input for titles.",file=sys.stderr)
+            sys.exit(1)
+
+        for title in titles:
+            fetcher.fetch_path(title)
     
     if args.category:
         fetcher.fetch_category(
