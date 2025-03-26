@@ -41,6 +41,7 @@ waitForPort = 5000
 [[workflows.workflow]]
 name = "migrate_workflow"
 author = "agent"
+mode = "sequential"
 
 [workflows.workflow.metadata]
 agentRequireRestartOnSave = false
