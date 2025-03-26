@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Changelog-LLM Database</title>
+    <link rel="stylesheet" href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Changelog-LLM Database</h1>
+        <p>This is a simple web interface for the Changelog-LLM SQLite database.</p>
+        
+        <div class="card mb-4">
+            <div class="card-header">SQLite Migration Demo</div>
+            <div class="card-body">
+                <p>This project has successfully migrated from a JSON-based changelog to a SQLite database.</p>
+                <p>The database is located at: <code>changelog.db</code></p>
+                
+                <hr>
+                
+                <h4>Database Structure</h4>
+                <div id="tables" class="mb-4">Loading tables...</div>
+                
+                <h4>Add Sample Data</h4>
+                <form id="sample-form" class="mb-4">
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Page Title</label>
+                        <input type="text" class="form-control" id="title" placeholder="Wikipedia Page Title">
+                    </div>
+                    <div class="mb-3">
+                        <label for="page-id" class="form-label">Page ID</label>
+                        <input type="text" class="form-control" id="page-id" placeholder="page123">
+                    </div>
+                    <div class="mb-3">
+                        <label for="revision-id" class="form-label">Revision ID</label>
+                        <input type="text" class="form-control" id="revision-id" placeholder="rev456">
+                    </div>
+                    <div class="mb-3">
+                        <label for="content" class="form-label">Content</label>
+                        <textarea class="form-control" id="content" rows="3" placeholder="Page content"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Sample Page</button>
+                </form>
+                
+                <h4>Pages</h4>
+                <div id="pages">Loading pages...</div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Fetch database tables
+        fetch('/api/tables')
+            .then(response => response.json())
+            .then(data => {
+                const tablesEl = document.getElementById('tables');
+                if (data.length === 0) {
+                    tablesEl.innerHTML = 'No tables found.';
+                    return;
+                }
+                
+                let html = '<ul class="list-group">';
+                data.forEach(table => {
+                    html += `<li class="list-group-item">${table}</li>`;
+                });
+                html += '</ul>';
+                tablesEl.innerHTML = html;
+            })
+            .catch(error => {
+                document.getElementById('tables').innerHTML = `Error: ${error.message}`;
+            });
+        
+        // Fetch pages
+        function loadPages() {
+            fetch('/api/pages')
+                .then(response => response.json())
+                .then(data => {
+                    const pagesEl = document.getElementById('pages');
+                    if (data.length === 0) {
+                        pagesEl.innerHTML = 'No pages found.';
+                        return;
+                    }
+                    
+                    let html = '<div class="list-group">';
+                    data.forEach(page => {
+                        html += `
+                            <div class="list-group-item">
+                                <h5>${page.title}</h5>
+                                <p>Page ID: ${page.page_id}</p>
+                                <p>Revision ID: ${page.revision_id}</p>
+                                <p>Date: ${page.timestamp}</p>
+                                <p>Content Hash: ${page.content_hash}</p>
+                            </div>
+                        `;
+                    });
+                    html += '</div>';
+                    pagesEl.innerHTML = html;
+                })
+                .catch(error => {
+                    document.getElementById('pages').innerHTML = `Error: ${error.message}`;
+                });
+        }
+        
+        loadPages();
+        
+        // Handle form submission
+        document.getElementById('sample-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const data = {
+                title: document.getElementById('title').value,
+                page_id: document.getElementById('page-id').value,
+                revision_id: document.getElementById('revision-id').value,
+                content: document.getElementById('content').value
+            };
+            
+            fetch('/api/add-page', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                alert(result.message);
+                loadPages();
+                // Clear the form
+                document.getElementById('sample-form').reset();
+            })
+            .catch(error => {
+                alert('Error: ' + error.message);
+            });
+        });
+    </script>
+</body>
+</html>
+            

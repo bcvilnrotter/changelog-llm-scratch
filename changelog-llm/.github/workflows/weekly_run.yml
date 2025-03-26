@@ -1,0 +1,103 @@
+name: Weekly Hugging Face Space Update
+
+on:
+  schedule:
+    # Run at midnight on Sunday (UTC)
+    - cron: '0 0 * * 0'
+  workflow_dispatch:  # Allow manual trigger
+
+env:
+  PYTHON_VERSION: '3.10'
+  HF_SPACE_NAME: ${{ secrets.HF_SPACE_NAME }}  # Set this in repository variables
+  HF_TOKEN: ${{secrets.HF_TOKEN}}
+
+jobs:
+  update-space:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Full history for changelog
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        cache: 'pip'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Login to Hugging Face Hub
+      run: |
+        pip install --upgrade huggingface_hub
+        huggingface-cli login --token $HF_TOKEN
+
+    - name: Prepare Space Content
+      run: |
+        # Create temporary directory structure
+        mkdir -p space_content/training
+        
+        # Create Python package structure
+        touch space_content/training/__init__.py
+        cp src/training/transformer.py space_content/training/
+        cp src/training/tokenizer.py space_content/training/
+        
+        # Copy app and model files
+        cp src/gradio_app.py space_content/app.py
+        cp requirements.txt space_content/requirements.txt
+        mkdir -p space_content/model
+        cp models/final/* space_content/model/
+        
+        # Create README with YAML metadata
+        cat > space_content/README.md << EOL
+        ---
+        title: Changelog LLM Chatbot
+        emoji: 🤖
+        colorFrom: blue
+        colorTo: red
+        sdk: gradio
+        sdk_version: 3.50.2
+        python_version: "3.10"
+        app_file: app.py
+        pinned: false
+        ---
+
+        # Changelog LLM Chatbot
+
+        This is a custom transformer model trained on Wikipedia data, focusing on basic concepts and common knowledge.
+
+        ## Model Details
+        - Custom transformer architecture
+        - Trained on curated Wikipedia articles
+        - Updated weekly with new training data
+
+        ## Usage
+        Simply type your message in the chat interface and press enter. The model will generate a response based on its training.
+
+        Example queries:
+        - Tell me about basic physics concepts
+        - Explain how simple machines work
+        - What are some common English words?
+
+        ## Updates
+        This Space is automatically updated every Sunday at midnight UTC with the latest model weights and improvements.
+
+        ## Technical Details
+        - Model is updated weekly from the latest training runs
+        - Uses a custom transformer architecture
+        - Trained on carefully curated Wikipedia articles
+        - Optimized for educational content and basic concepts
+        EOL
+
+    - name: Push to Hugging Face Space
+      run: |
+        python scripts/upload_to_huggingface.py
+
+    - name: Verify Space Update
+      run: |
+        echo "Space updated successfully at https://huggingface.co/spaces/${{ vars.HF_SPACE_NAME }}"
+        echo "Please allow a few minutes for the Space to rebuild and deploy the changes."
