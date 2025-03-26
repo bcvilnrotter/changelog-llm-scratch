@@ -125,9 +125,8 @@ def init_db():
     conn.commit()
     conn.close()
 
-# Initialize database if it doesn't exist
-if not os.path.exists(db_path):
-    init_db()
+# Always initialize the database to ensure tables exist
+init_db()
 
 @app.route('/')
 def index():
