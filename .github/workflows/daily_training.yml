@@ -16,7 +16,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
       with:
-        ref: github-actions-testing  # Specify the branch to checkout
+        ref: main  # Specify the branch to checkout
         fetch-depth: 0  # Full history for changelog
 
     - name: Set up Python
@@ -61,8 +61,8 @@ jobs:
     - name: Clean up and push changes
       run: |
         # Ensure we're on the latest commit
-        git checkout github-actions-testing
-        git pull origin github-actions-testing
+        git checkout main
+        git pull origin main
     
         # Stage changelog and model files
         git add data/changelog.db
@@ -76,7 +76,7 @@ jobs:
         - Saved new model checkpoint"
     
         # Push the changes
-        git push origin github-actions-testing
+        git push origin main
 
     - name: Upload model artifacts
       uses: actions/upload-artifact@v4
