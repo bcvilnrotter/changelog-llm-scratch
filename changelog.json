@@ -1,0 +1,56 @@
+{
+  "entries": [
+    {
+      "title": "Example Page",
+      "page_id": "123456",
+      "revision_id": "rev123",
+      "content_hash": "abcdef1234567890",
+      "action": "added",
+      "timestamp": "2023-01-01T12:00:00Z",
+      "is_revision": false,
+      "training_metadata": {
+        "used_in_training": true,
+        "model_checkpoint": "model123",
+        "average_loss": 0.234,
+        "relative_loss": 0.45,
+        "token_impact": {
+          "token1": 0.5,
+          "token2": 0.3
+        }
+      }
+    },
+    {
+      "title": "Another Page",
+      "page_id": "789012",
+      "revision_id": "rev456",
+      "content_hash": "xyz9876543210",
+      "action": "updated",
+      "timestamp": "2023-01-02T14:30:00Z",
+      "is_revision": false,
+      "training_metadata": {
+        "used_in_training": false
+      }
+    },
+    {
+      "title": "Revision Example",
+      "page_id": "revision789",
+      "revision_id": "revA123",
+      "content_hash": "revision1234abc",
+      "action": "added",
+      "timestamp": "2023-01-03T09:15:00Z",
+      "is_revision": true,
+      "parent_id": "123456",
+      "revision_number": 1,
+      "training_metadata": {
+        "used_in_training": true,
+        "model_checkpoint": "model456",
+        "average_loss": 0.189,
+        "relative_loss": 0.32,
+        "token_impact": {
+          "token3": 0.7,
+          "token4": 0.2
+        }
+      }
+    }
+  ]
+}
