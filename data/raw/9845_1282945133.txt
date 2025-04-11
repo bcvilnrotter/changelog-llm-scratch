@@ -1,0 +1,509 @@
+{{Short description|High-level programming language}}
+{{Distinguish|Java (programming language)|Javanese script|ECMAScript}}
+{{pp-semi-indef|small=yes}}
+{{Use dmy dates|date=March 2024}}
+{{Infobox programming language
+| name = JavaScript
+| logo = <!-- Do not add the unofficial logo, per [[Talk:JavaScript/Archive 5#Why is the unofficial logo present?]] -->
+| logo alt = 
+| screenshot = JavaScript code.png
+| screenshot caption = Screenshot of JavaScript source code
+| paradigm = [[Multi-paradigm]]: [[event-driven programming|event-driven]], [[functional programming|functional]], [[imperative programming|imperative]], [[procedural programming|procedural]], [[object-oriented programming|object-oriented]]
+| memory management = [[Garbage collection (computer science)|Garbage collection]]
+| designer = [[Brendan Eich]] of [[Netscape]] initially; others have also contributed to the [[ECMAScript]] standard
+| typing = [[Dynamic typing|Dynamic]], [[Weak typing|weak]], [[Duck typing|duck]]
+| implementations = [[V8 (JavaScript engine)|V8]], [[JavaScriptCore]], [[SpiderMonkey (JavaScript engine)|SpiderMonkey]], [[Chakra (JScript engine)|Chakra]]
+| influenced = [[ActionScript]], [[ArkTS]], [[AssemblyScript]], [[CoffeeScript]], [[Dart (programming language)|Dart]], [[Haxe]], [[JS++]], [[Opa (programming language)|Opa]], [[TypeScript]]
+| license = 
+| file extensions = {{flatlist|
+* <code>.js</code>
+* <code>.cjs</code>
+* <code>.mjs</code><ref name="node.js ECMAScript Modules Specification">{{cite web|url=https://github.com/nodejs/node-eps/blob/master/002-es-modules.md|title=nodejs/node-eps|website=GitHub|access-date=2018-07-05|archive-date=2020-08-29|archive-url=https://web.archive.org/web/20200829024713/https://github.com/nodejs/node-eps/blob/master/002-es-modules.md|url-status=live}}</ref>
+}}
+| file format = 
+| wikibooks = JavaScript
+| year = {{start date and age|1995|12|4|df=y}}<ref name="press_release">{{Cite press release |url=https://wp.netscape.com/newsref/pr/newsrelease67.html |archive-url=https://web.archive.org/web/20070916144913/https://wp.netscape.com/newsref/pr/newsrelease67.html |archive-date=2007-09-16 |title=Netscape and Sun announce JavaScript, the Open, Cross-platform Object Scripting Language for Enterprise Networks and the Internet |date=December 4, 1995}}</ref>
+| latest release version = {{wikidata|property|edit|reference|P548=Q2804309|P348}}
+| latest release date = {{start date and age|{{wikidata|qualifier|single|P548=Q2804309|P348|P577}}}}
+| latest preview version = {{wikidata|property|edit|reference|P548=Q51930650|P348}}
+| latest preview date = {{start date and age|{{wikidata|qualifier|single|P548=Q51930650|P348|P577}}}}
+| influenced by = [[Java (programming language)|Java]],<ref name="looklikejava">{{cite book|last=Seibel|first=Peter|title=Coders at Work: Reflections on the Craft of Programming|isbn=978-1-4302-1948-4|quote="Eich: The immediate concern at Netscape was it must look like Java."|url=https://books.google.com/books?id=nneBa6-mWfgC&q=The+immediate+concern+at+Netscape+was+it+must+look+like+Java.&pg=PA141|access-date=December 25, 2018|date=September 16, 2009|publisher=Apress |archive-date=December 24, 2020|archive-url=https://web.archive.org/web/20201224233514/https://books.google.com/books?id=nneBa6-mWfgC&q=The+immediate+concern+at+Netscape+was+it+must+look+like+Java.&pg=PA141|url-status=live}}</ref><ref name="origin" /> [[Scheme (programming language)|Scheme]],<ref name="origin" /> [[Self (programming language)|Self]],<ref>{{cite web|url=https://brendaneich.com/2008/04/popularity/|title = Popularity – Brendan Eich}}</ref> [[AWK]],<ref>{{cite web|title=Brendan Eich: An Introduction to JavaScript, JSConf 2010|website=[[YouTube]]|date=20 January 2013 |quote="Eich: "function", eight letters, I was influenced by AWK."|url=https://www.youtube.com/watch?v=1EyRscXrehw|access-date=November 25, 2019|page=22m|archive-date=August 29, 2020|archive-url=https://web.archive.org/web/20200829024704/https://www.youtube.com/watch?v=1EyRscXrehw|url-status=live}}</ref> [[HyperTalk]]<ref>{{cite book |last=Eich |first=Brendan |authorlink1=Brendan Eich |chapter=Foreword |editor1-last=Goodman |editor1-first=Danny |editor1-link=Danny Goodman |year=1998 |title=JavaScript Bible |edition=3rd |publisher=[[John Wiley & Sons]] |isbn=0-7645-3188-3 |lccn=97078208 |oclc=38888873 |ol=712205M |url-access=registration |url=https://archive.org/details/javascriptbible000good}}</ref>
+| website = {{URL|https://ecma-international.org/publications-and-standards/standards/ecma-262/}}
+}}
+
+'''JavaScript''' ({{IPAc-en|ˈ|dʒ|ɑː|v|ə|s|k|r|ɪ|p|t|audio=LL-Q1860 (eng)-Flame, not lame-JavaScript.wav}}), often abbreviated as '''JS''', is a [[programming language]] and core technology of the [[World Wide Web]], alongside [[HTML]] and [[CSS]]. <!--don't add dating or decimals: it'll remain 99% indefinitely-->Ninety-nine percent of [[website]]s use JavaScript on the [[Client (computing)|client]] side for [[Web page|webpage]] behavior.<ref name="deployedstats">{{cite web |title=Usage Statistics of JavaScript as Client-side Programming Language on Websites |url=https://w3techs.com/technologies/details/cp-javascript |access-date=2024-02-27 |website=W3Techs }}</ref>
+
+[[Web browser]]s have a dedicated [[JavaScript engine]] that executes the client [[Source code|code]]. These engines are also utilized in some [[Server (computing)|servers]] and a variety of [[Application software|apps]]. The most popular [[runtime system]] for non-browser usage is [[Node.js]].
+
+JavaScript is a [[High-level programming language|high-level]], often [[Just-in-time compilation|just-in-time compiled]] language that conforms to the [[ECMAScript]] standard.<ref name="tc39">{{cite web|title=ECMAScript 2020 Language Specification|url=https://tc39.es/ecma262/#sec-overview|url-status=live|archive-url=https://web.archive.org/web/20200508053013/https://tc39.es/ecma262/#sec-overview|archive-date=2020-05-08|access-date=2020-05-08}}</ref> It has [[dynamic typing]], [[Prototype-based programming|prototype-based]] [[object-oriented programming|object-orientation]], and [[first-class function]]s. It is [[Programming paradigm|multi-paradigm]], supporting [[Event-driven programming|event-driven]], [[functional programming|functional]], and [[imperative programming|imperative]] [[programming paradigm|programming styles]]. It has [[application programming interface]]s (APIs) for working with text, dates, [[regular expression]]s, standard [[data structure]]s, and the [[Document Object Model]] (DOM).
+
+The ECMAScript standard does not include any [[input/output]] (I/O), such as [[computer network|networking]], [[data storage|storage]], or [[computer graphics|graphics]] facilities. In practice, the web browser or other runtime system provides JavaScript APIs for I/O.
+
+Although [[Java (programming language)|Java]] and JavaScript are similar in name and [[Syntax (programming languages)|syntax]], the two languages are distinct and differ greatly in design.
+
+== History ==
+=== Creation at Netscape ===
+The first popular [[web browser]] with a [[graphical user interface]], [[Mosaic (web browser)|Mosaic]], was released in 1993. Accessible to non-technical people, it played a prominent role in the rapid growth of the early [[World Wide Web]].<ref>{{cite news |date=March 17, 2011 |title=Bloomberg Game Changers: Marc Andreessen |work=[[Bloomberg L.P.|Bloomberg]] |publisher=Bloomberg |url=https://www.bloomberg.com/video/67758394 |url-status=live |access-date=December 7, 2011 |archive-url=https://web.archive.org/web/20120516093712/https://www.bloomberg.com/video/67758394/ |archive-date=May 16, 2012}}</ref> The lead developers of Mosaic then founded the [[Netscape]] corporation, which released a more polished browser, [[Netscape Navigator]], in 1994. This quickly became the most-used.<ref>{{cite web|url=https://www.mwdwebsites.com/nj-web-design-web-browsers.html|title=The Evolution of the Web Browsers|last=Enzer|first=Larry|date=August 31, 2018|website=Monmouth Web Developers|access-date=August 31, 2018|archive-date=August 31, 2018|archive-url=https://web.archive.org/web/20180831174847/https://www.mwdwebsites.com/nj-web-design-web-browsers.html|url-status=dead}}</ref>
+
+During these formative years of the Web, [[web page]]s could only be static, lacking the capability for dynamic behavior after the page was loaded in the browser. There was a desire in the flourishing web development scene to remove this limitation, so in 1995, Netscape decided to add a [[programming language]] to Navigator. They pursued two routes to achieve this: collaborating with [[Sun Microsystems]] to embed the [[Java (programming language)|Java]] language, while also hiring [[Brendan Eich]] to embed the [[Scheme (programming language)|Scheme]] language.<ref name="origin">{{cite web|url=https://exploringjs.com/es5/ch04.html|title=Chapter 4. How JavaScript Was Created|website=speakingjs.com|access-date=2017-11-21|archive-date=2020-02-27|archive-url=https://web.archive.org/web/20200227184037/https://speakingjs.com/es5/ch04.html|url-status=live}}</ref>
+
+The goal was a "language for the masses",<ref name="EichVideo" /> "to help nonprogrammers create dynamic, interactive [[website|Web sites]]".<ref>"Netscape Communications Corp.", Browser enhancements. Encyclopædia Britannica 2006 Ultimate Reference Suite DVD</ref> Netscape management soon decided that the best option was for Eich to devise a new language, with syntax similar to Java and less like Scheme or other extant [[scripting language]]s.<ref name="looklikejava" /><ref name="origin" /> Although the new language and its [[Interpreter (computing)|interpreter]] implementation were called LiveScript when first shipped as part of a Navigator [[beta software|beta]] in September 1995, the name was changed to JavaScript for the official release in December.<ref name="origin" /><ref name="press_release" /><ref name="techvision">{{cite web | archive-url=https://web.archive.org/web/20080208124612/https://wp.netscape.com/comprod/columns/techvision/innovators_be.html | archive-date=February 8, 2008 | title=TechVision: Innovators of the Net: Brendan Eich and JavaScript | url=https://wp.netscape.com/comprod/columns/techvision/innovators_be.html }}</ref><ref name="wired2024">{{cite magazine |last1=Han |first1=Sheon |title=JavaScript Runs the World—Maybe Even Literally |url=https://www.wired.com/story/javascript-runs-the-world-maybe-literally/ |magazine=Wired |date=4 March 2024 |access-date=21 August 2024}}</ref>
+
+The choice of the JavaScript name has caused confusion, implying that it is directly related to Java. At the time, the [[Dot-com bubble|dot-com boom]] had begun and Java was a popular new language, so Eich considered the JavaScript name a marketing ploy by Netscape.<ref name="EichVideo">{{Citation|last=Fin JS|title=Brendan Eich&nbsp;– CEO of Brave|date=June 17, 2016|url=https://www.youtube.com/watch?v=XOmhtfTrRxc |website=YouTube |access-date=February 7, 2018 }}</ref>
+
+=== Adoption by Microsoft ===
+[[Microsoft]] debuted [[Internet Explorer]] in 1995, leading to a [[browser war]] with Netscape. On the JavaScript front, Microsoft created its own [[Interpreter (computing)|interpreter]] called [[JScript]].<ref name="sjsch5">{{cite web |title=Chapter 5. Standardization: ECMAScript |url=https://speakingjs.com/es5/ch05.html |website=speakingjs.com |access-date=1 November 2021 |archive-date=1 November 2021 |archive-url=https://web.archive.org/web/20211101184346/http://speakingjs.com/es5/ch05.html |url-status=dead }}</ref>
+
+Microsoft first released JScript in 1996, alongside initial support for [[CSS]] and extensions to [[HTML]]. Each of these [[implementation]]s was noticeably different from their counterparts in [[Netscape Navigator]].<ref name="O'Reilly-2001">{{cite web |url=https://archive.oreilly.com/pub/a/javascript/2001/04/06/js_history.html |title=JavaScript, How Did We Get Here? |last=Champeon |first=Steve |date=April 6, 2001 |website=oreilly.com |access-date=July 16, 2016 |archive-url=https://web.archive.org/web/20160719020828/https://archive.oreilly.com/pub/a/javascript/2001/04/06/js_history.html |archive-date=July 19, 2016 |url-status=dead}}</ref><ref>{{cite web |url=https://news.microsoft.com/1996/05/29/microsoft-internet-explorer-3-0-beta-now-available/ |title=Microsoft Internet Explorer 3.0 Beta Now Available |publisher=Microsoft |date=May 29, 1996 |website=microsoft.com |access-date=July 16, 2016 |archive-date=November 24, 2020 |archive-url=https://web.archive.org/web/20201124154053/https://news.microsoft.com/1996/05/29/microsoft-internet-explorer-3-0-beta-now-available/ |url-status=live }}</ref> These differences made it difficult for developers to make their websites work well in both browsers, leading to widespread use of "best viewed in Netscape" and "best viewed in Internet Explorer" logos for several years.<ref name="O'Reilly-2001" /><ref>{{cite web |url=https://www.technologizer.com/2010/09/16/the-unwelcome-return-of-best-viewed-with-internet-explorer/ |title=The Unwelcome Return of "Best Viewed with Internet Explorer" |last=McCracken |first=Harry |date=September 16, 2010 |website=technologizer.com |access-date=July 16, 2016 |archive-date=June 23, 2018 |archive-url=https://web.archive.org/web/20180623192402/https://www.technologizer.com/2010/09/16/the-unwelcome-return-of-best-viewed-with-internet-explorer/ |url-status=live }}</ref>
+
+=== The rise of JScript ===
+{{Quote box|[[Brendan Eich]] later said of this period: "It's still kind of a [[sidekick]] language. It's considered slow or annoying. People do [[Pop-up ad|pop-ups]] or those scrolling messages in the old [[status bar]] at the bottom of your old [[web browser|browser]]."<ref name="EichVideo" />|width=30%}}
+
+In November 1996, [[Netscape]] submitted JavaScript to [[Ecma International]], as the starting point for a standard specification that all browser vendors could conform to. This led to the official release of the first [[ECMAScript]] language specification in June 1997.
+
+The standards process continued for a few years, with the release of ECMAScript 2 in June 1998 and ECMAScript 3 in December 1999. Work on ECMAScript 4 began in 2000.<ref name="sjsch5" />
+
+However, the effort to fully standardize the language was undermined by Microsoft gaining an increasingly dominant position in the browser market. By the early 2000s, [[Internet Explorer]]'s market share reached 95%.<ref name="searchenginejournal.com">{{cite news | url=https://www.searchenginejournal.com/mozilla-firefox-internet-browser-market-share-gains-to-74/1082/ | title=Mozilla Firefox Internet Browser Market Share Gains to 7.4% | first=Loren | last=Baker | work=Search Engine Journal | date=November 24, 2004 | access-date=May 8, 2021 | archive-date=May 7, 2021 | archive-url=https://web.archive.org/web/20210507013607/https://www.searchenginejournal.com/mozilla-firefox-internet-browser-market-share-gains-to-74/1082/ | url-status=live }}</ref> This meant that [[JScript]] became the de facto standard for [[client-side scripting]] on the Web.
+
+Microsoft initially participated in the standards process and implemented some proposals in its JScript language, but eventually it stopped collaborating on ECMA work. Thus ECMAScript 4 was mothballed.
+
+=== Growth and standardization ===
+During the period of [[Internet Explorer]] dominance in the early 2000s, client-side scripting was stagnant. This started to change in 2004, when the successor of Netscape, [[Mozilla]], released the [[Firefox]] browser. Firefox was well received by many, taking significant market share from Internet Explorer.<ref>{{cite news |url=https://news.bbc.co.uk/2/hi/business/4508897.stm |title=The assault on software giant Microsoft |last=Weber |first=Tim |date=May 9, 2005 |work=[[BBC News]] |archive-url=https://web.archive.org/web/20170925233936/https://news.bbc.co.uk/2/hi/business/4508897.stm |archive-date=September 25, 2017}}</ref>
+
+In 2005, Mozilla joined ECMA International, and work started on the [[ECMAScript for XML]] (E4X) standard. This led to Mozilla working jointly with [[Macromedia]] (later acquired by [[Adobe Systems]]), who were implementing E4X in their ActionScript 3 language, which was based on an ECMAScript 4 draft. The goal became standardizing ActionScript 3 as the new ECMAScript 4. To this end, Adobe Systems released the [[Tamarin (software)|Tamarin]] implementation as an [[Open-source model|open source]] project. However, Tamarin and ActionScript 3 were too different from established client-side scripting, and without cooperation from Microsoft, ECMAScript 4 never reached fruition.
+
+Meanwhile, very important developments were occurring in open-source communities not affiliated with ECMA work. In 2005, [[Jesse James Garrett]] released a white paper in which he coined the term [[Ajax (programming)|Ajax]] and described a set of technologies, of which JavaScript was the backbone, to create [[web application]]s where data can be loaded in the background, avoiding the need for full page reloads. This sparked a renaissance period of JavaScript, spearheaded by open-source libraries and the communities that formed around them. Many new libraries were created, including [[jQuery]], [[Prototype JavaScript Framework|Prototype]], [[Dojo Toolkit]], and [[MooTools]].
+
+[[Google]] debuted its [[Google Chrome|Chrome]] browser in 2008, with the [[V8 (JavaScript engine)|V8]] JavaScript engine that was faster than its competition.<ref>{{cite web|url=https://www.pcgameshardware.com/aid,687738/Big-browser-comparison-test-Internet-Explorer-vs-Firefox-Opera-Safari-and-Chrome-Update-Firefox-35-Final/Practice/|title=Big browser comparison test: Internet Explorer vs. Firefox, Opera, Safari and Chrome|work=PC Games Hardware|date=3 July 2009|publisher=Computec Media AG|access-date=June 28, 2010|archive-date=May 2, 2012|archive-url=https://web.archive.org/web/20120502043027/http://www.pcgameshardware.com/aid,687738/Big-browser-comparison-test-Internet-Explorer-vs-Firefox-Opera-Safari-and-Chrome-Update-Firefox-35-Final/Practice/|url-status=live}}</ref><ref>{{cite web | url=https://lifehacker.com/lifehacker-speed-tests-safari-4-chrome-2-and-more-5286869 | title=Lifehacker Speed Tests: Safari 4, Chrome 2 | first=Kevin | last=Purdy | work=[[Lifehacker]] | date=June 11, 2009 | access-date=May 8, 2021 | archive-date=April 14, 2021 | archive-url=https://web.archive.org/web/20210414095403/https://lifehacker.com/lifehacker-speed-tests-safari-4-chrome-2-and-more-5286869 | url-status=live }}</ref> The key innovation was [[just-in-time compilation]] (JIT),<ref>{{cite web|url=https://brendaneich.com/2008/08/tracemonkey-javascript-lightspeed/|title=TraceMonkey: JavaScript Lightspeed, Brendan Eich's Blog|access-date=July 22, 2020|archive-date=December 4, 2015|archive-url=https://web.archive.org/web/20151204091540/https://brendaneich.com/2008/08/tracemonkey-javascript-lightspeed/|url-status=live}}</ref> so other browser vendors needed to overhaul their engines for JIT.<ref>{{cite magazine |title=Mozilla asks, 'Are we fast yet?' |url=https://www.wired.com/2010/09/mozilla-asks-are-we-fast-yet/ |magazine=Wired |access-date=January 18, 2019 |archive-date=June 22, 2018 |archive-url=https://web.archive.org/web/20180622213244/https://www.wired.com/2010/09/mozilla-asks-are-we-fast-yet/ |url-status=live }}</ref>
+
+In July 2008, these disparate parties came together for a conference in [[Oslo]]. This led to the eventual agreement in early 2009 to combine all relevant work and drive the language forward. The result was the ECMAScript 5 standard, released in December 2009.
+
+=== Reaching maturity ===
+Ambitious work on the language continued for several years, culminating in an extensive collection of additions and refinements being formalized with the publication of [[ECMAScript 6]] in 2015.<ref>{{cite web |url=https://es6-features.org/ |title=ECMAScript 6: New Features: Overview and Comparison |website=es6-features.org |access-date=March 19, 2018 |archive-date=March 18, 2018 |archive-url=https://web.archive.org/web/20180318064130/https://es6-features.org/ |url-status=usurped }}</ref>
+
+The creation of [[Node.js]] in 2009 by [[Ryan Dahl]] sparked a significant increase in the usage of JavaScript outside of web browsers. Node combines the [[V8 (JavaScript engine)|V8]] engine, an [[event loop]], and [[Input/output|I/O]] [[Application programming interface|APIs]], thereby providing a stand-alone JavaScript runtime system.<ref>[https://books.google.com/books?id=ZH6bpbcrlvYC&q=nodejs Professional Node.js: Building JavaScript Based Scalable Software] {{Webarchive|url=https://web.archive.org/web/20170324021220/https://books.google.com/books?id=ZH6bpbcrlvYC&printsec=frontcover&dq=nodejs&hl=en&sa=X#v=onepage&q=nodejs&f=false |date=2017-03-24 }}, John Wiley & Sons, 01-Oct-2012</ref><ref name="b3">[https://books.google.com/books?id=KGt-FxUEj48C&dq=nodejs&pg=PT24 Sams Teach Yourself Node.js in 24 Hours] {{Webarchive|url=https://web.archive.org/web/20170323192039/https://books.google.com/books?id=KGt-FxUEj48C&pg=PT24&dq=nodejs&hl=en&sa=X#v=onepage&q=nodejs&f=false |date=2017-03-23 }}, Sams Publishing, 05-Sep-2012</ref> As of 2018, Node had been used by millions of developers,<ref>{{cite web |last1=Lawton |first1=George |title=The secret history behind the success of npm and Node |url=https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/The-secret-history-behind-the-success-of-npm-and-Node |website=TheServerSide |access-date=2 August 2021 |date=19 July 2018 |archive-date=2 August 2021 |archive-url=https://web.archive.org/web/20210802165613/https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/The-secret-history-behind-the-success-of-npm-and-Node |url-status=live }}</ref> and [[npm (software)|npm]] had the most modules of any [[package manager]] in the world.<ref>{{cite web |last1=Brown |first1=Paul |title=State of the Union: npm |url=https://www.linux.com/news/state-union-npm/ |website=Linux.com |access-date=2 August 2021 |date=13 January 2017 |archive-date=2 August 2021 |archive-url=https://web.archive.org/web/20210802165614/https://www.linux.com/news/state-union-npm/ |url-status=live }}</ref>
+
+The ECMAScript draft specification is currently maintained openly on [[GitHub]],<ref name=branscombe /> and editions are produced via regular annual snapshots.<ref name=branscombe>{{cite web |url=https://thenewstack.io/whats-new-es2016/ |title=JavaScript Standard Moves to Yearly Release Schedule; Here is What's New for ES16 |last=Branscombe |first=Mary |date=2016-05-04 |access-date=2021-01-15 |work=The New Stack |archive-date=2021-01-16 |archive-url=https://web.archive.org/web/20210116181757/https://thenewstack.io/whats-new-es2016/ |url-status=live }}</ref> Potential revisions to the language are vetted through a comprehensive proposal process.<ref>{{cite web|url=https://tc39.es/process-document/|title=The TC39 Process|publisher=Ecma International|work=tc39.es|access-date=2021-01-15|archive-date=2021-02-07|archive-url=https://web.archive.org/web/20210207105535/https://tc39.es/process-document/|url-status=live}}</ref><ref>{{cite web |url=https://github.com/tc39/proposals/blob/master/README.md |title=ECMAScript proposals |access-date=2021-01-15 |publisher=TC39 |archive-date=2020-12-04 |archive-url=https://web.archive.org/web/20201204221147/https://github.com/tc39/proposals/blob/master/README.md |url-status=live }}</ref> Now, instead of edition numbers, developers check the status of upcoming features individually.<ref name=branscombe />
+
+The current JavaScript ecosystem has many [[List of JavaScript libraries|libraries]] and [[web framework|frameworks]], established programming practices, and substantial usage of JavaScript outside of web browsers.<ref name="wired2024" /> Plus, with the rise of [[single-page application]]s and other JavaScript-heavy websites, several [[source-to-source compiler|transpilers]] have been created to aid the development process.<ref name="transpilers" />
+
+== Trademark ==
+"JavaScript" is a [[trademark]] of [[Oracle Corporation]] in the United States.<ref>{{cite web |date=1997-05-06 |title=U.S. Trademark Serial No. 75026640 |url=https://tsdr.uspto.gov/#caseNumber=75026640&caseType=SERIAL_NO&searchType=statusSearch |url-status=live |archive-url=https://web.archive.org/web/20210713022850/https://tsdr.uspto.gov/#caseNumber=75026640&caseType=SERIAL_NO&searchType=statusSearch |archive-date=2021-07-13 |access-date=2021-05-08 |website=uspto.gov |publisher=[[United States Patent and Trademark Office]]}}</ref><ref>{{cite web |title=Legal Notices |url=https://www.oracle.com/legal/trademarks.html |url-status=live |archive-url=https://web.archive.org/web/20210605142505/https://www.oracle.com/legal/trademarks.html |archive-date=2021-06-05 |access-date=2021-05-08 |website=oracle.com |publisher=[[Oracle Corporation]]}}</ref> The trademark was originally issued to [[Sun Microsystems]] on 6 May 1997, and was transferred to Oracle when they acquired Sun in 2009.<ref>{{Cite news |title=Oracle to buy Sun in $7.4-bn deal | newspaper=The Economic Times |url=https://economictimes.indiatimes.com/tech/software/oracle-to-buy-sun-in-7-4-bn-deal/articleshow/4427747.cms | date = 21 April 2009}}</ref><ref>{{Cite news |title=Oracle urged again to give up JavaScript trademark |work=The Register |url=https://www.theregister.com/2024/09/17/oracle_urged_to_surrender_javascript_trademark/ |date=17 September 2024 |last1=Claburn |first1=Thomas |access-date=2 February 2025}}</ref>
+
+A letter was circulated in September 2024, spearheaded by [[Ryan Dahl]], calling on Oracle to free the JavaScript trademark.<ref>{{Cite news|last=Krill|first=Paul|date=September 20, 2024|title=JavaScript community challenges Oracle’s JavaScript trademark|url=https://www.infoworld.com/article/3532457/javascript-community-challenges-oracles-javascript-trademark.html|work=InfoWorld}}</ref> [[Brendan Eich]], the original creator of JavaScript, was among the over 14,000 signatories who supported the initiative.
+
+== Website client-side usage ==
+JavaScript is the dominant [[client-side]] [[scripting language]] of the Web, with 99% of all [[website]]s using it for this purpose.<ref name="deployedstats" /> Scripts are embedded in or included from [[HTML]] documents and interact with the [[Document Object Model|DOM]].
+
+All major [[web browser]]s have a built-in [[JavaScript engine]] that executes the [[Source code|code]] on the user's device.
+
+=== Examples of scripted behavior ===
+* Loading new [[web page]] content without reloading the page, via [[Ajax (programming)|Ajax]] or a [[WebSocket]]. For example, [[user (computing)|users]] of [[social media]] can send and receive messages without leaving the current page.
+* Web page animations, such as fading objects in and out, resizing, and moving them.
+* Playing [[browser game]]s.
+* Controlling the [[Media player software|playback]] of [[streaming media]].
+* Generating [[pop-up ad]]s or alert boxes.
+* [[Data validation|Validating]] input values of a [[Form (HTML)|web form]] before the data is sent to a [[web server]].
+* Logging data about the user's behavior then sending it to a server. The website owner can use this data for [[Web analytics|analytics]], [[ad tracking]], and [[personalization]].
+*Redirecting a user to another page.
+* Storing and retrieving data on the user's device, via the [[web storage|storage]] or [[Indexed Database API|IndexedDB]] standards.
+
+=== Libraries and frameworks ===
+Over 80% of websites use a third-party JavaScript [[Library (computing)|library]] or [[web framework]] as part of their client-side scripting.<ref name="lib_usage">{{cite web|url=https://w3techs.com/technologies/overview/javascript_library|title=Usage statistics of JavaScript libraries for websites|website=W3Techs|access-date=2021-04-09}}</ref>
+
+[[jQuery]] is by far the most-used.<ref name="lib_usage" /> Other notable ones include <!--alphabetically is fair here-->[[Angular (web framework)|Angular]], [[Bootstrap (front-end framework)|Bootstrap]], [[Lodash]], [[Modernizr]], [[React (software)|React]], [[Underscore.js|Underscore]], and [[Vue.js|Vue]].<ref name="lib_usage" /> Multiple options can be used in conjunction, such as jQuery and Bootstrap.<ref>{{cite web |title=Using jQuery with Bootstrap |url=https://clouddevs.com/jquery/web-projects-with-bootstrap/ |website=clouddevs.com |date=10 June 2019 |access-date=17 March 2024}}</ref>
+
+However, the term "Vanilla JS" was coined for websites not using any libraries or frameworks at all, instead relying entirely on standard JavaScript functionality.<ref>{{cite web |date=2020-06-16 |title=Vanilla JS |url=https://vanilla-js.com/ |url-status=live |archive-url=https://web.archive.org/web/20200616052335/https://vanilla-js.com/ |archive-date=June 16, 2020 |access-date=June 17, 2020 |website=vanilla-js.com}}</ref>
+
+== Other usage{{anchor|Server-side_JavaScript|Uses_outside_web_pages}} ==
+The use of JavaScript has expanded beyond its [[web browser]] roots. [[JavaScript engine]]s are now embedded<!--don't link Embedded system here--> in a variety of other software systems, both for [[server-side]] website deployments and non-browser [[application software|applications]].
+
+Initial attempts at promoting server-side JavaScript usage were [[Netscape Enterprise Server]] and [[Microsoft]]'s [[Internet Information Services]],<ref>{{cite web |date=December 11, 1998 |title=Server-Side JavaScript Guide |url=https://docs.oracle.com/cd/E19957-01/816-6411-10/contents.htm |url-status=live |archive-url=https://web.archive.org/web/20210311173120/https://docs.oracle.com/cd/E19957-01/816-6411-10/contents.htm |archive-date=March 11, 2021 |access-date=May 8, 2021 |website=oracle.com |publisher=[[Oracle Corporation]]}}</ref><ref>{{cite web|last1=Clinick|first1=Andrew|title=Introducing JScript .NET|url=https://msdn.microsoft.com/en-us/library/ms974588.aspx|website=Microsoft Developer Network|publisher=Microsoft|access-date=April 10, 2018|date=July 14, 2000|quote=[S]ince the 1996 introduction of JScript version 1.0 ... we've been seeing a steady increase in the usage of JScript on the server—particularly in Active Server Pages (ASP)|archive-date=November 10, 2017|archive-url=https://web.archive.org/web/20171110201649/https://msdn.microsoft.com/en-us/library/ms974588.aspx|url-status=live}}</ref> but they were small niches.<ref name="2009server" /> Server-side usage eventually started to grow in the late 2000s, with the creation of [[Node.js]] and [[List of server-side JavaScript implementations|other approaches]].<ref name="2009server">{{cite web |url=https://readwrite.com/2009/12/17/server-side_javascript_back_with_a_vengeance/ |title=Server-Side JavaScript, Back with a Vengeance |date=December 17, 2009 |website=readwrite.com |access-date=July 16, 2016 |author=Mahemoff, Michael |archive-date=June 17, 2016 |archive-url=https://web.archive.org/web/20160617030219/https://readwrite.com/2009/12/17/server-side_javascript_back_with_a_vengeance/ |url-status=live }}</ref>
+
+[[Electron (software framework)|Electron]], [[Apache Cordova|Cordova]], [[React Native]], and other [[application framework]]s have been used to create many applications with behavior implemented in JavaScript. Other non-browser applications include [[Adobe Acrobat]] support for scripting [[PDF]] documents<ref>{{cite web |date=2009-08-07 |title=JavaScript for Acrobat |url=https://www.adobe.com/devnet/acrobat/javascript.html |url-status=live |archive-url=https://web.archive.org/web/20090807065130/https://www.adobe.com/devnet/acrobat/javascript.html |archive-date=August 7, 2009 |access-date=August 18, 2009 |website=adobe.com}}</ref> and [[GNOME Shell]] extensions written in JavaScript.<ref>{{cite web |last=treitter |date=2013-02-02 |title=Answering the question: "How do I develop an app for GNOME?" |url=https://treitter.livejournal.com/14871.html |url-status=live |archive-url=https://web.archive.org/web/20130211032900/https://treitter.livejournal.com/14871.html |archive-date=2013-02-11 |access-date=2013-02-07 |website=livejournal.com}}</ref>
+
+[[Oracle Corporation|Oracle]] used to provide [[Nashorn (JavaScript engine)| Nashorn]], a JavaScript interpreter, as part of their [[JDK|Java Development Kit (JDK)]] API library along with '''jjs''' a command line interpreter as of JDK version 8.  It was removed in JDK 15. As a replacement Oracle offered GraalJS which can also be used with the [[OpenJDK]]  which allows one to create and reference Java objects in JavaScript code and add runtime scripting in JavaScript to applications written in Java.<ref> {{cite web |last=Ponge |first=Julien |date=2018-04-19 |title=Oracle Nashorn: A Next-Generation JavaScript Engine for the JVM |website=oracle.com |url=https://www.oracle.com/technical-resources/articles/java/jf14-nashorn.html |publisher=Oracle Corporation |access-date=Feb 17, 2025}} </ref><ref>{{cite web |author=<!-- not stated --> |title=Migration Guide from Nashorn to GraalJS |url=https://www.graalvm.org/latest/reference-manual/js/NashornMigrationGuide/ |website=graalvm.org | access-date=Feb 17, 2025}} </ref><ref>{{cite web |author=<!-- not stated --> |title=GraalJS |url=https://www.graalvm.org/latest/reference-manual/js/ |website=|publisher=GraalVM |access-date=Feb 17, 2025}}</ref><ref>{{cite web |author=<!-- not stated --> |title=Java Interoperability | url=https://docs.oracle.com/en/graalvm/enterprise/21/docs/reference-manual/js/JavaInteroperability/|website=oracle.com|publisher=Oracle |access-date=Feb 17, 2025}}</ref> 
+
+JavaScript has been used in some [[embedded system]]s, usually by leveraging Node.js.<ref>{{cite web |title=Tessel 2... Leverage all the libraries of Node.JS to create useful devices in minutes with Tessel. |url=https://tessel.io/ |url-status=live |archive-url=https://web.archive.org/web/20210526212559/https://tessel.io/ |archive-date=2021-05-26 |access-date=2021-05-08 |website=tessel.io}}</ref><ref>{{cite web |title=Node.js Raspberry Pi GPIO Introduction |url=https://www.w3schools.com/nodejs/nodejs_raspberrypi_gpio_intro.asp |url-status=live |archive-url=https://web.archive.org/web/20210813192938/https://www.w3schools.com/nodejs/nodejs_raspberrypi_gpio_intro.asp |archive-date=2021-08-13 |access-date=2020-05-03 |website=w3schools.com}}</ref><ref>{{cite web |title=Espruino&nbsp;– JavaScript for Microcontrollers |url=https://www.espruino.com/ |url-status=live |archive-url=https://web.archive.org/web/20200501010722/https://www.espruino.com/ |archive-date=2020-05-01 |access-date=2020-05-03 |website=espruino.com}}</ref>
+
+== Execution ==
+=== JavaScript engine ===
+{{Excerpt|JavaScript engine}}
+
+=== Runtime system ===
+A JavaScript engine must be embedded within a [[runtime system]] (such as a [[web browser]] or a standalone system) to enable scripts to interact with the broader environment. The runtime system includes the necessary APIs for [[input/output]] operations, such as [[computer network|networking]], [[data storage|storage]], and [[computer graphics|graphics]], and provides the ability to import scripts.
+
+JavaScript is a single-[[Thread (computing)|threaded]] language. The runtime processes [[Message (computer science)|messages]] from a [[Queue (abstract data type)|queue]] one at a time, and it calls a [[Subroutine|function]] associated with each new message, creating a [[call stack]] frame with the function's [[Parameter (computer programming)|arguments]] and [[local variable]]s. The call stack shrinks and grows based on the function's needs. When the call stack is empty upon function completion, JavaScript proceeds to the next message in the queue. This is called the [[event loop]], described as "run to completion" because each message is fully processed before the next message is considered. However, the language's [[Concurrency (computer science)|concurrency model]] describes the event loop as [[Asynchronous I/O|non-blocking]]: program I/O is performed using [[Event (computing)|events]] and [[Callback (computer programming)|callback functions]]. This means, for example, that JavaScript can process a mouse click while waiting for a database query to return information.<ref>{{cite web|url=https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop|title=Concurrency model and Event Loop|website=Mozilla Developer Network|access-date=August 28, 2015|archive-date=September 5, 2015|archive-url=https://web.archive.org/web/20150905045241/https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop|url-status=live}}</ref>
+
+The notable standalone runtimes are [[Node.js]], [[Deno (software)|Deno]], and [[Bun (software)|Bun]].
+
+== Features ==
+The following features are common to all conforming ECMAScript implementations unless explicitly specified otherwise.
+
+=== Imperative and structured ===
+{{Main|Structured programming}}
+
+JavaScript supports much of the [[structured programming]] syntax from [[C (computer language)|C]] (e.g., <code>if</code> statements, <code>while</code> loops, <code>switch</code> statements, <code>do while</code> loops, etc.). One partial exception is [[scope (computer science)|scoping]]: originally JavaScript only had [[function scoping]] with <code>var</code>; [[block scoping]] was added in ECMAScript 2015 with the keywords <code>let</code> and <code>[[const (computer programming)|const]]</code>. Like C, JavaScript makes a distinction between [[Expression (computer science)|expressions]] and [[Statement (computer science)|statements]]. One syntactic difference from C is [[Defensive semicolon|automatic semicolon insertion]], which allow semicolons (which terminate statements) to be omitted.<ref name="Flanagan2006">{{cite book|last=Flanagan|first=David|title=JavaScript: The Definitive Guide |url=https://books.google.com/books?id=2weL0iAfrEMC|date=August 17, 2006|publisher=[[O'Reilly Media, Inc.]]|isbn=978-0-596-55447-7|page=16|access-date=March 29, 2019|archive-date=August 1, 2020|archive-url=https://web.archive.org/web/20200801065235/https://books.google.com/books?id=2weL0iAfrEMC|url-status=live}}</ref>
+
+=== Weakly typed ===
+{{Main|Weakly typed}}
+
+JavaScript is [[Strong and weak typing|weakly typed]], which means certain types are implicitly cast depending on the operation used.<ref name="casting_rules">{{cite web |last=Korolev |first=Mikhail |date=2019-03-01 |title=JavaScript quirks in one image from the Internet |url=https://dev.to/mkrl/javascript-quirks-in-one-image-from-the-internet-52m7 |url-status=live |archive-url=https://web.archive.org/web/20191028204723/https://dev.to/mkrl/javascript-quirks-in-one-image-from-the-internet-52m7 |archive-date=October 28, 2019 |access-date=October 28, 2019 |website=The DEV Community |language=en}}</ref>
+
+* The binary <code>+</code> operator casts both operands to a string unless both operands are numbers. This is because the addition operator doubles as a concatenation operator
+* The binary <code>-</code> operator always casts both operands to a number
+* Both unary operators (<code>+</code>, <code>-</code>) always cast the operand to a number. However, <code>+</code> always casts to <code>Number</code> ([[Double-precision floating-point format|binary64]]) while <code>-</code> preserves <code>BigInt</code> ([[Arbitrary-precision arithmetic|integer]])<ref>{{cite web | url=https://github.com/tc39/proposal-bigint/blob/master/ADVANCED.md#dont-break-asmjs | title=Proposal-bigint/ADVANCED.md at master · tc39/Proposal-bigint | website=[[GitHub]] }}</ref>
+
+Values are cast to strings like the following:<ref name="casting_rules" />
+
+* Strings are left as-is
+* Numbers are converted to their string representation
+* Arrays have their elements cast to strings after which they are joined by commas (<code>,</code>)
+* Other objects are converted to the string <code>[object Object]</code> where <code>Object</code> is the name of the constructor of the object
+
+Values are cast to numbers by casting to strings and then casting the strings to numbers. These processes can be modified by defining <code>toString</code> and <code>valueOf</code> functions on the [[#Object-orientation (prototype-based)|prototype]] for string and number casting respectively.
+
+JavaScript has received criticism for the way it implements these conversions as the complexity of the rules can be mistaken for inconsistency.<ref>{{cite web |date=2012 |title=Wat |url=https://www.destroyallsoftware.com/talks/wat |url-status=live |archive-url=https://web.archive.org/web/20191028204723/https://www.destroyallsoftware.com/talks/wat |archive-date=October 28, 2019 |access-date=October 28, 2019 |website=Destroy All Software |first1=Gary |last1=Bernhardt  }}</ref><ref name="casting_rules" /> For example, when adding a number to a string, the number will be cast to a string before performing concatenation, but when subtracting a number from a string, the string is cast to a number before performing subtraction.
+
+{| class="wikitable"
+|+JavaScript type conversions
+!left operand
+!operator
+!right operand
+!result
+|-
+|<code>[]</code> (empty array)
+|<code>+</code>
+|<code>[]</code> (empty array)
+|<code>""</code> (empty string)
+|-
+|<code>[]</code> (empty array)
+|<code>+</code>
+|<code>{}</code> (empty object)
+|<code>"[object Object]"</code> (string)
+|-
+|<code>false</code> (boolean)
+|<code>+</code>
+|<code>[]</code> (empty array)
+|<code>"false"</code> (string)
+|-
+|<code>"123"</code>(string)
+|<code>+</code>
+|<code>1</code> (number)
+|<code>"1231"</code> (string)
+|-
+|<code>"123"</code> (string)
+|<code>-</code>
+|<code>1</code> (number)
+|<code>122</code> (number)
+|-
+|<code>"123"</code> (string)
+|<code>-</code>
+|<code>"abc"</code> (string)
+|<code>[[NaN]]</code> (number)
+|}
+
+Often also mentioned is <code>{} + []</code> resulting in <code>0</code> (number). This is misleading: the <code>{}</code> is interpreted as an empty code block instead of an empty object, and the empty array is cast to a number by the remaining unary <code>+</code> operator. If the expression is wrapped in parentheses - <code>({} + [])</code> – the curly brackets are interpreted as an empty object and the result of the expression is <code>"[object Object]"</code> as expected.<ref name="casting_rules" />
+
+=== Dynamic ===
+{{Main|Dynamic Programming}}
+
+==== Typing ====
+{{Main|Dynamic typing}}
+
+JavaScript is [[dynamic typing|dynamically typed]] like most other [[scripting language]]s. A [[type system|type]] is associated with a [[value (computer science)|value]] rather than an expression. For example, a [[Variable (programming)|variable]] initially bound to a number may be reassigned to a [[string (computer science)|string]].<ref>{{cite web|url=https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures|title=JavaScript data types and data structures |date=February 16, 2017|website=MDN |access-date=February 24, 2017|archive-date=March 14, 2017|archive-url=https://web.archive.org/web/20170314230542/https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures|url-status=live}}</ref> JavaScript supports various ways to test the type of objects, including [[duck typing]].{{Sfn|Flanagan|2006|pp=176–178}}
+
+==== Run-time evaluation ====
+{{Main|eval}}
+JavaScript includes an <code>[[eval]]</code> function that can execute statements provided as strings at run-time.
+
+=== Object-orientation (prototype-based) ===
+Prototypal inheritance in JavaScript is described by [[Douglas Crockford]] as:
+{{Blockquote
+|You make prototype objects, and then ... make new instances. Objects are mutable in JavaScript, so we can augment the new instances, giving them new fields and methods. These can then act as prototypes for even newer objects. We don't need classes to make lots of similar objects... Objects inherit from objects. What could be more object oriented than that?<ref>{{cite web|last=Crockford|first=Douglas|title=Prototypal Inheritance in JavaScript|url=https://javascript.crockford.com/prototypal.html|access-date=20 August 2013|archive-date=13 August 2013|archive-url=https://web.archive.org/web/20130813163035/https://javascript.crockford.com/prototypal.html|url-status=live}}</ref>
+}}
+
+In JavaScript, an [[Object (computer science)|object]] is an [[associative array]], augmented with a prototype (see below); each key provides the name for an object [[Property (programming)|property]], and there are two syntactical ways to specify such a name: dot notation (<code>obj.x = 10</code>) and bracket notation (<code>obj["x"] = 10</code>). A property may be added, rebound, or deleted at run-time. Most [[property (programming)|properties]] of an object (and any property that belongs to an object's prototype inheritance chain) can be enumerated using a <code>for...in</code> loop.
+
+==== Prototypes ====
+{{Main|Prototype-based programming}}
+
+JavaScript uses [[prototype-based programming|prototypes]] where many other object-oriented languages use [[Class (computer science)|classes]] for [[Inheritance (object-oriented programming)|inheritance]],<ref>{{cite web|title=Inheritance and the prototype chain|url=https://developer.mozilla.org/en-US/docs/JavaScript/Guide/Inheritance_and_the_prototype_chain|work=[[Mozilla]] Developer Network |access-date=April 6, 2013|archive-date=April 25, 2013|archive-url=https://web.archive.org/web/20130425144207/https://developer.mozilla.org/en-US/docs/JavaScript/Guide/Inheritance_and_the_prototype_chain|url-status=live}}</ref> but it's still possible to simulate most class-based features with the prototype system.<ref>{{cite book|last=Herman|first=David|title=Effective JavaScript|year=2013|publisher=Addison-Wesley|isbn=978-0-321-81218-6|page=83 |url=https://books.google.com/books?id=Nz9iAwAAQBAJ&pg=PA83 }}</ref> Additionally, [[ECMAScript |ECMAScript version 6]] (released June 2015) introduced the keywords '''class''', '''extends''' and '''super''', which serve as syntactic sugar to abstract the underlying prototypal inheritance system with a more conventional interface. Constructors are declared by specifying a method named '''constructor''', and all classes are automatically subclasses of the base class Object, similarly to Java. <syntaxhighlight lang="javascript">
+class Person {
+    constructor(name) {
+        this.name = name;
+    }
+}
+
+class Student extends Person {
+    constructor(name, id) {
+        super(name);
+        this.id = id;
+    }
+}
+
+const bob = new Student("Robert", 12345);
+console.log(bob.name); // Robert
+</syntaxhighlight>Though the underlying object mechanism is still based on prototypes, the newer syntax is similar to other object oriented languages. Private variables are declared by prefixing the field name with a [[number sign]] (#), and [[Polymorphism (computer science)|polymorphism]] is not directly supported, although it can be emulated by manually calling different functions depending on the number and type of arguments provided.<ref name="JavaScriptNext">{{cite book |last=Ghandi |first=Raju |date=2019 |title=JavaScript Next|location=New York City |publisher=Apress Media |pages=159–171 |isbn=978-1-4842-5394-6}}</ref>
+
+==== Functions as object constructors ====
+Functions double as object constructors, along with their typical role. Prefixing a function call with ''new'' will create an instance of a prototype, inheriting properties and methods from the constructor (including properties from the <code>Object</code> prototype).<ref name="Haverbeke2024">{{Cite book |title=Eloquent JavaScript |last=Haverbeke |first=Marijn |publisher=[[No Starch Press]] |isbn=978-1-71850-411-0 |edition=4th |location=San Francisco |publication-date=September 2024 |pages=[https://eloquentjavascript.net/Eloquent_JavaScript.pdf#section*.204 97–98] |language=en |url=https://eloquentjavascript.net/Eloquent_JavaScript.pdf |archive-url=https://web.archive.org/web/20250312193854/https://eloquentjavascript.net/Eloquent_JavaScript.pdf |archive-date=2025-03-12 |url-status=live}}</ref> ECMAScript 5 offers the <code>Object.create</code> method, allowing explicit creation of an instance without automatically inheriting from the <code>Object</code> prototype (older environments can assign the prototype to <code>null</code>).<ref>{{cite web|last=Katz|first=Yehuda|title=Understanding "Prototypes" in JavaScript|date=12 August 2011|url=https://yehudakatz.com/2011/08/12/understanding-prototypes-in-javascript/|access-date=April 6, 2013|archive-date=5 April 2013|archive-url=https://web.archive.org/web/20130405154842/https://yehudakatz.com/2011/08/12/understanding-prototypes-in-javascript/|url-status=live}}</ref> The constructor's <code>prototype</code> property determines the object used for the new object's internal prototype. New methods can be added by modifying the prototype of the function used as a constructor.<syntaxhighlight lang="javascript">// This code is completely equivalent to the previous snippet
+function Person(name) {
+    this.name = name;
+}
+
+function Student(name, id) {
+    Person.call(this, name);
+    this.id = id;
+}
+
+var bob = new Student("Robert", 12345);
+console.log(bob.name); // Robert</syntaxhighlight>JavaScript's built-in classes, such as <code>Array</code> and <code>Object</code>, also have prototypes that can be modified. However, it's generally considered bad practice to [[Monkey patch|modify built-in objects]], because third-party code may use or inherit methods and properties from these objects, and may not expect the prototype to be modified.<ref>{{cite book |last=Herman |first=David |url=https://books.google.com/books?id=Nz9iAwAAQBAJ&pg=PA125 |title=Effective JavaScript |publisher=Addison-Wesley |year=2013 |isbn=978-0-321-81218-6 |pages=125–127}}</ref>
+
+==== Functions as methods ====
+{{Main|Method (computer science)}}
+<!--not sure where to classify this under-->
+
+Unlike in many object-oriented languages, in JavaScript there is no distinction between a function definition and a [[method (computer science)|method]] definition. Rather, the distinction occurs during function calling. When a function is called as a method of an object, the function's local ''this'' keyword is bound to that object for that invocation.
+
+=== Functional ===
+{{Main|Functional programming}}
+
+JavaScript [[Subroutine|functions]] are [[first-class function|first-class]]; a function is considered to be an object.<ref>{{cite web|title=Function&nbsp;– JavaScript|url=https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function|access-date=2021-10-30|website=[[MDN Web Docs]]|language=en-US}}</ref> As such, a function may have properties and methods, such as <code>.call()</code> and <code>.bind()</code>.<ref>{{cite web | url=https://es5.github.com/#x15.3.4-toc | title=Properties of the Function Object | publisher=Es5.github.com | access-date=May 26, 2013 | archive-date=January 28, 2013 | archive-url=https://web.archive.org/web/20130128185825/https://es5.github.com/#x15.3.4-toc | url-status=live }}</ref>
+
+==== Lexical closure ====
+{{Main|Closure (computer programming)}}
+
+A ''nested'' function is a function defined within another function. It is created each time the outer function is invoked.
+
+In addition, each nested function forms a [[Closure (computer programming)|lexical closure]]: the [[Scope (programming)#Lexical scoping vs. dynamic scoping|lexical scope]] of the outer function (including any constant, local variable, or argument value) becomes part of the internal state of each inner function object, even after execution of the outer function concludes.{{Sfn|Flanagan|2006|p=141}}
+
+==== Anonymous function ====
+{{Main|Anonymous function}}
+
+JavaScript also supports [[anonymous function]]s.
+
+=== Delegative ===
+{{Main|Delegation (object-oriented programming)}}
+JavaScript supports implicit and explicit [[Delegation (object-oriented programming)|delegation]].
+
+==== Functions as roles (Traits and Mixins) ====
+{{Main|Role-oriented programming|Traits (computer science)|Mixin}}
+
+JavaScript natively supports various function-based implementations of [[Role-oriented programming|Role]]<ref>[https://peterseliger.blogspot.de/2014/04/the-many-talents-of-javascript.html#the-many-talents-of-javascript-for-generalizing-role-oriented-programming-approaches-like-traits-and-mixins The many talents of JavaScript for generalizing Role-Oriented Programming approaches like Traits and Mixins] {{Webarchive|url=https://web.archive.org/web/20171005050713/https://peterseliger.blogspot.de/2014/04/the-many-talents-of-javascript.html#the-many-talents-of-javascript-for-generalizing-role-oriented-programming-approaches-like-traits-and-mixins |date=2017-10-05 }}, Peterseliger.blogspot.de, April 11, 2014.</ref> patterns like [[Traits (computer science)|Traits]]<ref>[https://soft.vub.ac.be/~tvcutsem/traitsjs/ Traits for JavaScript] {{Webarchive|url=https://web.archive.org/web/20140724052500/https://soft.vub.ac.be/~tvcutsem/traitsjs/ |date=2014-07-24 }}, 2010.</ref><ref>{{cite web |url=https://cocktailjs.github.io/ |title=Home &#124; CocktailJS |website=Cocktailjs.github.io |access-date=February 24, 2017 |archive-date=February 4, 2017 |archive-url=https://web.archive.org/web/20170204083608/https://cocktailjs.github.io/ |url-status=live }}</ref> and [[Mixin]]s.<ref>{{cite web |url-status=live |first1=Angus |last1=Croll |url=https://javascriptweblog.wordpress.com/2011/05/31/a-fresh-look-at-javascript-mixins/ |title=A fresh look at JavaScript Mixins |archive-url=https://web.archive.org/web/20200415004603/https://javascriptweblog.wordpress.com/2011/05/31/a-fresh-look-at-javascript-mixins/ |archive-date=2020-04-15 |date=May 31, 2011 |website= JavaScript, JavaScript… }}</ref> Such a function defines additional behavior by at least one method bound to the <code>this</code> keyword within its <code>function</code> body. A Role then has to be delegated explicitly via <code>call</code> or <code>apply</code> to objects that need to feature additional behavior that is not shared via the prototype chain.
+
+==== Object composition and inheritance ====
+Whereas explicit function-based delegation does cover [[Object composition|composition]] in JavaScript, implicit delegation already happens every time the prototype chain is walked in order to, e.g., find a method that might be related to but is not directly owned by an object. Once the method is found it gets called within this object's context. Thus [[Inheritance (object-oriented programming)|inheritance]] in JavaScript is covered by a delegation automatism that is bound to the prototype property of constructor functions.
+
+=== Miscellaneous ===
+==== Zero-based numbering ====
+JavaScript is a [[Zero-based numbering#Usage in programming languages|zero-index]] language.
+
+==== Variadic functions ====
+{{Main|Variadic function}}
+
+<!--note: this is not a functional programming feature-->
+An indefinite number of parameters can be passed to a function. The function can access them through [[formal parameter]]s and also through the local <code>arguments</code> object. [[Variadic functions]] can also be created by using the <code>[https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind bind]</code> method.
+
+==== Array and object literals ====
+{{Main|Associative arrays|Object literal}}
+
+Like in many scripting languages, arrays and objects ([[associative arrays]] in other languages) can each be created with a succinct shortcut syntax. In fact, these [[Object literal|literals]] form the basis of the [[JSON]] data format.
+
+==== Regular expressions ====
+{{Main|Regular expression}}
+
+JavaScript supports [[regular expression]]s for text searches and manipulation.{{r|n=Haverbeke2024|p=139}}
+
+==== Promises and Async/await ====
+JavaScript supports [[futures and promises|promises]] and [[Async/await]] for handling asynchronous operations.{{citation needed|date=August 2023}}
+
+===== Promises =====
+{{Main|Futures and promises}}
+
+A built-in Promise object provides functionality for handling promises and associating handlers with an asynchronous action's eventual result. Recently, the JavaScript specification introduced combinator methods, which allow developers to combine multiple JavaScript promises and do operations based on different scenarios. The methods introduced are: Promise.race, Promise.all, Promise.allSettled and Promise.any.
+
+===== Async/await =====
+{{Main|Async/await}}
+
+Async/await allows an asynchronous, non-blocking function to be structured in a way similar to an ordinary synchronous function. Asynchronous, non-blocking code can be written, with minimal overhead, structured similarly to traditional synchronous, blocking code.
+
+=== Vendor-specific extensions ===
+Historically, some [[JavaScript engine]]s supported these non-standard features:
+* [[List comprehension|array comprehensions]] and generator expressions (like Python)
+* concise function expressions (<code>function(args) expr</code>; this experimental syntax predated arrow functions)
+* [[ECMAScript for XML]] (E4X), an extension that adds native XML support to ECMAScript (unsupported in Firefox since version 21<ref>{{cite web|title=E4X – Archive of obsolete content |url=https://developer.mozilla.org/en-US/docs/Archive/Web/E4X|website=Mozilla Developer Network|publisher=Mozilla Foundation|date=February 14, 2014|access-date=July 13, 2014|archive-date=July 24, 2014|archive-url=https://web.archive.org/web/20140724100129/https://developer.mozilla.org/en-US/docs/Archive/Web/E4X|url-status=dead}}</ref>)
+
+== Syntax ==
+{{Main|JavaScript syntax}}
+[[Variable (computer science)|Variables]] in JavaScript can be defined using either the <code>var</code>,<ref>{{cite web | url=https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Statements/var | title=var – JavaScript | publisher=The [[Mozilla Developer Network]] | access-date=December 22, 2012 | archive-date=December 23, 2012 | archive-url=https://web.archive.org/web/20121223162713/https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Statements/var | url-status=live }}</ref> <code>let</code><ref name="moz_let">{{cite web |title=let |url=https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let |website=MDN web docs |publisher=Mozilla |access-date=June 27, 2018 |ref=moz_let |archive-date=May 28, 2019 |archive-url=https://web.archive.org/web/20190528140803/https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let |url-status=live }}</ref> or <code>const</code><ref name="moz_const">{{cite web |title=const |url=https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const |website=MDN web docs |publisher=Mozilla |access-date=June 27, 2018 |ref=moz_const |archive-date=June 28, 2018 |archive-url=https://web.archive.org/web/20180628044054/https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const |url-status=live }}</ref> keywords.  Variables defined without keywords will be defined at the global scope.
+
+Arrow functions were first introduced in [[w:ECMAScript#6th Edition – ECMAScript 2015|6th Edition – ECMAScript 2015]]. They shorten the syntax for writing functions in JavaScript. Arrow functions are anonymous, so a variable is needed to refer to them in order to invoke them after their creation, unless surrounded by parenthesis and executed immediately.
+
+Here is an example of JavaScript syntax.
+<syntaxhighlight lang="javascript" start="1">
+// Declares a function-scoped variable named `x`, and implicitly assigns the
+// special value `undefined` to it. Variables without value are automatically
+// set to undefined.
+// var is generally considered bad practice and let and const are usually preferred.
+var x;
+
+// Variables can be manually set to `undefined` like so
+let x2 = undefined;
+
+// Declares a block-scoped variable named `y`, and implicitly sets it to
+// `undefined`. The `let` keyword was introduced in ECMAScript 2015.
+let y;
+
+// Declares a block-scoped, un-reassignable variable named `z`, and sets it to
+// a string literal. The `const` keyword was also introduced in ECMAScript 2015,
+// and must be explicitly assigned to.
+
+// The keyword `const` means constant, hence the variable cannot be reassigned
+// as the value is `constant`.
+const z = "this value cannot be reassigned!";
+
+// Declares a global-scoped variable and assigns 3.  This is generally considered
+// bad practice, and will not work if strict mode is on.
+t = 3;
+
+// Declares a variable named `myNumber`, and assigns a number literal (the value
+// `2`) to it.
+let myNumber = 2;
+
+// Reassigns `myNumber`, setting it to a string literal (the value `"foo"`).
+// JavaScript is a dynamically-typed language, so this is legal.
+myNumber = "foo";
+</syntaxhighlight>
+
+Note the [[Comment (computer programming)|comments]] in the examples above, all of which were preceded with two [[Slash (punctuation)|forward slashes]].
+
+More examples can be found at the [[wikibooks:JavaScript/Syntax examples|Wikibooks page on JavaScript syntax examples]].
+
+== Security ==
+{{See also|Browser security}}
+JavaScript and the [[Document Object Model|DOM]] provide the potential for malicious authors to deliver scripts to run on a client computer via the Web. Browser authors minimize this risk using two restrictions. First, scripts run in a [[Sandbox (computer security)|sandbox]] in which they can only perform Web-related actions, not general-purpose programming tasks like creating files. Second, scripts are constrained by the [[same-origin policy]]: scripts from one website do not have access to information such as usernames, passwords, or cookies sent to another site. Most JavaScript-related security bugs are breaches of either the same origin policy or the sandbox.
+
+There are subsets of general JavaScript—ADsafe, Secure ECMAScript (SES)—that provide greater levels of security, especially on code created by third parties (such as advertisements).<ref>{{cite web | url=https://www.adsafe.org/ | title=Making JavaScript Safe for Advertising | publisher=ADsafe | access-date=2021-05-08 | archive-date=2021-07-06 | archive-url=https://web.archive.org/web/20210706153324/https://www.adsafe.org/ | url-status=live }}</ref><ref>{{cite web | url=https://code.google.com/p/es-lab/wiki/SecureEcmaScript | title=Secure ECMA Script (SES) | access-date=May 26, 2013 | archive-date=May 15, 2013 | archive-url=https://web.archive.org/web/20130515073412/https://code.google.com/p/es-lab/wiki/SecureEcmaScript | url-status=live }}</ref> Closure Toolkit is another project for safe embedding and isolation of third-party JavaScript and HTML.<ref>{{cite web|title=Google Caja Project|url=https://developers.google.com/caja/|url-status=live|website=[[Google]]|access-date=2021-07-09|archive-date=2021-01-22|archive-url=https://web.archive.org/web/20210122083321/https://developers.google.com/caja/}}</ref>
+
+[[Content Security Policy]] is the main intended method of ensuring that only trusted code is executed on a Web page.
+
+=== Cross-site scripting ===
+{{Main|Cross-site scripting}}
+
+A common JavaScript-related security problem is [[cross-site scripting]] (XSS), a violation of the [[same-origin policy]]. XSS vulnerabilities occur when an attacker can cause a target Website, such as an online banking website, to include a malicious script in the webpage presented to a victim. The script in this example can then access the banking application with the privileges of the victim, potentially disclosing secret information or transferring money without the victim's authorization. One important solution to XSS vulnerabilities is [[HTML sanitization]].
+
+Some browsers include partial protection against ''reflected'' XSS attacks, in which the attacker provides a URL including malicious script. However, even users of those browsers are vulnerable to other XSS attacks, such as those where the malicious code is stored in a database. Only correct design of Web applications on the server-side can fully prevent XSS.
+
+XSS vulnerabilities can also occur because of implementation mistakes by browser authors.<ref>{{cite web |url=https://www.mozillazine.org/talkback.html?article=4392 |title=Mozilla Cross-Site Scripting Vulnerability Reported and Fixed&nbsp;– MozillaZine Talkback |website=Mozillazine.org |access-date=February 24, 2017 |archive-date=July 21, 2011 |archive-url=https://web.archive.org/web/20110721230916/http://www.mozillazine.org/talkback.html?article=4392 |url-status=live }}</ref>
+
+=== Cross-site request forgery ===
+{{Main|Cross-site request forgery}}
+
+Another cross-site vulnerability is [[cross-site request forgery]] (CSRF). In CSRF, code on an attacker's site tricks the victim's browser into taking actions the user did not intend at a target site (like transferring money at a bank). When target sites rely solely on cookies for request authentication, requests originating from code on the attacker's site can carry the same valid login credentials of the initiating user. In general, the solution to CSRF is to require an authentication value in a hidden form field, and not only in the cookies, to authenticate any request that might have lasting effects. Checking the HTTP Referrer header can also help.
+
+"JavaScript hijacking" is a type of CSRF attack in which a <code><nowiki><script></nowiki></code> tag on an attacker's site exploits a page on the victim's site that returns private information such as [[JSON]] or JavaScript. Possible solutions include:
+
+* requiring an authentication token in the [[POST (HTTP)|POST]] and [[GET (HTTP)|GET]] parameters for any response that returns private information.
+
+=== Misplaced trust in the client ===
+Developers of client-server applications must recognize that untrusted clients may be under the control of attackers. The author of an application should not assume that their JavaScript code will run as intended (or at all) because any secret embedded in the code could be extracted by a determined adversary. Some implications are:
+* Website authors cannot perfectly conceal how their JavaScript operates because the raw source code must be sent to the client. The code can be [[obfuscated code|obfuscated]], but obfuscation can be reverse-engineered.
+* JavaScript form validation only provides convenience for users, not security. If a site verifies that the user agreed to its terms of service, or filters invalid characters out of fields that should only contain numbers, it must do so on the server, not only the client.
+* Scripts can be selectively disabled, so JavaScript cannot be relied on to prevent operations such as right-clicking on an image to save it.<ref>{{cite web |last1=Kottelin |first1=Thor |title=Right-click "protection"? Forget about it |url=https://blog.anta.net/2008/06/17/right-click-%E2%80%9Cprotection%E2%80%9D-forget-about-it/ |website=blog.anta.net |access-date=28 July 2022 |archive-url=https://web.archive.org/web/20110809195359/https://blog.anta.net/2008/06/17/right-click-%E2%80%9Cprotection%E2%80%9D-forget-about-it/ |archive-date=9 August 2011 |date=17 June 2008}}</ref>
+* It is considered very bad practice to embed sensitive information such as passwords in JavaScript because it can be extracted by an attacker.<ref>{{cite web |last1=Rehorik |first1=Jan |title=Why You Should Never Put Sensitive Data in Your JavaScript |url=https://www.serviceobjects.com/blog/why-you-should-never-put-sensitive-data-in-your-javascript/ |website=ServiceObjects Blog |date=29 November 2016 |publisher=ServiceObjects |access-date=June 3, 2019 |archive-date=June 3, 2019 |archive-url=https://web.archive.org/web/20190603142957/https://www.serviceobjects.com/blog/why-you-should-never-put-sensitive-data-in-your-javascript/ |url-status=live }}</ref>
+* [[Prototype pollution]] is a runtime vulnerability in which attackers can overwrite arbitrary properties in an object's prototype.
+
+=== Misplaced trust in developers ===
+Package management systems such as [[npm (software)|npm]] and Bower are popular with JavaScript developers. Such systems allow a developer to easily manage their program's dependencies upon other developers' program libraries. Developers trust that the maintainers of the libraries will keep them secure and up to date, but that is not always the case. A vulnerability has emerged because of this blind trust. Relied-upon libraries can have new releases that cause bugs or vulnerabilities to appear in all programs that rely upon the libraries. Inversely, a library can go unpatched with known vulnerabilities out in the wild. In a study done looking over a sample of 133,000 websites, researchers found 37% of the websites included a library with at least one known vulnerability.<ref name="jslibs">{{citation |last1=Lauinger |first1=Tobias |last2=Chaabane |first2=Abdelberi |last3=Arshad |first3=Sajjad |last4=Robertson |first4=William |last5=Wilson |first5=Christo |last6=Kirda |first6=Engin |title=Thou Shalt Not Depend on Me: Analysing the Use of Outdated JavaScript Libraries on the Web |url=https://www.ccs.neu.edu/home/arshad/publications/ndss2017jslibs.pdf |website=Northeastern University |access-date=28 July 2022 |archive-url=https://web.archive.org/web/20170329045344/https://www.ccs.neu.edu/home/arshad/publications/ndss2017jslibs.pdf |archive-date=29 March 2017 |doi = 10.14722/ndss.2017.23414 |date = December 21, 2016|arxiv=1811.00918 |isbn=978-1-891562-46-4 |s2cid=17885720 |url-status=dead}}</ref> "The median lag between the oldest library version used on each website and the newest available version of that library is 1,177 days in ALEXA, and development of some libraries still in active use ceased years ago."<ref name="jslibs" /> Another possibility is that the maintainer of a library may remove the library entirely. This occurred in March 2016 when Azer Koçulu removed his repository from npm. This caused tens of thousands of programs and websites depending upon his libraries to break.<ref>{{cite news |work=Quartz |url=https://qz.com/646467/how-one-programmer-broke-the-internet-by-deleting-a-tiny-piece-of-code/ |title=How one programmer broke the internet by deleting a tiny piece of code |first=Keith |last=Collins |date=March 27, 2016 |access-date=February 22, 2017 |archive-date=February 22, 2017 |archive-url=https://web.archive.org/web/20170222200836/https://qz.com/646467/how-one-programmer-broke-the-internet-by-deleting-a-tiny-piece-of-code/ |url-status=live }}</ref><ref>SC Magazine UK, [https://www.scmagazineuk.com/developers-11-lines-of-deleted-code-breaks-the-internet/article/532050/ Developer's 11 lines of deleted code 'breaks the internet'] {{Webarchive|url=https://web.archive.org/web/20170223041434/https://www.scmagazineuk.com/developers-11-lines-of-deleted-code-breaks-the-internet/article/532050/ |date=February 23, 2017 }}</ref>
+
+=== Browser and plugin coding errors ===
+{{Further|Buffer overflow}}
+JavaScript provides an interface to a wide range of browser capabilities, some of which may have flaws such as [[buffer overflow]]s. These flaws can allow attackers to write scripts that would run any code they wish on the user's system. This code is not by any means limited to another JavaScript application. For example, a buffer overrun exploit can allow an attacker to gain access to the operating system's [[API]] with superuser privileges.
+
+These flaws have affected major browsers including Firefox,<ref>Mozilla Corporation, [https://www.mozilla.org/security/announce/2006/mfsa2006-38.html Buffer overflow in crypto.signText()] {{Webarchive|url=https://web.archive.org/web/20140604014705/https://www.mozilla.org/security/announce/2006/mfsa2006-38.html |date=2014-06-04 }}</ref> Internet Explorer,<ref>{{cite web|last1=Festa |first1=Paul |title=Buffer-overflow bug in IE |url=https://news.com.com/2100-1001-214620.html |archive-url=https://web.archive.org/web/20021225190522/https://news.com.com/2100-1001-214620.html |url-status=dead |archive-date=December 25, 2002 |website=[[CNET]] |date=August 19, 1998 }}</ref> and Safari.<ref>SecurityTracker.com, [https://securitytracker.com/alerts/2006/Mar/1015713.html Apple Safari JavaScript Buffer Overflow Lets Remote Users Execute Arbitrary Code and HTTP Redirect Bug Lets Remote Users Access Files] {{Webarchive|url=https://web.archive.org/web/20100218102849/https://securitytracker.com/alerts/2006/Mar/1015713.html |date=2010-02-18 }}</ref>
+
+Plugins, such as video players, [[Adobe Flash#Flash client security|Adobe Flash]], and the wide range of [[ActiveX]] controls enabled by default in Microsoft Internet Explorer, may also have flaws exploitable via JavaScript (such flaws have been exploited in the past).<ref>SecurityFocus, [https://www.securityfocus.com/bid/19030/info Microsoft WebViewFolderIcon ActiveX Control Buffer Overflow Vulnerability] {{Webarchive|url=https://web.archive.org/web/20111011091819/http://www.securityfocus.com/bid/19030/info |date=2011-10-11 }}</ref><ref>Fusion Authority, [https://www.fusionauthority.com/security/3234-macromedia-flash-activex-buffer-overflow.htm Macromedia Flash ActiveX Buffer Overflow] {{webarchive|url=https://web.archive.org/web/20110813160055/https://www.fusionauthority.com/security/3234-macromedia-flash-activex-buffer-overflow.htm |date=August 13, 2011 }}</ref>
+
+In Windows Vista, Microsoft has attempted to contain the risks of bugs such as buffer overflows by running the Internet Explorer process with limited privileges.<ref>{{cite web |url=https://blogs.msdn.com/ie/archive/2006/02/09/528963.aspx |title=Protected Mode in Vista IE7 – IEBlog |website=Blogs.msdn.com |date=February 9, 2006 |access-date=February 24, 2017 |archive-date=January 23, 2010 |archive-url=https://web.archive.org/web/20100123103719/https://blogs.msdn.com/ie/archive/2006/02/09/528963.aspx |url-status=live }}</ref> [[Google Chrome]] similarly confines its page renderers to their own "[[Sandbox (computer security)|sandbox]]".
+
+=== Sandbox implementation errors ===
+Web browsers are capable of running JavaScript outside the sandbox, with the privileges necessary to, for example, create or delete files. Such privileges are not intended to be granted to code from the Web.
+
+Incorrectly granting privileges to JavaScript from the Web has played a role in vulnerabilities in both Internet Explorer<ref>US CERT, [https://www.kb.cert.org/vuls/id/713878 Vulnerability Note VU#713878: Microsoft Internet Explorer does not properly validate source of redirected frame] {{Webarchive|url=https://web.archive.org/web/20091030051811/https://www.kb.cert.org/vuls/id/713878/ |date=2009-10-30 }}</ref> and Firefox.<ref>Mozilla Foundation, [https://www.mozilla.org/security/announce/2005/mfsa2005-41.html Mozilla Foundation Security Advisory 2005–41: Privilege escalation via DOM property overrides] {{Webarchive|url=https://web.archive.org/web/20140604014832/https://www.mozilla.org/security/announce/2005/mfsa2005-41.html |date=2014-06-04 }}</ref> In Windows XP Service Pack 2, Microsoft demoted JScript's privileges in Internet Explorer.<ref>{{cite web |last=Andersen |first=Starr |date=2004-08-09 |url=https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-xp/bb457150(v=technet.10) |title=Part 5: Enhanced Browsing Security |department=[[Microsoft TechNet|TechNet]] |website=[[Microsoft Docs]] |series=Changes to Functionality in Windows XP Service Pack 2 |access-date=2021-10-20}}</ref>
+
+[[Microsoft Windows]] allows JavaScript source files on a computer's hard drive to be launched as general-purpose, non-sandboxed programs (see: [[Windows Script Host]]). This makes JavaScript (like [[VBScript]]) a theoretically viable vector for a [[Trojan horse (computing)|Trojan horse]], although JavaScript Trojan horses are uncommon in practice.<ref>For one example of a rare JavaScript Trojan Horse, see Symantec Corporation, [https://www.symantec.com/security_response/writeup.jsp?docid=2003-100111-0931-99 JS.Seeker.K] {{Webarchive|url=https://web.archive.org/web/20110913210848/http://www.symantec.com/security_response/writeup.jsp?docid=2003-100111-0931-99 |date=2011-09-13 }}</ref>{{failed verification|date=March 2017}}
+
+=== Hardware vulnerabilities ===
+In 2015, a JavaScript-based proof-of-concept implementation of a [[rowhammer]] attack was described in a paper by security researchers.<ref>{{cite arXiv | eprint = 1507.06955 | title = Rowhammer.js: A Remote Software-Induced Fault Attack in JavaScript | date = July 24, 2015 | last1 = Gruss | first1 = Daniel | last2 = Maurice | first2 = Clémentine | last3 = Mangard | first3 = Stefan | class = cs.CR }}</ref><ref>{{cite news |work=Motherboard |publisher=[[Vice (magazine)|Vice]] |title=Rowhammer.js Is the Most Ingenious Hack I've Ever Seen |first=Alix |last=Jean-Pharuns |date=July 30, 2015 |url=https://motherboard.vice.com/en_us/article/9akpwz/rowhammerjs-is-the-most-ingenious-hack-ive-ever-seen |access-date=January 26, 2018 |archive-date=January 27, 2018 |archive-url=https://web.archive.org/web/20180127084042/https://motherboard.vice.com/en_us/article/9akpwz/rowhammerjs-is-the-most-ingenious-hack-ive-ever-seen |url-status=live }}</ref><ref>{{cite web|website=[[Ars Technica]]|title=DRAM 'Bitflipping' exploit for attacking PCs: Just add JavaScript|first=Dan|last=Goodin|date=August 4, 2015|url=https://arstechnica.com/information-technology/2015/08/dram-bitflipping-exploit-for-attacking-pcs-just-add-javascript/|access-date=January 26, 2018|archive-date=January 27, 2018|archive-url=https://web.archive.org/web/20180127143154/https://arstechnica.com/information-technology/2015/08/dram-bitflipping-exploit-for-attacking-pcs-just-add-javascript/|url-status=live}}</ref><ref>{{cite web | url = https://www.slate.com/articles/technology/bitwise/2015/07/rowhammer_security_exploit_why_a_new_security_attack_is_truly_terrifying.html | title = Rowhammer security exploit: Why a new security attack is truly terrifying | date = July 28, 2015 | access-date = July 29, 2015 | first = David | last = Auerbach | author-link = David Auerbach | website = slate.com | archive-date = July 30, 2015 | archive-url = https://web.archive.org/web/20150730004023/https://www.slate.com/articles/technology/bitwise/2015/07/rowhammer_security_exploit_why_a_new_security_attack_is_truly_terrifying.html | url-status = live }}</ref>
+
+In 2017, a JavaScript-based attack via browser was demonstrated that could bypass [[Address space layout randomization|ASLR]]. It is called "ASLR⊕Cache" or AnC.<ref>[https://www.vusec.net/projects/anc/ AnC] {{Webarchive|url=https://web.archive.org/web/20170316055626/https://www.vusec.net/projects/anc/ |date=2017-03-16 }} VUSec, 2017</ref><ref>[https://arstechnica.com/security/2017/02/new-aslr-busting-javascript-is-about-to-make-drive-by-exploits-much-nastier/ New ASLR-busting JavaScript is about to make drive-by exploits much nastier] {{Webarchive|url=https://web.archive.org/web/20170316024419/https://arstechnica.com/security/2017/02/new-aslr-busting-javascript-is-about-to-make-drive-by-exploits-much-nastier/ |date=2017-03-16 }} Ars Technica, 2017</ref>
+
+In 2018, the paper that announced the [[Spectre (security vulnerability)|Spectre]] attacks against Speculative Execution in Intel and other processors included a JavaScript implementation.<ref>[https://spectreattack.com/spectre.pdf Spectre Attack] {{Webarchive|url=https://web.archive.org/web/20180103225843/https://spectreattack.com/spectre.pdf |date=2018-01-03 }} Spectre Attack</ref>
+
+== Development tools ==
+Important tools have evolved with the language.
+
+* Every major web browser has built-in [[web development tools]], including a JavaScript [[debugger]].
+* [[Static program analysis]] tools, such as [[ESLint]] and [[JSLint]], scan JavaScript code for conformance to a set of standards and guidelines.
+* Some browsers have built-in [[Profiling (computer programming)|profilers]]. Stand-alone profiling libraries have also been created, such as benchmark.js and jsbench.<ref>{{cite web|url=https://benchmarkjs.com/|title=Benchmark.js|website=benchmarkjs.com|access-date=2016-11-06|archive-date=2016-12-19|archive-url=https://web.archive.org/web/20161219182724/https://benchmarkjs.com/|url-status=live}}</ref><ref name="auto1">{{cite web|url=https://jsben.ch|title=JSBEN.CH Performance Benchmarking Playground for JavaScript|last=JSBEN.CH|website=jsben.ch|access-date=2021-08-13|archive-date=2021-02-27|archive-url=https://web.archive.org/web/20210227052409/https://jsben.ch/|url-status=live}}</ref>
+* Many [[text editor]]s have syntax highlighting support for JavaScript code.
+
+== Related technologies ==
+=== Java ===
+A common misconception is that JavaScript is directly related to [[Java (programming language)|Java]].<!-- While one is intentionally similar to the other, they're different. (Previously the misconception sentence said "JavaScript is similar to Java" but that's not a misconception) --> Both indeed have a C-like syntax (the C language being their most immediate common ancestor language). They are also typically [[Sandbox (computer security)|sandboxed]], and JavaScript was designed with Java's syntax and standard library in mind. In particular, all Java keywords were reserved in original JavaScript, JavaScript's standard library follows Java's naming conventions, and JavaScript's {{code|lang=javascript|code=Math}} and {{code|lang=javascript|code=Date}} objects are based on classes from Java 1.0.<ref name="popularity">{{cite web | url=https://brendaneich.com/2008/04/popularity/ | title=Popularity | first=Brendan | last=Eich | author-link=Brendan Eich | date=April 3, 2008 | access-date=January 19, 2012 | archive-date=July 3, 2011 | archive-url=https://web.archive.org/web/20110703020955/https://brendaneich.com/2008/04/popularity/ | url-status=live }}</ref>
+
+Both languages first appeared in 1995, but Java was developed by [[James Gosling]] of Sun Microsystems and JavaScript by [[Brendan Eich]] of Netscape Communications.
+
+The differences between the two languages are more prominent than their similarities. Java has [[static typing]], while JavaScript's typing is [[Dynamic typing|dynamic]]. Java is loaded from [[Compiler|compiled]] bytecode, while JavaScript is loaded as human-readable source code. Java's objects are [[Class-based programming|class-based]], while JavaScript's are [[Prototype-based programming|prototype-based]]. Finally, Java did not support functional programming until Java 8, while JavaScript has done so from the beginning, being influenced by [[Scheme (programming language)|Scheme]].
+
+=== JSON ===
+[[JSON]] is a data format derived from JavaScript; hence the name JavaScript Object Notation. It is a widely used format supported by many other programming languages.
+
+=== Transpilers ===
+Many websites are JavaScript-heavy, so [[transpiler]]s have been created to convert code written in other languages, which can aid the development process.<ref name="transpilers">{{cite web |title=List of languages that compile to JS |first=Jeremy |last=Ashkenas |website=[[GitHub]] |author-link=Jeremy Ashkenas |url=https://github.com/jashkenas/coffeescript/wiki/List-of-languages-that-compile-to-JS |access-date=February 6, 2020 |archive-date=January 31, 2020 |archive-url=https://web.archive.org/web/20200131233044/https://github.com/jashkenas/coffeescript/wiki/List-of-languages-that-compile-to-JS |url-status=live }}</ref>
+
+[[TypeScript]] and [[CoffeeScript]] are two notable languages that transpile to JavaScript.
+
+=== WebAssembly ===
+[[WebAssembly]] is a newer language with a [[bytecode]] format designed to complement JavaScript, especially the performance-critical portions of [[web page]] scripts. All of the major [[JavaScript engine]]s support WebAssembly,<ref>{{cite web|url=https://visualstudiomagazine.com/articles/2017/11/06/edge-webassembly.aspx|title=Edge Browser Switches WebAssembly to 'On' -- Visual Studio Magazine|website=Visual Studio Magazine|access-date=2018-02-09|archive-date=2018-02-10|archive-url=https://web.archive.org/web/20180210002432/https://visualstudiomagazine.com/articles/2017/11/06/edge-webassembly.aspx|url-status=live}}</ref> which runs in the same [[Sandbox (computer security)|sandbox]] as regular JavaScript code.
+
+[[asm.js]] is a subset of JavaScript that served as the forerunner of WebAssembly.<ref>{{cite web | url=https://asmjs.org/faq.html | title=frequently asked questions | publisher=asm.js | access-date=April 13, 2014 | archive-date=June 4, 2014 | archive-url=https://web.archive.org/web/20140604012024/https://asmjs.org/faq.html | url-status=live }}</ref>
+
+== References ==
+{{Reflist}}
+
+== Further reading ==
+{{See also|ECMAScript#External_links|l1=ECMAScript Specification Documents}}
+* {{cite book|last=Flanagan|first=David|title=JavaScript: The Definitive Guide|edition=7th|location=Sebastopol, California|publisher=O'Reilly|year=2020|isbn=978-1-491-95202-3}}
+* {{Cite book |title=Eloquent JavaScript |last=Haverbeke |first=Marijn |publisher=[[No Starch Press]] |isbn=978-1-71850-411-0 |edition=4th |location=San Francisco |publication-date=2024 |url=https://eloquentjavascript.net/Eloquent_JavaScript.pdf |archive-url=https://web.archive.org/web/20250312193854/https://eloquentjavascript.net/Eloquent_JavaScript.pdf |archive-date=2025-03-12 |url-status=live}}
+* {{cite book|last=Zakas|first=Nicholas|title=Principles of Object-Oriented JavaScript|edition=1st|publisher=No Starch Press|year=2014|isbn=978-1593275402}}
+
+== External links ==
+{{sister project links|commons=Category:JavaScript|n=no|v=Topic:JavaScript|q=no|s=no|m=no|voy=no|species=no|mw=JavaScript}}
+{{Spoken Wikipedia|En-JavaScript.ogg|date=August 20, 2013}}
+* [https://javascript.info/ The Modern JavaScript Tutorial]. A community maintained continuously updated collection of tutorials on the entirety of the language.
+* {{cite web |url = https://www.pldi21.org/prerecorded_hopl.12.html |title = JavaScript: The First 20 Years |access-date = 2022-02-06}}
+
+{{JavaScript}}
+{{Programming languages}}
+{{ECMAScript}}
+{{Web browsers|fsp}}
+{{NodeJs}}
+{{Portal bar|Computer programming}}
+{{Authority control}}
+
+[[Category:JavaScript| ]]
+[[Category:American inventions]]
+[[Category:Articles with example JavaScript code]]
+[[Category:Cross-platform software]]
+[[Category:Dynamically typed programming languages]]
+[[Category:Functional languages]]
+[[Category:Object-based programming languages]]
+[[Category:High-level programming languages]]
+[[Category:Programming languages created in 1995]]
+[[Category:Programming languages with an ISO standard]]
+[[Category:Prototype-based programming languages]]
+[[Category:Scripting languages]]
+[[Category:Web programming]]
+[[Category:Programming languages]]

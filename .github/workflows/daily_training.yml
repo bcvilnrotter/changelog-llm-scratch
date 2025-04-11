@@ -16,6 +16,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
       with:
+        ref: github-actions-testing  # Specify the branch to checkout
         fetch-depth: 0  # Full history for changelog
 
     - name: Set up Python
@@ -47,7 +48,7 @@ jobs:
         
     - name: Train model
       run: |
-        python scripts/train_llm.py --model-path 'models\final\' \
+        python scripts/train_llm.py --model-path 'models/final/' \
           --vocab-size 5000 \
           --d-model 256 \
           --num-heads 4 \
@@ -60,8 +61,8 @@ jobs:
     - name: Clean up and push changes
       run: |
         # Ensure we're on the latest commit
-        git fetch origin github-actions-testing
-        git reset --soft head/github-actions-testing
+        git checkout github-actions-testing
+        git pull origin github-actions-testing
     
         # Stage changelog and model files
         git add data/changelog.db
@@ -74,8 +75,7 @@ jobs:
         - Updated changelog
         - Saved new model checkpoint"
     
-        # Ensure we pull the latest changes before pushing
-        git pull --rebase origin github-actions-testing
+        # Push the changes
         git push origin github-actions-testing
 
     - name: Upload model artifacts

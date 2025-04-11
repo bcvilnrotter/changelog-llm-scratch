@@ -699,21 +699,40 @@ def remove_unused_entries() -> int:
     conn = get_db_connection()
     cursor = conn.cursor()
     
-    cursor.execute('''
-        DELETE FROM entries
-        WHERE id IN (
-            SELECT e.id
-            FROM entries e
-            JOIN training_metadata tm ON e.id = tm.entry_id
-            WHERE tm.used_in_training = 0
-        )
-    ''')
-    
-    count = cursor.rowcount
-    conn.commit()
-    conn.close()
-    
-    return count
+    try:
+        # First, delete related training_metadata entries
+        cursor.execute('''
+            DELETE FROM training_metadata
+            WHERE entry_id IN (
+                SELECT e.id
+                FROM entries e
+                JOIN training_metadata tm ON e.id = tm.entry_id
+                WHERE tm.used_in_training = 0
+            )
+        ''')
+        
+        # Then delete the entries
+        cursor.execute('''
+            DELETE FROM entries
+            WHERE id IN (
+                SELECT e.id
+                FROM entries e
+                JOIN training_metadata tm ON e.id = tm.entry_id
+                WHERE tm.used_in_training = 0
+            )
+        ''')
+        
+        count = cursor.rowcount
+        conn.commit()
+        return count
+    except Exception as e:
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.error(f"Error removing unused entries: {str(e)}")
+        conn.rollback()
+        return 0
+    finally:
+        conn.close()
 
 def export_to_json(output_path: str = "changelog_export.json") -> bool:
     """

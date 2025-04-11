@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Script to check if pages are being marked as used in training.
-This script uses the ChangelogLogger to access the SQLite database.
+This script uses the appropriate logger based on the file extension to access the changelog.
 """
 
 import sys
@@ -15,7 +15,27 @@ current_dir = Path(__file__).resolve().parent
 project_root = current_dir.parent
 sys.path.insert(0, str(project_root))
 
-from src.changelog.db_logger import ChangelogLogger
+# Import the appropriate logger based on the file extension
+def get_appropriate_logger(changelog_path, debug=False):
+    """
+    Get the appropriate logger based on the file extension.
+    
+    Args:
+        changelog_path: Path to the changelog file
+        debug: Enable debug logging
+        
+    Returns:
+        The appropriate logger instance
+    """
+    path = Path(changelog_path)
+    if path.suffix.lower() == '.db':
+        logger.info(f"Using ChangelogDB for {changelog_path}")
+        from src.db.changelog_db import ChangelogDB
+        return ChangelogDB(changelog_path, debug=debug)
+    else:
+        logger.info(f"Using ChangelogLogger for {changelog_path}")
+        from src.changelog.logger import ChangelogLogger
+        return ChangelogLogger(changelog_path)
 
 # Configure logging
 logging.basicConfig(
@@ -24,12 +44,12 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-def get_latest_training_metadata(changelog: ChangelogLogger) -> Optional[Dict[str, Any]]:
+def get_latest_training_metadata(changelog) -> Optional[Dict[str, Any]]:
     """
     Get the most recent training metadata from the changelog.
     
     Args:
-        changelog: ChangelogLogger instance
+        changelog: Changelog logger instance (ChangelogLogger or ChangelogDB)
     
     Returns:
         The most recent training metadata or None if not found
@@ -76,8 +96,8 @@ def main():
     print("\nChecking training metrics in changelog.db...")
     print("(This file exists and contains Wikipedia page entries)")
     
-    # Initialize the changelog logger
-    changelog = ChangelogLogger(changelog_path)
+    # Initialize the appropriate changelog logger
+    changelog = get_appropriate_logger(changelog_path)
     
     # Get all pages
     all_pages = changelog.get_main_pages()

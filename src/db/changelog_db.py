@@ -23,16 +23,18 @@ class ChangelogDB:
     This provides a higher-level interface for common changelog operations.
     """
     
-    def __init__(self, db_path: Optional[str] = None):
+    def __init__(self, db_path: Optional[str] = None, debug: bool = False):
         """
         Initialize the ChangelogDB.
         
         Args:
             db_path (str, optional): Path to the database file
+            debug (bool, optional): Enable debug logging
         """
         # Initialize the database if it doesn't exist
         init_db(db_path)
         self.db_path = db_path
+        self.debug = debug
     
     def _compute_hash(self, content: str) -> str:
         """
@@ -170,33 +172,20 @@ class ChangelogDB:
         try:
             import logging
             logger = logging.getLogger(__name__)
-            logger.info(f"ChangelogDB.log_page called with title={title}, page_id={page_id}, revision_id={revision_id}, action={action}")
+            
+            # Only log detailed information in debug mode
+            if self.debug:
+                logger.info(f"ChangelogDB.log_page called with title={title}, page_id={page_id}, revision_id={revision_id}, action={action}")
+            else:
+                logger.info(f"Adding page: {title} (ID: {page_id})")
             
             # Compute content hash
             content_hash = self._compute_hash(content)
-            logger.info(f"Content hash: {content_hash}")
+            if self.debug:
+                logger.debug(f"Content hash: {content_hash}")
             
-            # For debugging, create a minimal entry without accessing the database
-            logger.info("BYPASSING database operations in log_page")
-            return {
-                "page_id": page_id, 
-                "title": title, 
-                "revision_id": revision_id, 
-                "action": action,
-                "content_hash": content_hash,
-                "timestamp": datetime.datetime.utcnow().isoformat() + "Z",
-                "is_revision": False,
-                "parent_id": None,
-                "revision_number": None,
-                "training_metadata": {
-                    "used_in_training": False,
-                    "training_timestamp": None,
-                    "model_checkpoint": None,
-                    "average_loss": None,
-                    "relative_loss": None,
-                    "token_impact": None
-                }
-            }
+            # Call the actual database function
+            return log_page(title, page_id, revision_id, content_hash, action)
         except Exception as e:
             import traceback
             logger.error(f"Error in ChangelogDB.log_page: {str(e)}")
@@ -231,33 +220,20 @@ class ChangelogDB:
         try:
             import logging
             logger = logging.getLogger(__name__)
-            logger.info(f"ChangelogDB.log_revision called with title={title}, page_id={page_id}, revision_id={revision_id}, parent_id={parent_id}, revision_number={revision_number}")
+            
+            # Only log detailed information in debug mode
+            if self.debug:
+                logger.info(f"ChangelogDB.log_revision called with title={title}, page_id={page_id}, revision_id={revision_id}, parent_id={parent_id}, revision_number={revision_number}")
+            else:
+                logger.info(f"Adding revision {revision_number} for {title}")
             
             # Compute content hash
             content_hash = self._compute_hash(content)
-            logger.info(f"Content hash: {content_hash}")
+            if self.debug:
+                logger.debug(f"Content hash: {content_hash}")
             
-            # For debugging, create a minimal entry without accessing the database
-            logger.info("BYPASSING database operations in log_revision")
-            return {
-                "page_id": page_id, 
-                "title": title, 
-                "revision_id": revision_id,
-                "action": "added",
-                "content_hash": content_hash,
-                "timestamp": datetime.datetime.utcnow().isoformat() + "Z",
-                "is_revision": True,
-                "parent_id": parent_id,
-                "revision_number": revision_number,
-                "training_metadata": {
-                    "used_in_training": False,
-                    "training_timestamp": None,
-                    "model_checkpoint": None,
-                    "average_loss": None,
-                    "relative_loss": None,
-                    "token_impact": None
-                }
-            }
+            # Call the actual database function
+            return log_page(title, page_id, revision_id, content_hash, "added", True, parent_id, revision_number)
         except Exception as e:
             import traceback
             logger.error(f"Error in ChangelogDB.log_revision: {str(e)}")
@@ -287,17 +263,22 @@ class ChangelogDB:
         try:
             import logging
             logger = logging.getLogger(__name__)
-            logger.info(f"ChangelogDB.get_page_history called with page_id={page_id}")
+            
+            if self.debug:
+                logger.info(f"ChangelogDB.get_page_history called with page_id={page_id}")
             
             # Call the db_utils function with error handling
             result = get_page_history(page_id)
-            logger.info(f"Found {len(result)} entries in page history")
+            
+            if self.debug:
+                logger.debug(f"Found {len(result)} entries in page history")
             return result
         except Exception as e:
             import traceback
             logger.error(f"Error in ChangelogDB.get_page_history: {str(e)}")
-            logger.error(f"Exception type: {type(e).__name__}")
-            logger.error(f"Traceback: {traceback.format_exc()}")
+            if self.debug:
+                logger.error(f"Exception type: {type(e).__name__}")
+                logger.error(f"Traceback: {traceback.format_exc()}")
             # Return an empty list to avoid breaking the caller
             return []
     
@@ -315,11 +296,15 @@ class ChangelogDB:
         try:
             import logging
             logger = logging.getLogger(__name__)
-            logger.info(f"ChangelogDB.check_updates called with page_id={page_id}, revision_id={revision_id}")
+            
+            if self.debug:
+                logger.info(f"Checking updates for page_id={page_id}, revision_id={revision_id}")
             
             # Call the db_utils function with error handling
             result = check_updates(page_id, revision_id)
-            logger.info(f"check_updates result: {result}")
+            
+            if self.debug:
+                logger.debug(f"Page needs updating: {result}")
             return result
         except Exception as e:
             import traceback
@@ -361,78 +346,13 @@ class ChangelogDB:
             
             # If we got results, return them
             if result and len(result) > 0:
-                logger.info(f"Found {len(result)} unused pages in database")
+                if self.debug:
+                    logger.info(f"Found {len(result)} unused pages in database")
                 return result
             
-            # Otherwise, create mock data for testing
-            logger.info("No unused pages found in database, creating mock data for testing")
-            
-            # Check if we have raw data files we can use
-            import os
-            from pathlib import Path
-            
-            raw_data_path = Path("data/raw")
-            if raw_data_path.exists():
-                # Get all text files in the raw data directory
-                text_files = list(raw_data_path.glob("*.txt"))
-                
-                if text_files:
-                    # Create mock entries for each text file
-                    mock_entries = []
-                    for i, file_path in enumerate(text_files[:10]):  # Limit to 10 files
-                        page_id = file_path.stem
-                        
-                        # Try to read the file content
-                        try:
-                            with open(file_path, 'r', encoding='utf-8') as f:
-                                content = f.read(1000)  # Read just the first 1000 chars
-                            
-                            # Create a mock entry
-                            mock_entries.append({
-                                "page_id": page_id,
-                                "title": f"Mock Page {i+1}",
-                                "revision_id": f"mock_revision_{i+1}",
-                                "action": "added",
-                                "content_hash": self._compute_hash(content),
-                                "timestamp": datetime.datetime.utcnow().isoformat() + "Z",
-                                "is_revision": False,
-                                "parent_id": None,
-                                "revision_number": None
-                            })
-                        except Exception as e:
-                            logger.error(f"Error reading file {file_path}: {str(e)}")
-                            continue
-                    
-                    if mock_entries:
-                        logger.info(f"Created {len(mock_entries)} mock entries for testing")
-                        return mock_entries
-            
-            # If we couldn't create mock entries from files, create some dummy entries
-            logger.info("Creating dummy entries for testing")
-            return [
-                {
-                    "page_id": "dummy_page_1",
-                    "title": "Dummy Page 1",
-                    "revision_id": "dummy_revision_1",
-                    "action": "added",
-                    "content_hash": "dummy_hash_1",
-                    "timestamp": datetime.datetime.utcnow().isoformat() + "Z",
-                    "is_revision": False,
-                    "parent_id": None,
-                    "revision_number": None
-                },
-                {
-                    "page_id": "dummy_page_2",
-                    "title": "Dummy Page 2",
-                    "revision_id": "dummy_revision_2",
-                    "action": "added",
-                    "content_hash": "dummy_hash_2",
-                    "timestamp": datetime.datetime.utcnow().isoformat() + "Z",
-                    "is_revision": False,
-                    "parent_id": None,
-                    "revision_number": None
-                }
-            ]
+            # If no unused pages were found, log a message and return an empty list
+            logger.info("No unused pages found in database")
+            return []
         except Exception as e:
             logger.error(f"Error in get_unused_pages: {str(e)}")
             logger.error(f"Exception type: {type(e).__name__}")
