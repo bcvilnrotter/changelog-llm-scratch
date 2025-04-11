@@ -32,7 +32,7 @@ class WikipediaFetcher:
 
     def __init__(
         self,
-        changelog_path: str = "data/changelog.json",
+        changelog_path: str = "data/changelog.db",
         raw_data_path: str = "data/raw",
         language: str = "en",
         batch_size: int = 10

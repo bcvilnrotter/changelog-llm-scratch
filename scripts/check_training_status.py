@@ -53,17 +53,17 @@ def process_changelog_chunk(chunk):
     return used, unused, training_metadata, last_training_time
 
 def main():
-    changelog_path = Path("data/changelog.json")
+    changelog_path = Path("data/changelog.db")
     
     if not changelog_path.exists():
-        print("\nStatus: No changelog.json file found yet.")
+        print("\nStatus: No changelog.db file found yet.")
         print("This is normal if:")
         print("1. Training is still in its first epoch")
         print("2. Training hasn't reached the point of saving metrics")
         print("\nPlease check again after training progresses further.")
         return
     
-    print("\nChecking training metrics in changelog.json...")
+    print("\nChecking training metrics in changelog.db...")
     print("(This file exists and contains Wikipedia page entries)")
     
     total_used = 0

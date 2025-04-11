@@ -81,7 +81,7 @@ class LLMTrainer:
     def __init__(
         self,
         model_path: Optional[str] = None,
-        changelog_path: str = "data/changelog.json",
+        changelog_path: str = "data/changelog.db",
         raw_data_path: str = "data/raw",
         output_dir: str = "models",
         max_length: int = 512,

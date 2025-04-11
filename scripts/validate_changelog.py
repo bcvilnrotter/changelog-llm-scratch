@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Script to validate changelog.json file structure and token impact format.
+Script to validate changelog.db file structure and token impact format.
 """
 
 import json
@@ -57,7 +57,7 @@ def validate_token_impact(token_impact: Dict[str, Any]) -> bool:
     return True
 
 def analyze_changelog(changelog_path: str) -> None:
-    """Analyze changelog.json without loading entire content."""
+    """Analyze changelog.db without loading entire content."""
     path = Path(changelog_path)
     if not path.exists():
         logger.error(f"Changelog file not found: {changelog_path}")
@@ -146,4 +146,4 @@ def analyze_changelog(changelog_path: str) -> None:
         logger.info(f"Total token impact storage: {sum(token_impact_sizes)/(1024*1024):.2f} MB")
 
 if __name__ == "__main__":
-    analyze_changelog("data/changelog.json")
+    analyze_changelog("data/changelog.db")
