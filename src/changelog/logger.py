@@ -18,7 +18,7 @@ class ChangelogLogger:
     - Training usage metadata
     """
 
-    def __init__(self, changelog_path: Union[str, Path] = "data/changelog.json"):
+    def __init__(self, changelog_path: Union[str, Path] = "data/changelog.db"):
         """
         Initialize the changelog logger.
 

@@ -35,3 +35,23 @@ This Space is automatically updated every Sunday at midnight UTC with the latest
 - Uses a custom transformer architecture
 - Trained on carefully curated Wikipedia articles
 - Optimized for educational content and basic concepts
+- Uses SQLite database for tracking training data and model performance
+
+## Database Migration
+The training data tracking system has been migrated from JSON files to SQLite:
+
+1. **Why SQLite?**
+   - Better performance for large datasets
+   - Structured query capabilities
+   - Transaction support
+   - Reduced memory footprint
+
+2. **Migration Process**
+   - Run `python migrate_to_sqlite.py` to convert existing JSON data to SQLite
+   - The original JSON format is preserved for backward compatibility
+   - All new data is stored in the SQLite database by default
+
+3. **Using the Database**
+   - The ChangelogDB class provides a high-level interface similar to the original JSON-based logger
+   - For direct database access, use the functions in `db_utils.py`
+   - Run `python test_db.py` to verify the database functionality

@@ -24,7 +24,32 @@ from torch.utils.data import Dataset, DataLoader
 from transformers import set_seed
 from src.training.transformer import CustomTransformer
 from src.training.tokenizer import SimpleTokenizer
-from src.changelog.logger import ChangelogLogger
+# Import the appropriate logger based on the file extension
+from pathlib import Path
+import logging
+
+logger = logging.getLogger(__name__)
+
+def get_appropriate_logger(changelog_path, debug=False):
+    """
+    Get the appropriate logger based on the file extension.
+    
+    Args:
+        changelog_path: Path to the changelog file
+        debug: Enable debug logging
+        
+    Returns:
+        The appropriate logger instance
+    """
+    path = Path(changelog_path)
+    if path.suffix.lower() == '.db':
+        logger.info(f"Using ChangelogDB for {changelog_path}")
+        from src.db.changelog_db import ChangelogDB
+        return ChangelogDB(changelog_path, debug=debug)
+    else:
+        logger.info(f"Using ChangelogLogger for {changelog_path}")
+        from src.changelog.logger import ChangelogLogger
+        return ChangelogLogger(changelog_path)
 
 # Configure logging
 logging.basicConfig(
@@ -56,17 +81,28 @@ class WikipediaDataset(Dataset):
         self.page_ids = page_ids
         self.tokenizer = tokenizer
         self.max_length = max_length
-
     def __len__(self) -> int:
         return len(self.page_ids)
 
     def __getitem__(self, idx: int) -> Dict[str, List[int]]:
         """Get tokenized page content."""
         page_id = self.page_ids[idx]
+        
+        # Ensure page_id is a string, not bytes
+        if isinstance(page_id, bytes):
+            page_id = page_id.decode('utf-8')
+            
         file_path = self.raw_data_path / f"{page_id}.txt"
         
-        with open(file_path, 'r', encoding='utf-8') as f:
-            content = f.read()
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+        except FileNotFoundError:
+            # Log the error and provide more information
+            print(f"File not found: {file_path}")
+            print(f"Page ID type: {type(page_id)}, value: {page_id}")
+            # Return a minimal set of input_ids to avoid crashing
+            return {"input_ids": [0]}  # Use padding token as fallback
 
         # Tokenize content
         tokens = self.tokenizer._tokenize(content)[:self.max_length]
@@ -81,7 +117,7 @@ class LLMTrainer:
     def __init__(
         self,
         model_path: Optional[str] = None,
-        changelog_path: str = "data/changelog.json",
+        changelog_path: str = "data/changelog.db",
         raw_data_path: str = "data/raw",
         output_dir: str = "models",
         max_length: int = 512,
@@ -93,7 +129,8 @@ class LLMTrainer:
         d_model: int = 256,
         num_heads: int = 4,
         num_layers: int = 4,
-        d_ff: int = 512
+        d_ff: int = 512,
+        debug: bool = False
     ):
         """
         Initialize trainer.
@@ -113,9 +150,11 @@ class LLMTrainer:
             num_heads: Number of attention heads
             num_layers: Number of transformer layers
             d_ff: Feed-forward dimension
+            debug: Enable debug logging
         """
         self.model_path = model_path
-        self.changelog = ChangelogLogger(changelog_path)
+        self.debug = debug
+        self.changelog = get_appropriate_logger(changelog_path, debug=debug)
         self.raw_data_path = Path(raw_data_path)
         self.output_dir = Path(output_dir)
         self.max_length = max_length
@@ -133,55 +172,86 @@ class LLMTrainer:
         set_seed(seed)
         
         # Initialize or load model and tokenizer
-        if model_path and Path(model_path).exists():
+        model_dir = Path(model_path) if model_path else None
+        
+        # Add detailed logging for path validation
+        if model_path:
+            logger.info(f"Checking for existing model at path: {model_path}")
+            logger.info(f"Absolute path: {Path(model_path).absolute()}")
+            logger.info(f"Path exists: {Path(model_path).exists()}")
+            
+            # Check for required files
+            if Path(model_path).exists():
+                required_files = ["config.json", "pytorch_model.bin", "tokenizer_config.json", "vocab.json"]
+                missing_files = [f for f in required_files if not (Path(model_path) / f).exists()]
+                
+                if missing_files:
+                    logger.warning(f"Model directory exists but missing files: {', '.join(missing_files)}")
+                else:
+                    logger.info(f"All required model files found in {model_path}")
+        
+        if model_dir and model_dir.exists() and (model_dir / "config.json").exists() and (model_dir / "vocab.json").exists():
             # Continue training from existing model
-            logger.info(f"Loading existing model from {model_path}")
-            self.tokenizer = SimpleTokenizer.from_pretrained(model_path)
-            self.model = CustomTransformer.from_pretrained(model_path)
-            logger.info(f"Model loaded successfully. Vocabulary size: {len(self.tokenizer)}")
+            logger.info(f"Loading existing model from {model_dir}")
+            try:
+                self.tokenizer = SimpleTokenizer.from_pretrained(str(model_dir))
+                self.model = CustomTransformer.from_pretrained(str(model_dir))
+                logger.info(f"Model loaded successfully. Vocabulary size: {len(self.tokenizer)}")
+            except Exception as e:
+                logger.error(f"Error loading model: {str(e)}")
+                logger.warning("Falling back to initializing a new model")
+                # Fall back to initializing a new model
+                logger.info("Initializing new tokenizer...")
+                self.tokenizer = SimpleTokenizer()
+                self._train_new_tokenizer()
         else:
             # Start fresh model from scratch
+            if model_path:
+                logger.warning(f"Model path {model_path} does not exist or is missing required files")
             logger.info("Initializing new tokenizer...")
             self.tokenizer = SimpleTokenizer()
-            
-            # Get initial data to train tokenizer
-            unused_pages = self.changelog.get_unused_pages()
-            logger.info(f"Training tokenizer on {min(100, len(unused_pages))} pages...")
-            
-            # Read training data
-            texts = []
-            for entry in unused_pages[:100]:
-                file_path = self.raw_data_path / f"{entry['page_id']}.txt"
-                try:
-                    with open(file_path, 'r', encoding='utf-8') as f:
-                        texts.append(f.read())
-                except Exception as e:
-                    logger.warning(f"Error reading file {file_path}: {e}")
-                    continue
-            
-            if not texts:
-                raise ValueError("No training data found for tokenizer")
-            
-            # Train tokenizer directly on texts
-            logger.info("Training tokenizer...")
-            self.tokenizer.train(
-                texts=texts,
-                vocab_size=vocab_size,
-                min_frequency=2
-            )
-            logger.info(f"Tokenizer trained. Vocabulary size: {len(self.tokenizer)}")
-            
-            # Initialize fresh model
-            logger.info("Initializing new transformer model...")
-            self.model = CustomTransformer(
-                vocab_size=len(self.tokenizer),
-                d_model=d_model,
-                num_heads=num_heads,
-                num_layers=num_layers,
-                d_ff=d_ff,
-                max_seq_length=max_length
-            )
-            logger.info("Model initialized successfully")
+            self._train_new_tokenizer()
+    
+    def _train_new_tokenizer(self):
+        """Train a new tokenizer on unused pages."""
+        # Get initial data to train tokenizer
+        unused_pages = self.changelog.get_unused_pages()
+        logger.info(f"Training tokenizer on {min(100, len(unused_pages))} pages...")
+        
+        # Read training data
+        texts = []
+        for entry in unused_pages[:100]:
+            file_path = self.raw_data_path / f"{entry['page_id']}.txt"
+            try:
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    texts.append(f.read())
+            except Exception as e:
+                logger.warning(f"Error reading file {file_path}: {e}")
+                continue
+        
+        if not texts:
+            raise ValueError("No training data found for tokenizer")
+        
+        # Train tokenizer directly on texts
+        logger.info("Training tokenizer...")
+        self.tokenizer.train(
+            texts=texts,
+            vocab_size=self.vocab_size,
+            min_frequency=2
+        )
+        logger.info(f"Tokenizer trained. Vocabulary size: {len(self.tokenizer)}")
+        
+        # Initialize fresh model
+        logger.info("Initializing new transformer model...")
+        self.model = CustomTransformer(
+            vocab_size=len(self.tokenizer),
+            d_model=self.d_model,
+            num_heads=self.num_heads,
+            num_layers=self.num_layers,
+            d_ff=self.d_ff,
+            max_seq_length=self.max_length
+        )
+        logger.info("Model initialized successfully")
 
     def _compute_checkpoint_hash(self) -> str:
         """Compute hash of model state."""
@@ -550,13 +620,13 @@ class LLMTrainer:
             clean_up_tokenization_spaces=True
         )
 
-def load_model(model_path: str) -> LLMTrainer:
+def load_model(model_path: str, debug: bool = False) -> LLMTrainer:
     """Load a trained model."""
     if not Path(model_path).exists():
         raise ValueError(f"Model path {model_path} does not exist")
         
     # Create trainer instance with model path
-    trainer = LLMTrainer(model_path=model_path)
+    trainer = LLMTrainer(model_path=model_path, debug=debug)
     return trainer
 
 def main():
@@ -648,11 +718,16 @@ def main():
         default=100,
         help="Minimum number of pages required"
     )
+    parser.add_argument(
+        "--debug",
+        action="store_true",
+        help="Enable debug logging"
+    )
     args = parser.parse_args()
 
     if args.load_model:
         # Load and test model
-        trainer = load_model(args.load_model)
+        trainer = load_model(args.load_model, debug=args.debug)
         output = trainer.generate_text(args.test_prompt, max_length=100)
         print(f"\nInput prompt: {args.test_prompt}")
         print(f"Generated text:\n{output}\n")
@@ -669,7 +744,8 @@ def main():
             d_model=args.d_model,
             num_heads=args.num_heads,
             num_layers=args.num_layers,
-            d_ff=args.d_ff
+            d_ff=args.d_ff,
+            debug=args.debug
         )
 
         trainer.train(
