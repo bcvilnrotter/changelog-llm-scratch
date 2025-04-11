@@ -3,7 +3,7 @@
     "input_ids",
     "attention_mask"
   ],
-  "vocab_size": 4947,
+  "vocab_size": 5000,
   "pad_token": "[PAD]",
   "eos_token": "[EOS]",
   "bos_token": "[BOS]",

@@ -24,7 +24,31 @@ from torch.utils.data import Dataset, DataLoader
 from transformers import set_seed
 from src.training.transformer import CustomTransformer
 from src.training.tokenizer import SimpleTokenizer
-from src.changelog.logger import ChangelogLogger
+# Import the appropriate logger based on the file extension
+from pathlib import Path
+import logging
+
+logger = logging.getLogger(__name__)
+
+def get_appropriate_logger(changelog_path):
+    """
+    Get the appropriate logger based on the file extension.
+    
+    Args:
+        changelog_path: Path to the changelog file
+        
+    Returns:
+        The appropriate logger instance
+    """
+    path = Path(changelog_path)
+    if path.suffix.lower() == '.db':
+        logger.info(f"Using ChangelogDB for {changelog_path}")
+        from src.db.changelog_db import ChangelogDB
+        return ChangelogDB(changelog_path)
+    else:
+        logger.info(f"Using ChangelogLogger for {changelog_path}")
+        from src.changelog.logger import ChangelogLogger
+        return ChangelogLogger(changelog_path)
 
 # Configure logging
 logging.basicConfig(
@@ -115,7 +139,7 @@ class LLMTrainer:
             d_ff: Feed-forward dimension
         """
         self.model_path = model_path
-        self.changelog = ChangelogLogger(changelog_path)
+        self.changelog = get_appropriate_logger(changelog_path)
         self.raw_data_path = Path(raw_data_path)
         self.output_dir = Path(output_dir)
         self.max_length = max_length

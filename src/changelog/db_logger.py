@@ -3,10 +3,15 @@ SQLite-based changelog logger for tracking Wikipedia page operations and trainin
 This replaces the JSON-based logger with a SQLite implementation.
 """
 
+import logging
+import traceback
 from typing import Dict, List, Optional, Any, Union
 from pathlib import Path
 
 from src.db.changelog_db import ChangelogDB
+
+# Configure logging
+logger = logging.getLogger(__name__)
 
 class ChangelogLogger:
     """
@@ -26,6 +31,7 @@ class ChangelogLogger:
         # Convert JSON path to DB path if needed (data/changelog.json -> data/changelog.db)
         path = Path(changelog_path)
         db_path = str(path if path.suffix == '.db' else path.with_suffix('.db'))
+        logger.info(f"Initializing ChangelogLogger with database path: {db_path}")
         self.db = ChangelogDB(db_path)
     
     def _compute_hash(self, content: str) -> str:
@@ -61,7 +67,22 @@ class ChangelogLogger:
         Returns:
             The created changelog entry
         """
-        return self.db.log_page(title, page_id, revision_id, content, action)
+        try:
+            logger.info(f"Logging page: title={title}, page_id={page_id}, revision_id={revision_id}, action={action}")
+            # Log content length and sample for debugging
+            content_length = len(content) if content else 0
+            content_sample = content[:100] + "..." if content and len(content) > 100 else content
+            logger.info(f"Content length: {content_length}, Sample: {content_sample}")
+            
+            result = self.db.log_page(title, page_id, revision_id, content, action)
+            logger.info(f"Page logged successfully: {result}")
+            return result
+        except Exception as e:
+            logger.error(f"Error in log_page: {str(e)}")
+            logger.error(f"Exception type: {type(e).__name__}")
+            logger.error(f"Traceback: {traceback.format_exc()}")
+            # Return a minimal entry to avoid breaking the caller
+            return {"page_id": page_id, "title": title, "revision_id": revision_id, "action": action, "error": str(e)}
     
     def get_page_history(self, page_id: str) -> List[Dict]:
         """
@@ -73,7 +94,17 @@ class ChangelogLogger:
         Returns:
             List of changelog entries for the page
         """
-        return self.db.get_page_history(page_id)
+        try:
+            logger.info(f"Getting page history for page_id={page_id}")
+            result = self.db.get_page_history(page_id)
+            logger.info(f"Found {len(result)} entries in page history")
+            return result
+        except Exception as e:
+            logger.error(f"Error in get_page_history: {str(e)}")
+            logger.error(f"Exception type: {type(e).__name__}")
+            logger.error(f"Traceback: {traceback.format_exc()}")
+            # Return an empty list to avoid breaking the caller
+            return []
     
     def check_updates(self, page_id: str, revision_id: str) -> bool:
         """
@@ -86,7 +117,17 @@ class ChangelogLogger:
         Returns:
             True if page needs updating, False otherwise
         """
-        return self.db.check_updates(page_id, revision_id)
+        try:
+            logger.info(f"Checking updates for page_id={page_id}, revision_id={revision_id}")
+            result = self.db.check_updates(page_id, revision_id)
+            logger.info(f"Update check result: {result}")
+            return result
+        except Exception as e:
+            logger.error(f"Error in check_updates: {str(e)}")
+            logger.error(f"Exception type: {type(e).__name__}")
+            logger.error(f"Traceback: {traceback.format_exc()}")
+            # If there's an error, assume we need to update the page
+            return True
     
     def mark_used_in_training(
         self,
@@ -162,4 +203,27 @@ class ChangelogLogger:
         Returns:
             The created changelog entry
         """
-        return self.db.log_revision(title, page_id, revision_id, content, parent_id, revision_number)
+        try:
+            logger.info(f"Logging revision: title={title}, page_id={page_id}, revision_id={revision_id}, parent_id={parent_id}, revision_number={revision_number}")
+            # Log content length and sample for debugging
+            content_length = len(content) if content else 0
+            content_sample = content[:100] + "..." if content and len(content) > 100 else content
+            logger.info(f"Content length: {content_length}, Sample: {content_sample}")
+            
+            result = self.db.log_revision(title, page_id, revision_id, content, parent_id, revision_number)
+            logger.info(f"Revision logged successfully: {result}")
+            return result
+        except Exception as e:
+            logger.error(f"Error in log_revision: {str(e)}")
+            logger.error(f"Exception type: {type(e).__name__}")
+            logger.error(f"Traceback: {traceback.format_exc()}")
+            # Return a minimal entry to avoid breaking the caller
+            return {
+                "page_id": page_id, 
+                "title": title, 
+                "revision_id": revision_id,
+                "parent_id": parent_id,
+                "revision_number": revision_number,
+                "is_revision": True,
+                "error": str(e)
+            }

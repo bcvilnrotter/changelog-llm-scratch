@@ -20,20 +20,37 @@ def get_db_connection(db_path: Optional[str] = None) -> sqlite3.Connection:
     Returns:
         sqlite3.Connection: A connection to the SQLite database
     """
-    if db_path is None:
-        # Default to a database file next to this module
-        parent_dir = Path(__file__).resolve().parent.parent.parent
-        db_path = os.path.join(parent_dir, "data", "changelog.db")
+    import logging
+    logger = logging.getLogger(__name__)
     
-    # Ensure directory exists
-    os.makedirs(os.path.dirname(db_path), exist_ok=True)
-    
-    # Connect to the database and enable foreign keys
-    conn = sqlite3.connect(db_path)
-    conn.execute("PRAGMA foreign_keys = ON")
-    conn.row_factory = sqlite3.Row
-    
-    return conn
+    try:
+        if db_path is None:
+            # Default to a database file next to this module
+            parent_dir = Path(__file__).resolve().parent.parent.parent
+            db_path = os.path.join(parent_dir, "data", "changelog.db")
+        
+        logger.info(f"Opening database connection to: {db_path}")
+        
+        # Ensure directory exists
+        os.makedirs(os.path.dirname(db_path), exist_ok=True)
+        
+        # Connect to the database and enable foreign keys
+        # Use URI mode to specify encoding parameters
+        db_uri = f"file:{db_path}?mode=rwc"
+        conn = sqlite3.connect(db_uri, uri=True, detect_types=sqlite3.PARSE_DECLTYPES)
+        conn.execute("PRAGMA foreign_keys = ON")
+        conn.row_factory = sqlite3.Row
+        
+        # Configure text factory to handle binary data
+        # Use bytes as text factory to avoid encoding issues
+        conn.text_factory = bytes
+        
+        logger.info("Database connection established successfully")
+        return conn
+    except Exception as e:
+        logger.error(f"Error connecting to database: {str(e)}")
+        logger.error(f"Exception type: {type(e).__name__}")
+        raise
 
 def init_db(db_path: Optional[str] = None) -> None:
     """

@@ -489,22 +489,38 @@ def get_page_history(page_id: str) -> List[Dict]:
     Returns:
         List[Dict]: List of page entries
     """
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    
-    cursor.execute('''
-        SELECT e.*, tm.used_in_training, tm.training_timestamp, 
-               tm.model_checkpoint, tm.average_loss, tm.relative_loss
-        FROM entries e
-        LEFT JOIN training_metadata tm ON e.id = tm.entry_id
-        WHERE e.page_id = ?
-        ORDER BY e.timestamp DESC
-    ''', (page_id,))
-    
-    entries = [dict(row) for row in cursor.fetchall()]
-    conn.close()
-    
-    return entries
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        
+        try:
+            cursor.execute('''
+                SELECT e.*, tm.used_in_training, tm.training_timestamp, 
+                       tm.model_checkpoint, tm.average_loss, tm.relative_loss
+                FROM entries e
+                LEFT JOIN training_metadata tm ON e.id = tm.entry_id
+                WHERE e.page_id = ?
+                ORDER BY e.timestamp DESC
+            ''', (page_id,))
+            
+            entries = []
+            for row in cursor.fetchall():
+                try:
+                    entries.append(dict(row))
+                except Exception as e:
+                    print(f"Error converting row to dict: {str(e)}")
+                    # Skip this row and continue
+                    continue
+        except Exception as e:
+            print(f"Error querying database: {str(e)}")
+            return []
+        finally:
+            conn.close()
+        
+        return entries
+    except Exception as e:
+        print(f"Unexpected error in get_page_history: {str(e)}")
+        return []
 
 def check_updates(page_id: str, revision_id: str) -> bool:
     """
@@ -517,24 +533,65 @@ def check_updates(page_id: str, revision_id: str) -> bool:
     Returns:
         bool: True if page needs updating, False otherwise
     """
-    conn = get_db_connection()
-    cursor = conn.cursor()
+    import logging
+    logger = logging.getLogger(__name__)
     
-    cursor.execute('''
-        SELECT revision_id 
-        FROM entries 
-        WHERE page_id = ? 
-        ORDER BY timestamp DESC
-        LIMIT 1
-    ''', (page_id,))
-    
-    result = cursor.fetchone()
-    conn.close()
-    
-    if not result:
-        return True  # No existing entry, needs adding
-    
-    return result['revision_id'] != revision_id
+    try:
+        logger.info(f"Checking updates for page_id={page_id}, revision_id={revision_id}")
+        
+        # First check if the page exists at all
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        
+        try:
+            # Use a simple count query first to check existence
+            cursor.execute('SELECT COUNT(*) FROM entries WHERE page_id = ?', (page_id,))
+            count = cursor.fetchone()[0]
+            
+            if count == 0:
+                logger.info(f"No existing entry found for page_id={page_id}, needs adding")
+                conn.close()
+                return True  # No existing entry, needs adding
+            
+            # If we get here, the page exists, so get its revision_id
+            cursor.execute('''
+                SELECT revision_id 
+                FROM entries 
+                WHERE page_id = ? 
+                ORDER BY timestamp DESC
+                LIMIT 1
+            ''', (page_id,))
+            
+            result = cursor.fetchone()
+            logger.info(f"Found existing entry with page_id={page_id}")
+            
+            if not result:
+                logger.warning(f"Strange: count was {count} but no result found")
+                return True
+            
+            # Get the revision_id as bytes and decode it safely
+            db_revision_id_bytes = result[0]
+            if isinstance(db_revision_id_bytes, bytes):
+                db_revision_id = db_revision_id_bytes.decode('utf-8', errors='replace')
+            else:
+                db_revision_id = str(db_revision_id_bytes)
+            
+            logger.info(f"Comparing revision IDs: {db_revision_id} vs {revision_id}")
+            return db_revision_id != revision_id
+            
+        except Exception as e:
+            logger.error(f"Error querying database: {str(e)}")
+            logger.error(f"Exception type: {type(e).__name__}")
+            # If there's an error, assume we need to add the page
+            return True
+        finally:
+            conn.close()
+            
+    except Exception as e:
+        logger.error(f"Unexpected error in check_updates: {str(e)}")
+        logger.error(f"Exception type: {type(e).__name__}")
+        # If there's an error, assume we need to add the page
+        return True
 
 def get_unused_pages() -> List[Dict]:
     """
@@ -592,21 +649,45 @@ def get_main_pages() -> List[Dict]:
     Returns:
         List[Dict]: List of main page entries (excluding revisions)
     """
-    conn = get_db_connection()
-    cursor = conn.cursor()
+    import logging
+    logger = logging.getLogger(__name__)
     
-    cursor.execute('''
-        SELECT e.*, tm.used_in_training, tm.training_timestamp, 
-               tm.model_checkpoint, tm.average_loss, tm.relative_loss
-        FROM entries e
-        LEFT JOIN training_metadata tm ON e.id = tm.entry_id
-        WHERE e.is_revision = 0
-    ''')
-    
-    pages = [dict(row) for row in cursor.fetchall()]
-    conn.close()
-    
-    return pages
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        
+        # First check if the training_metadata table has the expected columns
+        cursor.execute("PRAGMA table_info(training_metadata)")
+        columns = [row['name'] for row in cursor.fetchall()]
+        
+        # Use a simpler query that doesn't rely on specific columns
+        query = '''
+            SELECT e.*
+            FROM entries e
+            WHERE e.is_revision = 0
+        '''
+        
+        logger.info(f"Executing query: {query}")
+        cursor.execute(query)
+        
+        pages = []
+        for row in cursor.fetchall():
+            page = dict(row)
+            # Add default values for training metadata
+            page["used_in_training"] = 0
+            page["training_timestamp"] = None
+            page["model_checkpoint"] = None
+            page["average_loss"] = None
+            page["relative_loss"] = None
+            pages.append(page)
+        conn.close()
+        
+        return pages
+    except Exception as e:
+        logger.error(f"Error in get_main_pages: {str(e)}")
+        logger.error(f"Exception type: {type(e).__name__}")
+        # Return an empty list to avoid breaking the caller
+        return []
 
 def remove_unused_entries() -> int:
     """
