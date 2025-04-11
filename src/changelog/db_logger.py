@@ -23,8 +23,9 @@ class ChangelogLogger:
         Args:
             changelog_path: Path to the changelog JSON file (ignored, kept for compatibility)
         """
-        # Convert JSON path to DB path (data/changelog.json -> data/changelog.db)
-        db_path = str(Path(changelog_path).with_suffix('.db'))
+        # Convert JSON path to DB path if needed (data/changelog.json -> data/changelog.db)
+        path = Path(changelog_path)
+        db_path = str(path if path.suffix == '.db' else path.with_suffix('.db'))
         self.db = ChangelogDB(db_path)
     
     def _compute_hash(self, content: str) -> str:

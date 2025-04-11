@@ -64,7 +64,7 @@ jobs:
         git reset --soft head/github-actions-testing
     
         # Stage changelog and model files
-        git add data/changelog.json
+        git add data/changelog.db
         git add models/
     
         # Create commit with training details
