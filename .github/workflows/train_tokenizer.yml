@@ -32,6 +32,18 @@ jobs:
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
+    - name: Extract page titles from database
+      run: |
+        python scripts/extract_titles.py --output titles.json
+        
+    - name: Fetch Wikipedia pages
+      run: |
+        # Create data/raw directory if it doesn't exist
+        mkdir -p data/raw
+        
+        # Fetch Wikipedia pages using titles from the database
+        python scripts/fetch_wikipedia.py --titles "$(cat titles.json)"
+        
     - name: Train tokenizer
       run: |
         python scripts/train_tokenizer.py --vocab-size 10000
