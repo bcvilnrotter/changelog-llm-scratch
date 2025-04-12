@@ -125,13 +125,11 @@ class LLMTrainer:
         learning_rate: float = 1e-4,
         num_epochs: int = 3,
         seed: int = 42,
-        vocab_size: int = 10000,  # Increased from 5000 to 10000
         d_model: int = 256,
         num_heads: int = 4,
         num_layers: int = 4,
         d_ff: int = 512,
-        debug: bool = False,
-        retrain_tokenizer: bool = False  # New parameter to force tokenizer retraining
+        debug: bool = False
     ):
         """
         Initialize trainer.
@@ -163,7 +161,6 @@ class LLMTrainer:
         self.learning_rate = learning_rate
         self.num_epochs = num_epochs
         self.seed = seed
-        self.vocab_size = vocab_size
         self.d_model = d_model
         self.num_heads = num_heads
         self.num_layers = num_layers
@@ -191,35 +188,43 @@ class LLMTrainer:
                 else:
                     logger.info(f"All required model files found in {model_path}")
         
-        if retrain_tokenizer:
-            # Force tokenizer retraining if requested
-            logger.info("Retraining tokenizer as requested...")
-            self.tokenizer = SimpleTokenizer()
-            self._train_new_tokenizer()
-            
-            # Load or initialize model
-            if model_dir and model_dir.exists() and (model_dir / "config.json").exists():
-                try:
-                    # Load model but use new tokenizer
-                    logger.info(f"Loading existing model from {model_dir} with new tokenizer")
-                    self.model = CustomTransformer.from_pretrained(str(model_dir))
-                    # Resize model embeddings to match new tokenizer
-                    self.model.resize_token_embeddings(len(self.tokenizer))
-                    logger.info(f"Model loaded and resized to vocabulary size: {len(self.tokenizer)}")
-                except Exception as e:
-                    logger.error(f"Error loading model: {str(e)}")
-                    logger.warning("Initializing a new model")
-                    self.model = CustomTransformer(
-                        vocab_size=len(self.tokenizer),
-                        d_model=self.d_model,
-                        num_heads=self.num_heads,
-                        num_layers=self.num_layers,
-                        d_ff=self.d_ff,
-                        max_seq_length=self.max_length
-                    )
-            else:
-                # Initialize fresh model
-                logger.info("Initializing new transformer model...")
+        # Try to load tokenizer from model_path first (if provided)
+        tokenizer_loaded = False
+        if model_dir and model_dir.exists() and (model_dir / "vocab.json").exists():
+            logger.info(f"Loading tokenizer from model path: {model_dir}")
+            try:
+                self.tokenizer = SimpleTokenizer.from_pretrained(str(model_dir))
+                logger.info(f"Tokenizer loaded from model path. Vocabulary size: {len(self.tokenizer)}")
+                tokenizer_loaded = True
+            except Exception as e:
+                logger.warning(f"Error loading tokenizer from model path: {str(e)}")
+
+        # Fall back to models/tokenizer if not loaded from model_path
+        if not tokenizer_loaded:
+            tokenizer_path = Path("models/tokenizer")
+            if not tokenizer_path.exists() or not (tokenizer_path / "vocab.json").exists():
+                raise ValueError(
+                    f"Pre-trained tokenizer not found at {tokenizer_path}. "
+                    f"Please run 'python scripts/train_tokenizer.py' first."
+                )
+
+            logger.info(f"Loading pre-trained tokenizer from {tokenizer_path}")
+            try:
+                self.tokenizer = SimpleTokenizer.from_pretrained(str(tokenizer_path))
+                logger.info(f"Pre-trained tokenizer loaded. Vocabulary size: {len(self.tokenizer)}")
+            except Exception as e:
+                raise ValueError(f"Error loading pre-trained tokenizer: {str(e)}")
+
+        # Load or initialize model
+        if model_dir and model_dir.exists() and (model_dir / "config.json").exists():
+            # Load model
+            logger.info(f"Loading existing model from {model_dir}")
+            try:
+                self.model = CustomTransformer.from_pretrained(str(model_dir))
+                logger.info(f"Model loaded successfully")
+            except Exception as e:
+                logger.error(f"Error loading model: {str(e)}")
+                logger.warning("Initializing a new model")
                 self.model = CustomTransformer(
                     vocab_size=len(self.tokenizer),
                     d_model=self.d_model,
@@ -228,71 +233,21 @@ class LLMTrainer:
                     d_ff=self.d_ff,
                     max_seq_length=self.max_length
                 )
-        elif model_dir and model_dir.exists() and (model_dir / "config.json").exists() and (model_dir / "vocab.json").exists():
-            # Continue training from existing model
-            logger.info(f"Loading existing model from {model_dir}")
-            try:
-                self.tokenizer = SimpleTokenizer.from_pretrained(str(model_dir))
-                self.model = CustomTransformer.from_pretrained(str(model_dir))
-                logger.info(f"Model loaded successfully. Vocabulary size: {len(self.tokenizer)}")
-            except Exception as e:
-                logger.error(f"Error loading model: {str(e)}")
-                logger.warning("Falling back to initializing a new model")
-                # Fall back to initializing a new model
-                logger.info("Initializing new tokenizer...")
-                self.tokenizer = SimpleTokenizer()
-                self._train_new_tokenizer()
         else:
-            # Start fresh model from scratch
+            # Initialize fresh model
             if model_path:
                 logger.warning(f"Model path {model_path} does not exist or is missing required files")
-            logger.info("Initializing new tokenizer...")
-            self.tokenizer = SimpleTokenizer()
-            self._train_new_tokenizer()
+            logger.info("Initializing new transformer model...")
+            self.model = CustomTransformer(
+                vocab_size=len(self.tokenizer),
+                d_model=self.d_model,
+                num_heads=self.num_heads,
+                num_layers=self.num_layers,
+                d_ff=self.d_ff,
+                max_seq_length=self.max_length
+            )
     
-    def _train_new_tokenizer(self):
-        """Train a new tokenizer on unused pages."""
-        # Get initial data to train tokenizer
-        unused_pages = self.changelog.get_unused_pages()
-        
-        # Use more pages for tokenizer training (up to 1000 instead of 100)
-        num_pages_for_tokenizer = min(1000, len(unused_pages))
-        logger.info(f"Training tokenizer on {num_pages_for_tokenizer} pages...")
-        
-        # Read training data
-        texts = []
-        for entry in unused_pages[:num_pages_for_tokenizer]:
-            file_path = self.raw_data_path / f"{entry['page_id']}.txt"
-            try:
-                with open(file_path, 'r', encoding='utf-8') as f:
-                    texts.append(f.read())
-            except Exception as e:
-                logger.warning(f"Error reading file {file_path}: {e}")
-                continue
-        
-        if not texts:
-            raise ValueError("No training data found for tokenizer")
-        
-        # Train tokenizer directly on texts
-        logger.info("Training tokenizer...")
-        self.tokenizer.train(
-            texts=texts,
-            vocab_size=self.vocab_size,
-            min_frequency=2
-        )
-        logger.info(f"Tokenizer trained. Vocabulary size: {len(self.tokenizer)}")
-        
-        # Initialize fresh model
-        logger.info("Initializing new transformer model...")
-        self.model = CustomTransformer(
-            vocab_size=len(self.tokenizer),
-            d_model=self.d_model,
-            num_heads=self.num_heads,
-            num_layers=self.num_layers,
-            d_ff=self.d_ff,
-            max_seq_length=self.max_length
-        )
-        logger.info("Model initialized successfully")
+    # Removed _train_new_tokenizer method as tokenizer training is now a separate process
 
     def _compute_checkpoint_hash(self) -> str:
         """Compute hash of model state."""
@@ -688,12 +643,7 @@ def main():
         "--model-path",
         help="Path to existing model to continue training from, or none to start fresh"
     )
-    parser.add_argument(
-        "--vocab-size",
-        type=int,
-        default=5000,
-        help="Vocabulary size for custom tokenizer"
-    )
+    # Removed vocab-size parameter as it's now determined by the pre-trained tokenizer
     parser.add_argument(
         "--d-model",
         type=int,
@@ -765,11 +715,7 @@ def main():
         action="store_true",
         help="Enable debug logging"
     )
-    parser.add_argument(
-        "--retrain-tokenizer",
-        action="store_true",
-        help="Force retraining of the tokenizer even when continuing from an existing model"
-    )
+    # Removed retrain-tokenizer parameter as tokenizer training is now a separate process
     args = parser.parse_args()
 
     if args.load_model:
@@ -787,13 +733,11 @@ def main():
             learning_rate=args.learning_rate,
             num_epochs=args.num_epochs,
             seed=args.seed,
-            vocab_size=args.vocab_size,
             d_model=args.d_model,
             num_heads=args.num_heads,
             num_layers=args.num_layers,
             d_ff=args.d_ff,
-            debug=args.debug,
-            retrain_tokenizer=args.retrain_tokenizer
+            debug=args.debug
         )
 
         trainer.train(
