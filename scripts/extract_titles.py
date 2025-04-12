@@ -55,19 +55,32 @@ def extract_titles(
     all_pages = changelog.get_main_pages()
     logger.info(f"Found {len(all_pages)} pages in changelog")
     
+    # Log the actual entries for debugging
+    if debug:
+        logger.debug(f"Entries from database: {all_pages[:5]} (showing first 5)")
+    
     # Extract titles
     titles = []
     for entry in all_pages:
         if 'title' in entry:
-            titles.append(entry['title'])
+            title = entry['title']
+            # Handle case where title is a byte string
+            if isinstance(title, bytes):
+                title = title.decode('utf-8', errors='replace')
+                if debug:
+                    logger.debug(f"Decoded byte string title: {title}")
+            titles.append(title)
     
     logger.info(f"Extracted {len(titles)} titles")
     
     # Save titles to JSON file
-    with open(output_path, 'w', encoding='utf-8') as f:
-        json.dump(titles, f)
-    
-    logger.info(f"Titles saved to {output_path}")
+    try:
+        with open(output_path, 'w', encoding='utf-8') as f:
+            json.dump(titles, f)
+        logger.info(f"Titles saved to {output_path}")
+    except Exception as e:
+        logger.error(f"Error saving titles to {output_path}: {e}")
+        raise
 
 def main():
     parser = argparse.ArgumentParser(

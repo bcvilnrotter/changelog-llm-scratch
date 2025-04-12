@@ -26,6 +26,31 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+        
+    - name: Check database
+      run: |
+        # Check if the database file exists
+        if [ -f "data/changelog.db" ]; then
+          echo "Database file exists"
+          
+          # Install sqlite3 command-line tool
+          sudo apt-get update
+          sudo apt-get install -y sqlite3
+          
+          # Check database schema
+          echo "Database schema:"
+          sqlite3 data/changelog.db ".schema"
+          
+          # Count entries in the database
+          echo "Number of entries in the database:"
+          sqlite3 data/changelog.db "SELECT COUNT(*) FROM entries;"
+          
+          # Check if there are any main pages
+          echo "Number of main pages in the database:"
+          sqlite3 data/changelog.db "SELECT COUNT(*) FROM entries WHERE is_revision = 0;"
+        else
+          echo "Database file does not exist"
+        fi
 
     - name: Configure Git
       run: |
@@ -34,7 +59,11 @@ jobs:
 
     - name: Extract page titles from database
       run: |
-        python scripts/extract_titles.py --output titles.json
+        python scripts/extract_titles.py --output titles.json --debug
+        
+        # Display the contents of the titles.json file
+        echo "Contents of titles.json:"
+        cat titles.json || echo "titles.json not found or empty"
         
     - name: Fetch Wikipedia pages
       run: |
@@ -42,11 +71,11 @@ jobs:
         mkdir -p data/raw
         
         # Fetch Wikipedia pages using titles from the database
-        python scripts/fetch_wikipedia.py --titles "$(cat titles.json)"
+        python scripts/fetch_wikipedia.py --titles "$(cat titles.json)" --debug
         
     - name: Train tokenizer
       run: |
-        python scripts/train_tokenizer.py --vocab-size 10000
+        python scripts/train_tokenizer.py --vocab-size 10000 --debug
 
     - name: Push tokenizer to repository
       run: |
