@@ -16,7 +16,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
       with:
-        ref: main
+        ref: ${{ github.ref }}
         fetch-depth: 0  # Full history for changelog
 
     - name: Set up Python
