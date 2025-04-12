@@ -59,9 +59,9 @@ def train_tokenizer(
     changelog = get_appropriate_logger(changelog_path, debug=debug)
     raw_data_path = Path(raw_data_path)
     
-    # Get ALL pages from the changelog
-    all_pages = changelog.get_all_pages()
-    logger.info(f"Found {len(all_pages)} total pages in changelog")
+    # Get ALL main pages from the changelog (excluding revisions)
+    all_pages = changelog.get_main_pages()
+    logger.info(f"Found {len(all_pages)} total main pages in changelog")
     
     # Read training data
     texts = []

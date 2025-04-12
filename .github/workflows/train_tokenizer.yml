@@ -1,9 +1,6 @@
 name: Train Tokenizer
 
 on:
-  push:
-    branches:
-      - test-tokenizer  # Trigger on push to main branch
   workflow_dispatch:  # Manual trigger only
 
 env:
