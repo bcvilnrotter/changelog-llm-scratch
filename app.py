@@ -111,9 +111,12 @@ class ChatBot:
         try:
             logger.info(f"Generating response for message: {message}")
             
-            # Tokenize input
+            # Tokenize input (no dropout during inference)
             try:
-                input_ids = self.tokenizer.encode(message)
+                input_ids = self.tokenizer.encode(
+                    message,
+                    dropout_prob=0.0  # Ensure no dropout during inference
+                )
                 input_tensor = torch.tensor([input_ids]).to(self.device)
                 logger.info(f"Input tensor shape: {input_tensor.shape}")
             except Exception as e:

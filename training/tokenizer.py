@@ -58,7 +58,8 @@ class SimpleTokenizer(PreTrainedTokenizerBase):
         else:
             self.merges = []
             
-        self.pat = re.compile(r"""'s|'t|'re|'ve|'m|'ll|'d| ?\p{L}+| ?\p{N}+| ?[^\s\p{L}\p{N}]+|\s+(?!\S)|\s+""")
+        # Enhanced tokenization pattern with more specific handling of common patterns
+        self.pat = re.compile(r"""'s|'t|'re|'ve|'m|'ll|'d|n't|\s+\p{L}+|\s+\p{N}+|\p{L}+|\p{N}+|[^\s\p{L}\p{N}]+|\s+(?!\S)|\s+""")
         
     @property
     def vocab_size(self) -> int:
@@ -79,8 +80,16 @@ class SimpleTokenizer(PreTrainedTokenizerBase):
                 
         return str(vocab_file), str(merges_file)
         
-    def _tokenize(self, text: str) -> List[str]:
-        """Tokenize text into subwords."""
+    def _tokenize(self, text: str, dropout_prob: float = 0.0) -> List[str]:
+        """
+        Tokenize text into subwords with optional BPE-dropout.
+        
+        Args:
+            text: The text to tokenize
+            dropout_prob: Probability of dropping a merge (0.0 = no dropout, 0.1 = 10% dropout)
+        """
+        import random  # Import at function level to avoid circular imports
+        
         tokens = []
         
         for token in re.findall(self.pat, text):
@@ -88,22 +97,27 @@ class SimpleTokenizer(PreTrainedTokenizerBase):
             if not token:
                 continue
                 
-            # Apply BPE
+            # Apply BPE with dropout
             word = tuple(token)
             while len(word) > 1:
                 pairs = list(zip(word[:-1], word[1:]))
                 if not pairs:
                     break
-                    
-                valid_pairs = [pair for pair in pairs if pair in self.merges]
+                
+                # Apply dropout to valid pairs - randomly skip some merges during training
+                valid_pairs = []
+                for pair in pairs:
+                    if pair in self.merges and (dropout_prob == 0.0 or random.random() > dropout_prob):
+                        valid_pairs.append(pair)
+                
                 if not valid_pairs:
                     break
-                    
+                
                 # Use the first valid merge in the list (earliest learned merge)
                 bigram = valid_pairs[0]
                 i = pairs.index(bigram)
                 word = word[:i] + (bigram[0] + bigram[1],) + word[i+2:]
-                
+            
             tokens.extend(word)
             
         return tokens
@@ -294,10 +308,20 @@ class SimpleTokenizer(PreTrainedTokenizerBase):
         truncation: bool = False,
         max_length: Optional[int] = None,
         return_tensors: Optional[str] = None,
+        dropout_prob: float = 0.0  # Add dropout_prob parameter
     ) -> torch.Tensor:
-        """Tokenize text and convert to tensor."""
-        # Tokenize text
-        tokens = self._tokenize(text)
+        """
+        Tokenize text and convert to tensor.
+        
+        Args:
+            text: The text to tokenize
+            truncation: Whether to truncate to max_length
+            max_length: Maximum sequence length
+            return_tensors: Type of tensors to return ("pt" for PyTorch)
+            dropout_prob: Probability of BPE dropout (0.0 = no dropout)
+        """
+        # Tokenize text with optional dropout (use dropout during training, not inference)
+        tokens = self._tokenize(text, dropout_prob=dropout_prob)
         if truncation and max_length:
             tokens = tokens[:max_length-1]  # Leave room for EOS token
             
@@ -341,7 +365,7 @@ class SimpleTokenizer(PreTrainedTokenizerBase):
         self,
         files: Optional[List[str]] = None,
         texts: Optional[List[str]] = None,
-        vocab_size: int = 5000,
+        vocab_size: int = 10000,  # Increased from 5000 to 10000
         min_frequency: int = 2
     ) -> None:
         """Train the tokenizer on texts or files."""

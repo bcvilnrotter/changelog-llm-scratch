@@ -104,8 +104,8 @@ class WikipediaDataset(Dataset):
             # Return a minimal set of input_ids to avoid crashing
             return {"input_ids": [0]}  # Use padding token as fallback
 
-        # Tokenize content
-        tokens = self.tokenizer._tokenize(content)[:self.max_length]
+        # Tokenize content with BPE-dropout during training (10% dropout probability)
+        tokens = self.tokenizer._tokenize(content, dropout_prob=0.1)[:self.max_length]
         input_ids = [self.tokenizer._convert_token_to_id(t) for t in tokens]
 
         # Return raw input_ids for data collator to handle padding
@@ -125,12 +125,13 @@ class LLMTrainer:
         learning_rate: float = 1e-4,
         num_epochs: int = 3,
         seed: int = 42,
-        vocab_size: int = 5000,
+        vocab_size: int = 10000,  # Increased from 5000 to 10000
         d_model: int = 256,
         num_heads: int = 4,
         num_layers: int = 4,
         d_ff: int = 512,
-        debug: bool = False
+        debug: bool = False,
+        retrain_tokenizer: bool = False  # New parameter to force tokenizer retraining
     ):
         """
         Initialize trainer.
@@ -190,7 +191,44 @@ class LLMTrainer:
                 else:
                     logger.info(f"All required model files found in {model_path}")
         
-        if model_dir and model_dir.exists() and (model_dir / "config.json").exists() and (model_dir / "vocab.json").exists():
+        if retrain_tokenizer:
+            # Force tokenizer retraining if requested
+            logger.info("Retraining tokenizer as requested...")
+            self.tokenizer = SimpleTokenizer()
+            self._train_new_tokenizer()
+            
+            # Load or initialize model
+            if model_dir and model_dir.exists() and (model_dir / "config.json").exists():
+                try:
+                    # Load model but use new tokenizer
+                    logger.info(f"Loading existing model from {model_dir} with new tokenizer")
+                    self.model = CustomTransformer.from_pretrained(str(model_dir))
+                    # Resize model embeddings to match new tokenizer
+                    self.model.resize_token_embeddings(len(self.tokenizer))
+                    logger.info(f"Model loaded and resized to vocabulary size: {len(self.tokenizer)}")
+                except Exception as e:
+                    logger.error(f"Error loading model: {str(e)}")
+                    logger.warning("Initializing a new model")
+                    self.model = CustomTransformer(
+                        vocab_size=len(self.tokenizer),
+                        d_model=self.d_model,
+                        num_heads=self.num_heads,
+                        num_layers=self.num_layers,
+                        d_ff=self.d_ff,
+                        max_seq_length=self.max_length
+                    )
+            else:
+                # Initialize fresh model
+                logger.info("Initializing new transformer model...")
+                self.model = CustomTransformer(
+                    vocab_size=len(self.tokenizer),
+                    d_model=self.d_model,
+                    num_heads=self.num_heads,
+                    num_layers=self.num_layers,
+                    d_ff=self.d_ff,
+                    max_seq_length=self.max_length
+                )
+        elif model_dir and model_dir.exists() and (model_dir / "config.json").exists() and (model_dir / "vocab.json").exists():
             # Continue training from existing model
             logger.info(f"Loading existing model from {model_dir}")
             try:
@@ -216,11 +254,14 @@ class LLMTrainer:
         """Train a new tokenizer on unused pages."""
         # Get initial data to train tokenizer
         unused_pages = self.changelog.get_unused_pages()
-        logger.info(f"Training tokenizer on {min(100, len(unused_pages))} pages...")
+        
+        # Use more pages for tokenizer training (up to 1000 instead of 100)
+        num_pages_for_tokenizer = min(1000, len(unused_pages))
+        logger.info(f"Training tokenizer on {num_pages_for_tokenizer} pages...")
         
         # Read training data
         texts = []
-        for entry in unused_pages[:100]:
+        for entry in unused_pages[:num_pages_for_tokenizer]:
             file_path = self.raw_data_path / f"{entry['page_id']}.txt"
             try:
                 with open(file_path, 'r', encoding='utf-8') as f:
@@ -596,12 +637,13 @@ class LLMTrainer:
         """Generate text from a prompt."""
         self.model.eval()
         
-        # Tokenize prompt
+        # Tokenize prompt (no dropout during inference)
         input_ids = self.tokenizer.encode(
             prompt,
             truncation=True,
             max_length=self.max_length,
-            return_tensors="pt"
+            return_tensors="pt",
+            dropout_prob=0.0  # Ensure no dropout during inference
         )
         
         # Generate text using custom model
@@ -723,6 +765,11 @@ def main():
         action="store_true",
         help="Enable debug logging"
     )
+    parser.add_argument(
+        "--retrain-tokenizer",
+        action="store_true",
+        help="Force retraining of the tokenizer even when continuing from an existing model"
+    )
     args = parser.parse_args()
 
     if args.load_model:
@@ -745,7 +792,8 @@ def main():
             num_heads=args.num_heads,
             num_layers=args.num_layers,
             d_ff=args.d_ff,
-            debug=args.debug
+            debug=args.debug,
+            retrain_tokenizer=args.retrain_tokenizer
         )
 
         trainer.train(
