@@ -392,11 +392,15 @@ class SimpleTokenizer(PreTrainedTokenizerBase):
             self.unk_token: 3
         }
         
+        # Determine how many merges to allow
+        reserved_merges = 5000
+        target_token_limit = vocab_size - reserved_merges
+        
         # Add most common tokens
         for token, count in counter.most_common():
             if count < min_frequency:
                 break
-            if len(vocab) >= vocab_size:
+            if len(vocab) >= target_token_limit:
                 break
             if token not in vocab:
                 vocab[token] = len(vocab)
@@ -411,7 +415,7 @@ class SimpleTokenizer(PreTrainedTokenizerBase):
                 continue
             word_freqs[tuple(token)] = count
             
-        num_merges = vocab_size - len(vocab)
+        num_merges = min(reserved_merges, vocab_size - len(vocab))
         for _ in range(num_merges):
             pairs = Counter()
             for word, freq in word_freqs.items():
@@ -445,3 +449,9 @@ class SimpleTokenizer(PreTrainedTokenizerBase):
                 new_word_freqs[tuple(new_word)] = freq
                 
             word_freqs = new_word_freqs
+        
+        for merge in self.merges:
+            merged_token = merge[0] + merge[1]
+            if merged_token not in self.vocab:
+                self.vocab[merged_token] = len(self.vocab)
+                self.ids_to_tokens[self.vocab[merged_token]] = merged_token

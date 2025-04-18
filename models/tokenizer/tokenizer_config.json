@@ -1,0 +1,12 @@
+{
+  "model_input_names": [
+    "input_ids",
+    "attention_mask"
+  ],
+  "vocab_size": 7746,
+  "pad_token": "[PAD]",
+  "eos_token": "[EOS]",
+  "bos_token": "[BOS]",
+  "unk_token": "[UNK]",
+  "do_lower_case": false
+}

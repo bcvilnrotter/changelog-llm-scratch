@@ -66,7 +66,10 @@ def train_tokenizer(
     # Read training data
     texts = []
     for entry in all_pages:
-        file_path = raw_data_path / f"{entry['page_id']}.txt"
+        page_id = entry["page_id"]
+        if isinstance(page_id, bytes):
+            page_id = page_id.decode("utf-8")
+        file_path = raw_data_path / f"{page_id}.txt"
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
                 texts.append(f.read())
