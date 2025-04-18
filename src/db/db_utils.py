@@ -656,14 +656,11 @@ def get_main_pages() -> List[Dict]:
         conn = get_db_connection()
         cursor = conn.cursor()
         
-        # First check if the training_metadata table has the expected columns
-        cursor.execute("PRAGMA table_info(training_metadata)")
-        columns = [row['name'] for row in cursor.fetchall()]
-        
-        # Use a simpler query that doesn't rely on specific columns
+        # Use a simpler query without the problematic columns
         query = '''
-            SELECT e.*
+            SELECT e.*, tm.used_in_training
             FROM entries e
+            LEFT JOIN training_metadata tm ON e.id = tm.entry_id
             WHERE e.is_revision = 0
         '''
         
@@ -673,12 +670,19 @@ def get_main_pages() -> List[Dict]:
         pages = []
         for row in cursor.fetchall():
             page = dict(row)
-            # Add default values for training metadata
-            page["used_in_training"] = 0
-            page["training_timestamp"] = None
-            page["model_checkpoint"] = None
-            page["average_loss"] = None
-            page["relative_loss"] = None
+            # If training_metadata values are NULL or missing, set defaults
+            if page.get("used_in_training") is None:
+                page["used_in_training"] = 0
+            
+            # Add missing columns with default values
+            if "training_timestamp" not in page:
+                page["training_timestamp"] = None
+            if "model_checkpoint" not in page:
+                page["model_checkpoint"] = None
+            if "average_loss" not in page:
+                page["average_loss"] = None
+            if "relative_loss" not in page:
+                page["relative_loss"] = None
             pages.append(page)
         conn.close()
         

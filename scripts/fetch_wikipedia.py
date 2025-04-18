@@ -90,13 +90,28 @@ class WikipediaFetcher:
         """Save raw page content to file."""
         filename = f"{page_id}.txt" if revision_id is None else f"{page_id}_{revision_id}.txt"
         file_path = self.raw_data_path / filename
+        
+        if self.debug:
+            logger.debug(f"Saving content to file: {file_path}")
+            logger.debug(f"Content length: {len(content)} characters")
+        
         try:
             # Try to encode content as UTF-8, replacing any characters that can't be encoded
             encoded_content = content.encode('utf-8', errors='replace').decode('utf-8')
             with open(file_path, 'w', encoding='utf-8') as f:
                 f.write(encoded_content)
+                
+            # Verify file was created
+            if self.debug:
+                if file_path.exists():
+                    logger.debug(f"Successfully saved file: {file_path} (size: {file_path.stat().st_size} bytes)")
+                else:
+                    logger.error(f"File not created despite no errors: {file_path}")
         except Exception as e:
             logger.error(f"Error saving content for {page_id}: {str(e)}")
+            logger.error(f"Exception type: {type(e).__name__}")
+            logger.error(f"File path: {file_path}")
+            logger.error(f"Raw data directory exists: {self.raw_data_path.exists()}")
 
     def _make_request(self, params: Dict) -> Optional[Dict]:
         """Make a rate-limited request to the Wikipedia API."""

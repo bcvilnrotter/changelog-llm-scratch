@@ -98,9 +98,21 @@ class WikipediaDataset(Dataset):
             with open(file_path, 'r', encoding='utf-8') as f:
                 content = f.read()
         except FileNotFoundError:
-            # Log the error and provide more information
-            print(f"File not found: {file_path}")
+            # Enhanced error reporting
+            is_revision = '_' in str(page_id)
+            file_type = "revision" if is_revision else "main page"
+            print(f"File not found: {file_path} (file type: {file_type})")
             print(f"Page ID type: {type(page_id)}, value: {page_id}")
+            
+            # Check if the raw_data_path exists
+            if not self.raw_data_path.exists():
+                print(f"ERROR: Raw data directory does not exist: {self.raw_data_path}")
+            else:
+                # List some files in the directory to verify content
+                files = list(self.raw_data_path.glob("*.txt"))[:5]
+                print(f"First few files in {self.raw_data_path}: {[f.name for f in files]}")
+                print(f"Total files in directory: {len(list(self.raw_data_path.glob('*.txt')))}")
+            
             # Return a minimal set of input_ids to avoid crashing
             return {"input_ids": [0]}  # Use padding token as fallback
 
@@ -306,6 +318,30 @@ class LLMTrainer:
 
         # Get page IDs
         page_ids = [entry["page_id"] for entry in unused_pages]
+        
+        # Filter out page IDs that don't have corresponding files in raw_data_path
+        existing_page_ids = []
+        for page_id in page_ids:
+            # Ensure page_id is a string, not bytes
+            if isinstance(page_id, bytes):
+                page_id = page_id.decode('utf-8')
+                
+            file_path = self.raw_data_path / f"{page_id}.txt"
+            if file_path.exists():
+                existing_page_ids.append(page_id)
+            elif self.debug:
+                logger.debug(f"Skipping page_id {page_id} - file not found: {file_path}")
+        
+        logger.info(f"Found {len(existing_page_ids)} pages with existing files out of {len(page_ids)} unused pages")
+        
+        if len(existing_page_ids) < min_pages:
+            raise ValueError(
+                f"Not enough unused pages with existing files. Found {len(existing_page_ids)}, "
+                f"need at least {min_pages}"
+            )
+            
+        # Use only existing page IDs
+        page_ids = existing_page_ids
 
         # Split into train/val
         np.random.shuffle(page_ids)

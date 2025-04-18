@@ -35,16 +35,24 @@ jobs:
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-    - name: Fetch new Wikipedia pages
+    - name: Prepare training titles
       run: |
-        # Get 1,000 random page titles
-        TITLES=$(curl -s "https://en.wikipedia.org/w/api.php?action=query&generator=random&grnlimit=1000&grnnamespace=0&format=json" |
-          jq -c '[.query.pages[].title]')
-
-        echo "$TITLES" > titles.json
+        # Extract titles for training (prioritizing unused pages)
+        python scripts/extract_training_titles.py --count 1000 --debug
         
-        # Feed titles to fetch_wikipedia.py
-        python scripts/fetch_wikipedia.py --titles "$(cat titles.json)"
+        # Log how many titles we got
+        TITLE_COUNT=$(python -c "import json; print(len(json.load(open('titles.json'))))")
+        echo "Prepared $TITLE_COUNT titles for training"
+
+    - name: Fetch Wikipedia pages
+      run: |
+        # Fetch the prepared titles
+        python scripts/fetch_wikipedia.py --titles "$(cat titles.json)" --debug
+        
+        # List files in data/raw to verify download
+        echo "Files in data/raw directory:"
+        ls -la data/raw/
+        echo "Total files downloaded: $(ls data/raw/ | wc -l)"
         
     - name: Train model
       run: |
