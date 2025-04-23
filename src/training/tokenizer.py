@@ -54,7 +54,17 @@ class SimpleTokenizer(PreTrainedTokenizerBase):
         # Load merges if provided
         if merges_file and Path(merges_file).exists():
             with open(merges_file, 'r', encoding='utf-8') as f:
-                self.merges = [tuple(line.strip().split()) for line in f]
+                # Load merges and validate them
+                self.merges = []
+                for line in f:
+                    parts = line.strip().split()
+                    if len(parts) >= 2:
+                        self.merges.append(tuple(parts))
+                    else:
+                        # Skip invalid merges
+                        import logging
+                        logger = logging.getLogger(__name__)
+                        logger.warning(f"Skipping invalid merge during loading: {line.strip()}")
         else:
             self.merges = []
             
@@ -76,7 +86,13 @@ class SimpleTokenizer(PreTrainedTokenizerBase):
             
         with open(merges_file, 'w', encoding='utf-8') as f:
             for merge in self.merges:
-                f.write(f"{merge[0]} {merge[1]}\n")
+                # Validate that merge is a tuple with at least 2 elements
+                if isinstance(merge, tuple) and len(merge) >= 2:
+                    f.write(f"{merge[0]} {merge[1]}\n")
+                else:
+                    import logging
+                    logger = logging.getLogger(__name__)
+                    logger.warning(f"Skipping invalid merge: {merge}")
                 
         return str(vocab_file), str(merges_file)
         
