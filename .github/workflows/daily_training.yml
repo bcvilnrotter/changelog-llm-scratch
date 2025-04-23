@@ -53,6 +53,11 @@ jobs:
         echo "Files in data/raw directory:"
         ls -la data/raw/
         echo "Total files downloaded: $(ls data/raw/ | wc -l)"
+    
+    - name: Prepare training environment
+      run: |
+        # Run the prepare_training script to fix common issues
+        python scripts/prepare_training.py --debug
         
     - name: Train model
       run: |

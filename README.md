@@ -55,3 +55,14 @@ The training data tracking system has been migrated from JSON files to SQLite:
    - The ChangelogDB class provides a high-level interface similar to the original JSON-based logger
    - For direct database access, use the functions in `db_utils.py`
    - Run `python test_db.py` to verify the database functionality
+
+## Troubleshooting
+
+If you encounter any issues with the training process or database, please refer to the [Troubleshooting Guide](TROUBLESHOOTING.md) for solutions to common problems.
+
+The guide covers:
+- Database schema issues
+- Tokenizer problems
+- Preparing for training
+- GitHub Actions workflow
+- Manual fixes and debugging
